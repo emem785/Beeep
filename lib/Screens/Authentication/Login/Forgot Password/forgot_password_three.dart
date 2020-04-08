@@ -12,7 +12,9 @@ class ForgotPasswordThree extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            SvgPicture.asset('assets/images/Success.svg'),
+                        Flex(direction: Axis.horizontal, children: <Widget>[
+              Expanded(child: SvgPicture.asset('assets/images/Success.svg'))
+            ]),
             Align(
               alignment: Alignment.center,
               child: Padding(

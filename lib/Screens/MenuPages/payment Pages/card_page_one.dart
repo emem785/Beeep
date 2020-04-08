@@ -55,8 +55,7 @@ class CardPageOne extends StatelessWidget {
                                             ux.cardsList.removeAt(
                                                 ux.cardsList.indexOf(card));
                                             Navigator.pop(context);
-                                            Navigator.pushNamed(
-                                                context, 'CardPageOne',arguments: {'purchase':true});
+                                           ux.notify();
                                           },
                                           cardNumber: card.cardNumber,
                                           expDate: card.expDate,
@@ -66,8 +65,7 @@ class CardPageOne extends StatelessWidget {
                                             ux.cardsList.removeAt(
                                                 ux.cardsList.indexOf(card));
                                             Navigator.pop(context);
-                                            Navigator.pushNamed(
-                                                context, 'CardPageOne',arguments: {'purchase':false});
+                                            ux.notify();
                                           },
                                           cardNumber: card.cardNumber,
                                           expDate: card.expDate,

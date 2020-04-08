@@ -76,11 +76,9 @@ class UxControl with ChangeNotifier {
     notifyListeners();
   }
 
-  removeCard(int index){
-    cardsList.removeAt(index);
+  notify(){    
     notifyListeners();
-
-  }
+      }
 
   setCurrentPage(menu _page) {
     _setPage = _page;

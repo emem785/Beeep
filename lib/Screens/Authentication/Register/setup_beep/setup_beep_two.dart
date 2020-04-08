@@ -13,12 +13,15 @@ class SetupBeepTwo extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SvgPicture.asset('assets/images/Success.svg'),
+            Flex(direction: Axis.horizontal, children: <Widget>[
+              Expanded(child: SvgPicture.asset('assets/images/Success.svg'))
+            ]),
             Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.only(top: 34.0),
-                child: Text('Payment successful !', style: TextStyle(fontFamily: 'Nunito', fontSize: 24)),
+                child: Text('Payment successful !',
+                    style: TextStyle(fontFamily: 'Nunito', fontSize: 24)),
               ),
             ),
             Align(
@@ -31,12 +34,13 @@ class SetupBeepTwo extends StatelessWidget {
                 ),
               ),
             ),
-                                  
             Padding(
-              padding: const EdgeInsets.only(bottom:8.0),
-              child: CommonButton(onPressed: ()=> Navigator.pushNamed(context, '/SetupBeepThree'), text: 'Add a Beep Buddy'),
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: CommonButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, '/SetupBeepThree'),
+                  text: 'Add a Beep Buddy'),
             ),
-            
           ],
         ),
       ),

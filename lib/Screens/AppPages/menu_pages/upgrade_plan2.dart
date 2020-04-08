@@ -13,7 +13,9 @@ class UpgradePlan2 extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SvgPicture.asset('assets/images/Success.svg'),
+                        Flex(direction: Axis.horizontal, children: <Widget>[
+              Expanded(child: SvgPicture.asset('assets/images/Success.svg'))
+            ]),
             Align(
               alignment: Alignment.center,
               child: Padding(

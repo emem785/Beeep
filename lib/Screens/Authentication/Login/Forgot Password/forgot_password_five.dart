@@ -13,7 +13,9 @@ class ForgotPasswordFive extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SvgPicture.asset('assets/images/Success.svg'),
+            Flex(direction: Axis.horizontal, children: <Widget>[
+              Expanded(child: SvgPicture.asset('assets/images/Success.svg'))
+            ]),
             Align(
               alignment: Alignment.center,
               child: Padding(
@@ -39,7 +41,8 @@ class ForgotPasswordFive extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: CommonButton(
-                  onPressed:()=> Navigator.pushNamed(context, '/HomeScreen',arguments: {'pageValue': 2}),
+                  onPressed: () => Navigator.pushNamed(context, '/HomeScreen',
+                      arguments: {'pageValue': 2}),
                   text: 'Go Home'),
             ),
           ],

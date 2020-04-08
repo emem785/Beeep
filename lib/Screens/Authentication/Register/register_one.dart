@@ -90,13 +90,16 @@ class _RegisterOneState extends State<RegisterOne> {
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: CommonButton(
                                 onPressed: () {
-                                  userBud.regUser(
-                                      _firstName.text,
-                                      _lastName.text,
-                                      _phoneNumber.text,
-                                      _twitterHandle.text);
+                                  if (_formKey.currentState.validate()) {
+                                    userBud.regUser(
+                                        _firstName.text,
+                                        _lastName.text,
+                                        _phoneNumber.text,
+                                        _twitterHandle.text);
 
-                                  Navigator.pushNamed(context, '/RegisterTwo');
+                                    Navigator.pushNamed(
+                                        context, '/RegisterTwo');
+                                  }
                                 },
                                 text: 'Continue'),
                           );
