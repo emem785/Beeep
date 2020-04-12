@@ -1,7 +1,5 @@
 import 'package:beep/Providers/ux_control_provider.dart';
-import 'package:beep/Screens/MenuPages/payment%20Pages/card_page.dart';
 import 'package:beep/Screens/MenuPages/payment%20Pages/card_page_one.dart';
-import 'package:beep/Screens/MenuPages/plan_page.dart';
 import 'package:beep/utils/enums.dart';
 import 'package:beep/widgets/common_button.dart';
 import 'package:flutter/material.dart';
@@ -176,7 +174,7 @@ class _UpgradePlanState extends State<UpgradePlan> {
                       text: 'Upgrade Plan',
                       onPressed: () {
                         ux.currentPlan = plan.essentialPlan;  
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> CardPageOne(purchase: true))) ;            
+                        Navigator.pushNamed(context, 'CardPageOnePlan') ;            
                       },
                     );
                   }),

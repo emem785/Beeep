@@ -4,6 +4,10 @@ import 'package:beep/utils/enums.dart';
 import 'package:beep/widgets/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
+
+
+
 
 class SetupPageOne extends StatefulWidget {
   final plan opt;
@@ -15,9 +19,11 @@ class SetupPageOne extends StatefulWidget {
 
 class _SetupPageOneState extends State<SetupPageOne> {
   TextEditingController _cardNumber;
-  final _expDate = TextEditingController(text: "");
+  final _expDate = MaskedTextController(mask: '00/00',text: "");
   TextEditingController _cvv;
   final _formKey = GlobalKey<FormState>();
+
+  
 
   @override
   void initState() {
@@ -111,13 +117,8 @@ class _SetupPageOneState extends State<SetupPageOne> {
                             ),
                           ),
                           TextFormField(
-                            controller: _expDate,
-                            onChanged: (value){
-                              if(value.length > 2 ){
-                                value = value.replaceFirstMapped("${value[2]}", (m)=> "/${m.group(0)}",2);
-                              }
-                              
-                            },
+                            controller: _expDate,    
+                            maxLength: 5,                  
                             validator: (value) => (value.length < 2)
                                 ? "Please enter \nvalid expiry date "
                                 : null,
@@ -146,6 +147,7 @@ class _SetupPageOneState extends State<SetupPageOne> {
                             ),
                             TextFormField(
                               controller: _cvv,
+                              maxLength: 3,
                               validator: (value) => (value.isEmpty)
                                   ? "Please enter a\nvalid cvv number"
                                   : null,

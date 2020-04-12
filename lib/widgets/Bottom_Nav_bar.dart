@@ -20,6 +20,7 @@ class BottomNavyBar extends StatefulWidget {
 
 class _BottomNavyBarState extends State<BottomNavyBar> {
   int selectedIndex;
+
   @override
   void initState() {
     super.initState();
@@ -86,7 +87,10 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
               child: Text(
                 item.text,
                 style: TextStyle(
-                    fontSize: 17, color: Colors.brown, fontFamily: 'Nunito', fontWeight: FontWeight.w600),
+                    fontSize: 17,
+                    color: Colors.brown,
+                    fontFamily: 'Nunito',
+                    fontWeight: FontWeight.w600),
               ),
             ),
             width: 120,
@@ -95,7 +99,10 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
             child: Center(
                 child: Text(
               item.text,
-              style: TextStyle(fontSize: 16, fontFamily: 'Nunito',fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Nunito',
+                  fontWeight: FontWeight.w600),
             )),
             width: 120);
   }
@@ -138,82 +145,91 @@ class _BottomNavyBarState extends State<BottomNavyBar> {
           phoneNumber: '11222344',
           profilePic: SvgPicture.asset('assets/images/logo.svg'))
     ];
+
     showBottomSheet(
         context: context,
+        elevation: 0.0,
         builder: (context) {
-          return Container(
-            color: Colors.transparent,
-            child: Container(
+          return Consumer<UxControl>(builder: (context, ux, _) {
+            return AnimatedContainer(
+              duration: const Duration(microseconds: 1),
+              curve: Curves.decelerate,
               height: 200,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 2,
-                      spreadRadius: 1,
-                      offset: Offset(0, -2))
-                ],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
-                ),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: ListView(
-                    children: lawyers.map((law) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: ListTile(
-                      leading: CircleAvatar(child: law.profilePic),
-                      title: Text(
-                        law.name,
-                        style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16),
-                      ),
-                      subtitle: Text(
-                        '${law.distance}m away',
-                        style: TextStyle(fontFamily: 'Nunito', fontSize: 16),
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          GestureDetector(
-                            child: Icon(Icons.message),
-                            onTap: () async {
-                              var url = 'sms:${law.phoneNumber}';
-                              try {
-                                await launch(url);
-                              } catch (e) {
-                                print(e.toString());
-                              }
-                            },
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: GestureDetector(
-                              child: Icon(Icons.call),
-                              onTap: () async {
-                                var url = 'tel:${law.phoneNumber}';
-                                try {
-                                  await launch(url);
-                                } catch (e) {
-                                  print(e.toString());
-                                }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+              child: Container(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 2,
+                          spreadRadius: 1,
+                          offset: Offset(0, -2))
+                    ],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
                     ),
-                  );
-                }).toList()),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: ListView(
+                        children: lawyers.map((law) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: ListTile(
+                          leading: CircleAvatar(child: law.profilePic),
+                          title: Text(
+                            law.name,
+                            style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16),
+                          ),
+                          subtitle: Text(
+                            '${law.distance}m away',
+                            style:
+                                TextStyle(fontFamily: 'Nunito', fontSize: 16),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              GestureDetector(
+                                child: Icon(Icons.message),
+                                onTap: () async {
+                                  var url = 'sms:${law.phoneNumber}';
+                                  try {
+                                    await launch(url);
+                                  } catch (e) {
+                                    print(e.toString());
+                                  }
+                                },
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 16.0),
+                                child: GestureDetector(
+                                  child: Icon(Icons.call),
+                                  onTap: () async {
+                                    var url = 'tel:${law.phoneNumber}';
+                                    try {
+                                      await launch(url);
+                                    } catch (e) {
+                                      print(e.toString());
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }).toList()),
+                  ),
+                ),
               ),
-            ),
-          );
+            );
+          });
         });
   }
 }

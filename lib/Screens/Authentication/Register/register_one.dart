@@ -25,7 +25,7 @@ class _RegisterOneState extends State<RegisterOne> {
     _firstName = TextEditingController(text: "");
     _lastName = TextEditingController(text: "");
     _phoneNumber = TextEditingController(text: "");
-    _twitterHandle = TextEditingController(text: "@");
+    _twitterHandle = TextEditingController(text: "");
     _password = TextEditingController(text: "");
   }
 
@@ -89,14 +89,19 @@ class _RegisterOneState extends State<RegisterOne> {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: CommonButton(
+                                
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
-                                    userBud.regUser(
-                                        _firstName.text,
-                                        _lastName.text,
-                                        _phoneNumber.text,
-                                        _twitterHandle.text);
-
+                                    if (_twitterHandle.text == "") {
+                                      userBud.regUser2(_firstName.text,
+                                          _lastName.text, _phoneNumber.text);
+                                    } else {
+                                      userBud.regUser(
+                                          _firstName.text,
+                                          _lastName.text,
+                                          _phoneNumber.text,
+                                          _twitterHandle.text);
+                                    }
                                     Navigator.pushNamed(
                                         context, '/RegisterTwo');
                                   }

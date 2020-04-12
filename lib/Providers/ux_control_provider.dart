@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:beep/models/buddy.dart';
 import 'package:beep/models/card.dart';
 import 'package:beep/models/user.dart';
@@ -37,6 +39,7 @@ class UxControl with ChangeNotifier {
   homeWithSheet(BuildContext context) {
     if (_setPage == menu.navHomeWithSheet) {
       Navigator.pop(context);
+
       _setPage = menu.navHome;
     } else {
       _setPage = menu.navHomeWithSheet;
@@ -60,8 +63,22 @@ class UxControl with ChangeNotifier {
   regUser(String firstName, String lastName, String phoneNumber,
       String twitterHandle) {
     List<Buddy> buddies = [];
-    
-    _currentUser = User(firstName, lastName, twitterHandle, phoneNumber, buddies, currentPlan);
+
+    _currentUser = User(
+        firstName, lastName, twitterHandle, phoneNumber, buddies, currentPlan);
+    notifyListeners();
+  }
+
+  regUser2(
+    String firstName,
+    String lastName,
+    String phoneNumber,
+  ) {
+    String twitterHandle = "@";
+    List<Buddy> buddies = [];
+
+    _currentUser = User(
+        firstName, lastName, twitterHandle, phoneNumber, buddies, currentPlan);
     notifyListeners();
   }
 
@@ -71,14 +88,15 @@ class UxControl with ChangeNotifier {
   }
 
   addCard(String bankNUmber, String expDate, String cvv) {
+
     _userCards
         .add(BankCard(cardNumber: bankNUmber, expDate: expDate, cvv: cvv));
     notifyListeners();
   }
 
-  notify(){    
+  notify() {
     notifyListeners();
-      }
+  }
 
   setCurrentPage(menu _page) {
     _setPage = _page;

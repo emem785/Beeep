@@ -41,7 +41,7 @@ class ChangePassword2 extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: CommonButton(
                   onPressed: () =>
-                      Navigator.pushNamed(context, '/ForgotPassword4'),
+                      Navigator.pushNamed(context, '/HomeScreen',arguments: {'pageValue': 2}),
                   text: 'Reset Password'),
             ),
           ],

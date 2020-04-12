@@ -5,15 +5,13 @@ import 'package:beep/Screens/Authentication/Login/Forgot%20Password/forgot_passw
 import 'package:beep/Screens/Authentication/Login/Forgot%20Password/forgot_password_two.dart';
 import 'package:beep/Screens/MenuPages/payment%20Pages/card_page.dart';
 import 'package:beep/Screens/MenuPages/payment%20Pages/card_page_one.dart';
+import 'package:beep/Screens/MenuPages/payment%20Pages/card_page_one_plan.dart';
 import 'package:beep/Screens/MenuPages/payment%20Pages/card_page_three.dart';
 import 'package:beep/Screens/MenuPages/profile%20pages/change_password.dart';
 import 'package:beep/Screens/MenuPages/profile%20pages/change_password_2.dart';
 import 'package:beep/Screens/MenuPages/profile%20pages/profiles_menu.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'package:beep/Providers/location_service.dart';
-import 'package:beep/Providers/payment_plan_provider.dart';
-import 'package:beep/Providers/ux_control_provider.dart';
 import 'package:beep/Screens/AppPages/home_screen.dart';
 import 'package:beep/Screens/AppPages/menu_pages/upgrade_plan.dart';
 import 'package:beep/Screens/Authentication/Login/Forgot%20Password/forgot_password_five.dart';
@@ -111,9 +109,11 @@ class RouteGenerator {
           break;
 
         case 'CardPageOne':
-          screen = CardPageOne(
-            purchase: args["purchase"],
-          );
+          screen = CardPageOne();
+          break;
+
+        case 'CardPageOnePlan':
+          screen = CardPageOnePlan();
           break;
 
         case 'CardPageEdit':

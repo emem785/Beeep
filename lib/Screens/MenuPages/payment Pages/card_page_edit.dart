@@ -2,6 +2,7 @@ import 'package:beep/Providers/ux_control_provider.dart';
 import 'package:beep/utils/StyleGuide.dart';
 import 'package:beep/widgets/common_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:provider/provider.dart';
 
 class CardPageEdit extends StatefulWidget {
@@ -11,7 +12,7 @@ class CardPageEdit extends StatefulWidget {
 
 class _CardPageEditState extends State<CardPageEdit> {
   TextEditingController _cardNumber;
-  TextEditingController _expDate;
+  final _expDate = MaskedTextController(mask: '00/00', text: "");
   TextEditingController _cvv;
   final _formKey = GlobalKey<FormState>();
 
@@ -19,7 +20,6 @@ class _CardPageEditState extends State<CardPageEdit> {
   void initState() {
     super.initState();
     _cardNumber = TextEditingController(text: "");
-    _expDate = TextEditingController(text: "");
     _cvv = TextEditingController(text: "");
   }
 
@@ -50,7 +50,7 @@ class _CardPageEditState extends State<CardPageEdit> {
         backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
-         child:    Padding(
+        child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
           child: Form(
             key: _formKey,
@@ -79,6 +79,7 @@ class _CardPageEditState extends State<CardPageEdit> {
                         ),
                         TextFormField(
                           controller: _cardNumber,
+                          keyboardType: TextInputType.number,
                           validator: (value) => (value.length < 16)
                               ? "Please enter valid Card Number\n(card number cannot be less than 16 digits)"
                               : null,
@@ -109,8 +110,9 @@ class _CardPageEditState extends State<CardPageEdit> {
                               ),
                               TextFormField(
                                 controller: _expDate,
-                                validator: (value) => (value.isEmpty)
-                                    ? "Please enter valid\nexpiry date "
+                                maxLength: 5,
+                                validator: (value) => (value.length < 2)
+                                    ? "Please enter \nvalid expiry date "
                                     : null,
                                 keyboardType: TextInputType.datetime,
                                 decoration: InputDecoration(
@@ -138,10 +140,11 @@ class _CardPageEditState extends State<CardPageEdit> {
                               TextFormField(
                                 controller: _cvv,
                                 validator: (value) =>
-                                    (value.length > 3 || value.isEmpty)
+                                    (value.length < 3 || value.isEmpty)
                                         ? "Please enter valid\ncvv number"
                                         : null,
                                 keyboardType: TextInputType.number,
+                                maxLength: 3,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(gapPadding: 0.1),
                                   contentPadding: EdgeInsets.symmetric(
@@ -155,7 +158,6 @@ class _CardPageEditState extends State<CardPageEdit> {
                     ),
                   ],
                 ),
-                
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Consumer<UxControl>(builder: (context, card, _) {

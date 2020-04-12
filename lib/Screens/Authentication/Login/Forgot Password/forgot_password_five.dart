@@ -1,4 +1,3 @@
-import 'package:beep/Screens/AppPages/home_screen.dart';
 import 'package:beep/utils/StyleGuide.dart';
 import 'package:beep/widgets/common_button.dart';
 import 'package:flutter/material.dart';

@@ -25,6 +25,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
   void dispose() {
     super.dispose();
     _smsCode.dispose();
+    _timer.cancel();
   }
 
   @override
@@ -94,12 +95,12 @@ class _RegisterTwoState extends State<RegisterTwo> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 24),
                           child: InkWell(
-                            onTap: () {},
+                            onTap:  timer() ,
                             child: Row(
                               children: <Widget>[
-                                GestureDetector(
-                                  onTap: isCounting ? timer() : () {},
-                                  child: Text(
+                               
+                                  
+                                 Text(
                                     'Didn’t get the code?',
                                     style: TextStyle(
                                         fontFamily: 'Nunito',
@@ -108,7 +109,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                                             ? Colors.grey
                                             : Colors.black),
                                   ),
-                                ),
+                                
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: Text('$_count'),
@@ -144,11 +145,13 @@ class _RegisterTwoState extends State<RegisterTwo> {
   }
 
   timer() {
+    
     if (isCounting == false) {
       const oneSec = const Duration(seconds: 1);
       _timer = new Timer.periodic(
         oneSec,
         (Timer timer) => setState(
+         
           () {
             isCounting = true;
             if (_count < 1) {
@@ -158,7 +161,8 @@ class _RegisterTwoState extends State<RegisterTwo> {
               });
             } else {
               _count = _count - 1;
-            }
+            }    
+                 
           },
         ),
       );

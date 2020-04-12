@@ -7,7 +7,7 @@ import 'package:beep/utils/StyleGuide.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CardPageOne extends StatelessWidget {
+class CardPageOnePlan extends StatelessWidget {
   final List<Color> colorList = [
     Colors.brown[400],
     Colors.greenAccent,
@@ -58,7 +58,7 @@ class CardPageOne extends StatelessWidget {
                                 return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8.0),
-                                    child: CardWidget(
+                                    child: CardWidget2(
                                         onTap2: () {
                                           ux.cardsList.removeAt(
                                               ux.cardsList.indexOf(card));
@@ -71,16 +71,6 @@ class CardPageOne extends StatelessWidget {
                                         color: colorList[random.nextInt(4)]));
                               }).toList()));
                 }),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, 'CardPageEdit'),
-                      child: Text("+Add New Card",
-                          style: TextStyle(
-                              fontFamily: 'Nunito',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14))),
-                )
               ],
             ),
           ),
