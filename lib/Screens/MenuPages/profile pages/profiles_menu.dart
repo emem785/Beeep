@@ -25,6 +25,7 @@ class ProfileMenu extends StatefulWidget {
 class _ProfileMenuState extends State<ProfileMenu> {
   final _formKey = GlobalKey<FormState>();
   final _key = GlobalKey<ScaffoldState>();
+  final _snackbar = SnackBar(content: Text("Changes saved"),);
   TextEditingController _firstname;
   TextEditingController _lastname;
   TextEditingController _phonenumber;
@@ -101,7 +102,8 @@ class _ProfileMenuState extends State<ProfileMenu> {
                                   if (_formKey.currentState.validate()) {
                                     ux.regUser(_firstname.text, _lastname.text,
                                         _phonenumber.text, _twitterhandle.text);
-                                    Navigator.pop(context);
+                                        Scaffold.of(context).showSnackBar(_snackbar);
+                                    //Navigator.pop(context);
                                   }
                                 });
                           }),

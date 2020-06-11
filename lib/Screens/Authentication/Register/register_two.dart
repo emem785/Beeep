@@ -95,7 +95,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 24),
                           child: InkWell(
-                            onTap:  timer() ,
+                            onTap: (){},// timer() ,
                             child: Row(
                               children: <Widget>[
                                

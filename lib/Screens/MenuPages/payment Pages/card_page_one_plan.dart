@@ -8,12 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CardPageOnePlan extends StatelessWidget {
-  final List<Color> colorList = [
-    Colors.brown[400],
-    Colors.greenAccent,
-    Colors.black,
-    Colors.cyan
-  ];
+  
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +81,12 @@ class CardWidget extends StatelessWidget {
   final String cvv;
   final Function onTap2;
   final Color color;
-
+final List<Color> colorList = [
+    Colors.brown[400],
+    Colors.greenAccent,
+    Colors.black,
+    Colors.cyan
+  ];
   const CardWidget(
       {Key key,
       this.cardNumber,
@@ -187,6 +187,17 @@ class CardWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+  Color getColor(int colorInt){
+
+    var colorType = colorInt % 2; 
+    switch(colorInt){
+      case 0:
+      return Colors.brown[400];
+      break;
+      default:
+      return 
+    }
   }
 }
 
