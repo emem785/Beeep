@@ -1,4 +1,3 @@
-import 'package:beep/core/widgets/map_home.dart';
 import 'package:beep/presentation/Screens/AppPages/home_screen.dart';
 import 'package:beep/presentation/Screens/AppPages/menu_pages/upgrade_plan.dart';
 import 'package:beep/presentation/Screens/AppPages/menu_pages/upgrade_plan2.dart';

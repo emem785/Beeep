@@ -1,10 +1,8 @@
-import 'package:beep/core/utils/enums.dart';
 import 'package:beep/core/widgets/map_home_widgets/top_bar.dart';
 import 'package:beep/core/widgets/menu_widgets/more_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 import '../../application/blocs/navigation_bloc/navigation_bloc.dart';
 
 const double ZOOM = 18;
@@ -22,10 +20,13 @@ class _HomeMapState extends State<HomeMap> {
       child: Stack(
         children: <Widget>[
           Container(
-              child: GoogleMap(
-            initialCameraPosition:
-                CameraPosition(target: INITIAL_LOCATION, zoom: ZOOM),
-          )),
+              child: 
+        // GoogleMap(
+        //     initialCameraPosition:
+        //         CameraPosition(target: INITIAL_LOCATION, zoom: ZOOM),
+        //   )
+        SizedBox()
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(

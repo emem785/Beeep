@@ -91,7 +91,7 @@ class HttpApiRepository implements ApiInterface {
   }
 
   @override
-  Future<Either<Failure, bool>> updateUser(String firstName, String lastName,
+  Future<Either<Failure, User>> updateUser(String firstName, String lastName,
       String email, String phoneNumber, String twitterHandle) async {
     final body = {
       "firstname": firstName,
@@ -105,9 +105,10 @@ class HttpApiRepository implements ApiInterface {
     return response.fold((l) => Left(l), (r) async {
       final userMap = r["response"]["content"]["details"];
       final tokenMap = r["response"]["auth_keys"]["access_token"];
-      await localStorageRepo.cacheUser(jsonEncode(userMap));
-      await localStorageRepo.cacheToken(jsonEncode(tokenMap));
-      return Right(true);
+      // await localStorageRepo.cacheUser(jsonEncode(userMap));
+      // await localStorageRepo.cacheToken(jsonEncode(tokenMap));
+      final user = User.fromJson(userMap);
+      return Right(user);
     });
   }
 }

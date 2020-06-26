@@ -12,7 +12,7 @@ abstract class ApiInterface {
 
   Future<Either<Failure, User>> mobileVerify(String phoneNumber, String code);
   Future<Either<Failure, User>> signIn(String phoneNumber, String password);
-  Future<Either<Failure, bool>> updateUser(String firstName, String lastName,
+  Future<Either<Failure, User>> updateUser(String firstName, String lastName,
       String email, String phoneNumber, String twitterHandle);
   Future<Either<Failure, bool>> addBuddy(String firstName, String lastName,
       String phoneNumber, String relationship);

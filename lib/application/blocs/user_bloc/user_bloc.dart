@@ -3,10 +3,8 @@ import 'dart:convert';
 
 import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/api.dart';
-import 'package:beep/domain/Interface/network_interface.dart';
 import 'package:beep/domain/Interface/storage.dart';
 import 'package:bloc/bloc.dart';
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:beep/infrastructure/models/user.dart';
@@ -42,7 +40,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield* response.fold((l) async* {
         yield UserError(l);
       }, (r) async* {
-        // await localStorageInterface.cacheUser(jsonEncode(r));
+        await localStorageInterface.cacheUser(jsonEncode(r));
         //TODO:Implement cache updated  details
         yield UserUpdated("User Updated");
       });

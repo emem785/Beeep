@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: AnimatedContainer(
                   height: _height,
                   width: size.maxWidth,
-                  duration: Duration(milliseconds: 200),
+                  duration: Duration(milliseconds: 100),
                   curve: Curves.linear,
                   child: Sheet(),
                 ),
