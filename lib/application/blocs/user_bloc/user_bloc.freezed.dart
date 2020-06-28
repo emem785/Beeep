@@ -36,6 +36,12 @@ class _$UserEventTearOff {
       relationship,
     );
   }
+
+  UpdatePassword updatePassword(String password) {
+    return UpdatePassword(
+      password,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -51,6 +57,7 @@ mixin _$UserEvent {
     @required
         Result addBuddy(String firstName, String lastName, String phoneNumber,
             String relationship),
+    @required Result updatePassword(String password),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -59,6 +66,7 @@ mixin _$UserEvent {
         String phoneNumber, String twitterHandle),
     Result addBuddy(String firstName, String lastName, String phoneNumber,
         String relationship),
+    Result updatePassword(String password),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -66,12 +74,14 @@ mixin _$UserEvent {
     @required Result insertUser(InsertUser value),
     @required Result updateUser(UpdateUser value),
     @required Result addBuddy(AddBuddy value),
+    @required Result updatePassword(UpdatePassword value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result insertUser(InsertUser value),
     Result updateUser(UpdateUser value),
     Result addBuddy(AddBuddy value),
+    Result updatePassword(UpdatePassword value),
     @required Result orElse(),
   });
 }
@@ -130,10 +140,12 @@ class _$InsertUser implements InsertUser {
     @required
         Result addBuddy(String firstName, String lastName, String phoneNumber,
             String relationship),
+    @required Result updatePassword(String password),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
+    assert(updatePassword != null);
     return insertUser();
   }
 
@@ -145,6 +157,7 @@ class _$InsertUser implements InsertUser {
         String phoneNumber, String twitterHandle),
     Result addBuddy(String firstName, String lastName, String phoneNumber,
         String relationship),
+    Result updatePassword(String password),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -160,10 +173,12 @@ class _$InsertUser implements InsertUser {
     @required Result insertUser(InsertUser value),
     @required Result updateUser(UpdateUser value),
     @required Result addBuddy(AddBuddy value),
+    @required Result updatePassword(UpdatePassword value),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
+    assert(updatePassword != null);
     return insertUser(this);
   }
 
@@ -173,6 +188,7 @@ class _$InsertUser implements InsertUser {
     Result insertUser(InsertUser value),
     Result updateUser(UpdateUser value),
     Result addBuddy(AddBuddy value),
+    Result updatePassword(UpdatePassword value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -293,10 +309,12 @@ class _$UpdateUser implements UpdateUser {
     @required
         Result addBuddy(String firstName, String lastName, String phoneNumber,
             String relationship),
+    @required Result updatePassword(String password),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
+    assert(updatePassword != null);
     return updateUser(firstName, lastName, email, phoneNumber, twitterHandle);
   }
 
@@ -308,6 +326,7 @@ class _$UpdateUser implements UpdateUser {
         String phoneNumber, String twitterHandle),
     Result addBuddy(String firstName, String lastName, String phoneNumber,
         String relationship),
+    Result updatePassword(String password),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -323,10 +342,12 @@ class _$UpdateUser implements UpdateUser {
     @required Result insertUser(InsertUser value),
     @required Result updateUser(UpdateUser value),
     @required Result addBuddy(AddBuddy value),
+    @required Result updatePassword(UpdatePassword value),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
+    assert(updatePassword != null);
     return updateUser(this);
   }
 
@@ -336,6 +357,7 @@ class _$UpdateUser implements UpdateUser {
     Result insertUser(InsertUser value),
     Result updateUser(UpdateUser value),
     Result addBuddy(AddBuddy value),
+    Result updatePassword(UpdatePassword value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -454,10 +476,12 @@ class _$AddBuddy implements AddBuddy {
     @required
         Result addBuddy(String firstName, String lastName, String phoneNumber,
             String relationship),
+    @required Result updatePassword(String password),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
+    assert(updatePassword != null);
     return addBuddy(firstName, lastName, phoneNumber, relationship);
   }
 
@@ -469,6 +493,7 @@ class _$AddBuddy implements AddBuddy {
         String phoneNumber, String twitterHandle),
     Result addBuddy(String firstName, String lastName, String phoneNumber,
         String relationship),
+    Result updatePassword(String password),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -484,10 +509,12 @@ class _$AddBuddy implements AddBuddy {
     @required Result insertUser(InsertUser value),
     @required Result updateUser(UpdateUser value),
     @required Result addBuddy(AddBuddy value),
+    @required Result updatePassword(UpdatePassword value),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
+    assert(updatePassword != null);
     return addBuddy(this);
   }
 
@@ -497,6 +524,7 @@ class _$AddBuddy implements AddBuddy {
     Result insertUser(InsertUser value),
     Result updateUser(UpdateUser value),
     Result addBuddy(AddBuddy value),
+    Result updatePassword(UpdatePassword value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -518,6 +546,136 @@ abstract class AddBuddy implements UserEvent {
   $AddBuddyCopyWith<AddBuddy> get copyWith;
 }
 
+abstract class $UpdatePasswordCopyWith<$Res> {
+  factory $UpdatePasswordCopyWith(
+          UpdatePassword value, $Res Function(UpdatePassword) then) =
+      _$UpdatePasswordCopyWithImpl<$Res>;
+  $Res call({String password});
+}
+
+class _$UpdatePasswordCopyWithImpl<$Res> extends _$UserEventCopyWithImpl<$Res>
+    implements $UpdatePasswordCopyWith<$Res> {
+  _$UpdatePasswordCopyWithImpl(
+      UpdatePassword _value, $Res Function(UpdatePassword) _then)
+      : super(_value, (v) => _then(v as UpdatePassword));
+
+  @override
+  UpdatePassword get _value => super._value as UpdatePassword;
+
+  @override
+  $Res call({
+    Object password = freezed,
+  }) {
+    return _then(UpdatePassword(
+      password == freezed ? _value.password : password as String,
+    ));
+  }
+}
+
+class _$UpdatePassword implements UpdatePassword {
+  const _$UpdatePassword(this.password) : assert(password != null);
+
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'UserEvent.updatePassword(password: $password)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is UpdatePassword &&
+            (identical(other.password, password) ||
+                const DeepCollectionEquality()
+                    .equals(other.password, password)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(password);
+
+  @override
+  $UpdatePasswordCopyWith<UpdatePassword> get copyWith =>
+      _$UpdatePasswordCopyWithImpl<UpdatePassword>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result insertUser(),
+    @required
+        Result updateUser(String firstName, String lastName, String email,
+            String phoneNumber, String twitterHandle),
+    @required
+        Result addBuddy(String firstName, String lastName, String phoneNumber,
+            String relationship),
+    @required Result updatePassword(String password),
+  }) {
+    assert(insertUser != null);
+    assert(updateUser != null);
+    assert(addBuddy != null);
+    assert(updatePassword != null);
+    return updatePassword(password);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result insertUser(),
+    Result updateUser(String firstName, String lastName, String email,
+        String phoneNumber, String twitterHandle),
+    Result addBuddy(String firstName, String lastName, String phoneNumber,
+        String relationship),
+    Result updatePassword(String password),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (updatePassword != null) {
+      return updatePassword(password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result insertUser(InsertUser value),
+    @required Result updateUser(UpdateUser value),
+    @required Result addBuddy(AddBuddy value),
+    @required Result updatePassword(UpdatePassword value),
+  }) {
+    assert(insertUser != null);
+    assert(updateUser != null);
+    assert(addBuddy != null);
+    assert(updatePassword != null);
+    return updatePassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result insertUser(InsertUser value),
+    Result updateUser(UpdateUser value),
+    Result addBuddy(AddBuddy value),
+    Result updatePassword(UpdatePassword value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (updatePassword != null) {
+      return updatePassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdatePassword implements UserEvent {
+  const factory UpdatePassword(String password) = _$UpdatePassword;
+
+  String get password;
+  $UpdatePasswordCopyWith<UpdatePassword> get copyWith;
+}
+
 class _$UserStateTearOff {
   const _$UserStateTearOff();
 
@@ -531,7 +689,7 @@ class _$UserStateTearOff {
     );
   }
 
-  UserError userError(Failure failure) {
+  UserError userError(CacheFailure failure) {
     return UserError(
       failure,
     );
@@ -556,7 +714,7 @@ mixin _$UserState {
   Result when<Result extends Object>({
     @required Result initial(),
     @required Result userLoaded(User user),
-    @required Result userError(Failure failure),
+    @required Result userError(CacheFailure failure),
     @required Result userUpdated(String msg),
     @required Result userUpdating(),
   });
@@ -564,7 +722,7 @@ mixin _$UserState {
   Result maybeWhen<Result extends Object>({
     Result initial(),
     Result userLoaded(User user),
-    Result userError(Failure failure),
+    Result userError(CacheFailure failure),
     Result userUpdated(String msg),
     Result userUpdating(),
     @required Result orElse(),
@@ -638,7 +796,7 @@ class _$UserInitial implements UserInitial {
   Result when<Result extends Object>({
     @required Result initial(),
     @required Result userLoaded(User user),
-    @required Result userError(Failure failure),
+    @required Result userError(CacheFailure failure),
     @required Result userUpdated(String msg),
     @required Result userUpdating(),
   }) {
@@ -655,7 +813,7 @@ class _$UserInitial implements UserInitial {
   Result maybeWhen<Result extends Object>({
     Result initial(),
     Result userLoaded(User user),
-    Result userError(Failure failure),
+    Result userError(CacheFailure failure),
     Result userUpdated(String msg),
     Result userUpdating(),
     @required Result orElse(),
@@ -763,7 +921,7 @@ class _$UserLoaded implements UserLoaded {
   Result when<Result extends Object>({
     @required Result initial(),
     @required Result userLoaded(User user),
-    @required Result userError(Failure failure),
+    @required Result userError(CacheFailure failure),
     @required Result userUpdated(String msg),
     @required Result userUpdating(),
   }) {
@@ -780,7 +938,7 @@ class _$UserLoaded implements UserLoaded {
   Result maybeWhen<Result extends Object>({
     Result initial(),
     Result userLoaded(User user),
-    Result userError(Failure failure),
+    Result userError(CacheFailure failure),
     Result userUpdated(String msg),
     Result userUpdating(),
     @required Result orElse(),
@@ -837,7 +995,7 @@ abstract class UserLoaded implements UserState {
 abstract class $UserErrorCopyWith<$Res> {
   factory $UserErrorCopyWith(UserError value, $Res Function(UserError) then) =
       _$UserErrorCopyWithImpl<$Res>;
-  $Res call({Failure failure});
+  $Res call({CacheFailure failure});
 }
 
 class _$UserErrorCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
@@ -853,7 +1011,7 @@ class _$UserErrorCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
     Object failure = freezed,
   }) {
     return _then(UserError(
-      failure == freezed ? _value.failure : failure as Failure,
+      failure == freezed ? _value.failure : failure as CacheFailure,
     ));
   }
 }
@@ -862,7 +1020,7 @@ class _$UserError implements UserError {
   const _$UserError(this.failure) : assert(failure != null);
 
   @override
-  final Failure failure;
+  final CacheFailure failure;
 
   @override
   String toString() {
@@ -890,7 +1048,7 @@ class _$UserError implements UserError {
   Result when<Result extends Object>({
     @required Result initial(),
     @required Result userLoaded(User user),
-    @required Result userError(Failure failure),
+    @required Result userError(CacheFailure failure),
     @required Result userUpdated(String msg),
     @required Result userUpdating(),
   }) {
@@ -907,7 +1065,7 @@ class _$UserError implements UserError {
   Result maybeWhen<Result extends Object>({
     Result initial(),
     Result userLoaded(User user),
-    Result userError(Failure failure),
+    Result userError(CacheFailure failure),
     Result userUpdated(String msg),
     Result userUpdating(),
     @required Result orElse(),
@@ -955,9 +1113,9 @@ class _$UserError implements UserError {
 }
 
 abstract class UserError implements UserState {
-  const factory UserError(Failure failure) = _$UserError;
+  const factory UserError(CacheFailure failure) = _$UserError;
 
-  Failure get failure;
+  CacheFailure get failure;
   $UserErrorCopyWith<UserError> get copyWith;
 }
 
@@ -1019,7 +1177,7 @@ class _$UserUpdated implements UserUpdated {
   Result when<Result extends Object>({
     @required Result initial(),
     @required Result userLoaded(User user),
-    @required Result userError(Failure failure),
+    @required Result userError(CacheFailure failure),
     @required Result userUpdated(String msg),
     @required Result userUpdating(),
   }) {
@@ -1036,7 +1194,7 @@ class _$UserUpdated implements UserUpdated {
   Result maybeWhen<Result extends Object>({
     Result initial(),
     Result userLoaded(User user),
-    Result userError(Failure failure),
+    Result userError(CacheFailure failure),
     Result userUpdated(String msg),
     Result userUpdating(),
     @required Result orElse(),
@@ -1127,7 +1285,7 @@ class _$UserUpdating implements UserUpdating {
   Result when<Result extends Object>({
     @required Result initial(),
     @required Result userLoaded(User user),
-    @required Result userError(Failure failure),
+    @required Result userError(CacheFailure failure),
     @required Result userUpdated(String msg),
     @required Result userUpdating(),
   }) {
@@ -1144,7 +1302,7 @@ class _$UserUpdating implements UserUpdating {
   Result maybeWhen<Result extends Object>({
     Result initial(),
     Result userLoaded(User user),
-    Result userError(Failure failure),
+    Result userError(CacheFailure failure),
     Result userUpdated(String msg),
     Result userUpdating(),
     @required Result orElse(),

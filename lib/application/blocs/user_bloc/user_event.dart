@@ -8,4 +8,5 @@ abstract class UserEvent with _$UserEvent {
       String email, String phoneNumber, String twitterHandle) = UpdateUser;
   const factory UserEvent.addBuddy(String firstName, String lastName,
       String phoneNumber, String relationship) = AddBuddy;
+      const factory UserEvent.updatePassword(String password) = UpdatePassword;
 }

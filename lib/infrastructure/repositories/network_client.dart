@@ -7,10 +7,13 @@ import 'package:beep/domain/Interface/storage.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
+import '../../core/error/failure.dart';
 
 const URL = 'http://beeep.pythonanywhere.com/auth/';
 const URL_SHORT = 'http://beeep.pythonanywhere.com/';
 
+@LazySingleton(as: NetworkInterface)
 class NetworkClient implements NetworkInterface {
   final LocalStorageInterface localStorageInterface;
 
@@ -27,20 +30,15 @@ class NetworkClient implements NetworkInterface {
       return value.fold((l) => -1, (r) => jsonDecode(r));
     });
     final phone = userMap["phone"].toString();
-  
-    //TODO:return to normal
 
     final Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: "application/json",
-      HttpHeaders.authorizationHeader:
-          token,
+      HttpHeaders.authorizationHeader: token,
       "phone": phone
     };
-    print(headers);
-   
+
     final jsonResponse =
         await http.post(url, body: jsonEncode(body), headers: headers);
-    print(jsonResponse.body);
     if (jsonResponse.statusCode == 201) {
       final response = jsonDecode(jsonResponse.body);
       return Right(response);
@@ -48,9 +46,9 @@ class NetworkClient implements NetworkInterface {
       final response = jsonDecode(jsonResponse.body);
       return Right(response);
     } else if (jsonResponse.statusCode == 401) {
-      return Left(ServerFailure("Username or Password might be wrong..!!"));
+      return Left(NoCredentials("Username or Password might be wrong..!!"));
     } else if (jsonResponse.statusCode == 412) {
-      return Left(ServerFailure("Phone number already exists"));
+      return Left(UserExist("Phone number already exists"));
     } else {
       return Left(ServerFailure("Server Error"));
     }
@@ -79,9 +77,11 @@ class NetworkClient implements NetworkInterface {
       final response = jsonDecode(jsonResponse.body);
       return Right(response);
     } else if (jsonResponse.statusCode == 401) {
-      return Left(ServerFailure("Username or Password might be wrong..!!"));
+      return Left(NoCredentials("Username or Password might be wrong..!!"));
     } else if (jsonResponse.statusCode == 412) {
-      return Left(ServerFailure("Phone number already exists"));
+      return Left(UserExist("User alredy exist"));
+    } else if (jsonResponse.statusCode == 403) {
+      return Left(NotAuthorized("User alredy exist"));
     } else {
       return Left(ServerFailure("Server Error"));
     }

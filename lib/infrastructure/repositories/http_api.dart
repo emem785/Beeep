@@ -1,18 +1,22 @@
 import 'dart:convert';
 import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/api.dart';
+import 'package:beep/domain/Interface/network_interface.dart';
+import 'package:beep/domain/Interface/storage.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'local_storage_repo.dart';
 import 'network_client.dart';
 
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
+@LazySingleton(as: ApiInterface)
 class HttpApiRepository implements ApiInterface {
-  final LocalStorageRepo localStorageRepo;
-  final NetworkClient client;
+  final LocalStorageInterface localStorageRepo;
+  final NetworkInterface client;
 
   HttpApiRepository({@required this.localStorageRepo, @required this.client});
 
@@ -70,8 +74,7 @@ class HttpApiRepository implements ApiInterface {
       "phone": phoneNumber,
       "relationship": relationship
     };
-    final response =
-        await client.postToken(endpoint: "add_buddy", body: body);
+    final response = await client.postToken(endpoint: "add_buddy", body: body);
     return response.fold((l) => Left(l), (r) => Right(true));
   }
 
@@ -101,7 +104,8 @@ class HttpApiRepository implements ApiInterface {
       "twitter_handle": twitterHandle
     };
 
-    final response = await client.postToken(endpoint: "update_details", body: body);
+    final response =
+        await client.postToken(endpoint: "update_details", body: body);
     return response.fold((l) => Left(l), (r) async {
       final userMap = r["response"]["content"]["details"];
       final tokenMap = r["response"]["auth_keys"]["access_token"];
@@ -110,5 +114,13 @@ class HttpApiRepository implements ApiInterface {
       final user = User.fromJson(userMap);
       return Right(user);
     });
+  }
+
+  @override
+  Future<Either<Failure, bool>> updatePassword(String password) async {
+    final body = {"password": password};
+    final response =
+        await client.postToken(endpoint: "update_details", body: body);
+    return response.fold((l) => Left(l), (r) => Right(true));
   }
 }

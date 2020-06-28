@@ -1,11 +1,14 @@
+
 import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/storage.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
+@LazySingleton(as: LocalStorageInterface)
 class LocalStorageRepo implements LocalStorageInterface {
   @override
   Future cacheUser(String data) async {
@@ -18,7 +21,7 @@ class LocalStorageRepo implements LocalStorageInterface {
     final prefs = await SharedPreferences.getInstance();
     String data = prefs.getString(USER_KEY);
     if (data == null) {
-      return Left(GetCacheFailure("user not available"));
+      return Left(CacheFailure("user not available"));
     } else {
       return right(data);
     }
@@ -41,7 +44,7 @@ class LocalStorageRepo implements LocalStorageInterface {
     final prefs = await SharedPreferences.getInstance();
     String data = prefs.getString(TOKEN_KEY);
     if (data == null) {
-      return Left(GetCacheFailure("token not available"));
+      return Left(CacheFailure("token not available"));
     } else {
       return right(data);
     }

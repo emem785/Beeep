@@ -3,7 +3,7 @@ import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ChangePassword2 extends StatelessWidget {
+class ChangePasswordTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +41,7 @@ class ChangePassword2 extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: CommonButton(
                   onPressed: () =>
-                      Navigator.pushNamed(context, '/HomeScreen',arguments: {'pageValue': 2}),
+                      Navigator.pushNamed(context, 'ChangePasswordThree'),
                   text: 'Reset Password'),
             ),
           ],

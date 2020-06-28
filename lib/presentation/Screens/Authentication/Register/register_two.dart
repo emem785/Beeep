@@ -65,7 +65,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 16, 0, 24),
                   child: Text(
-                      'A text message containing a 4-digit\ncode have been sent to 07000000000',
+                      'A text message containing a 4-digit\ncode have been sent to ${widget.phone}',
                       style: TextStyle(fontSize: 14)),
                 ),
                 Form(
@@ -169,6 +169,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
                               if (_formKey.currentState.validate()) {
                                 registerBloc.add(
                                     MobileVerify(widget.phone, _smsCode.text));
+                              // Navigator.pushNamed(context, '/RegisterThree');
                               }
                             },
                             text: "Verify Number",

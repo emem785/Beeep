@@ -70,7 +70,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 Navigator.pushNamed(
-                                    context, '/ForgotPassword2');
+                                    context, '/ForgotPassword2',arguments: {"phone": _phoneNumber.text});
                               }
                             },
                             text: 'Continue'),

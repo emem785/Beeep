@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:beep/domain/Interface/api.dart';
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:beep/core/error/failure.dart';
@@ -14,6 +15,7 @@ part 'signin_bloc.freezed.dart';
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
+@injectable
 class SigninBloc extends Bloc<SignInEvent, SignInState> {
   ApiInterface apiInterface;
 

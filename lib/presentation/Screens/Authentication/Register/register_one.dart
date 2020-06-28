@@ -107,10 +107,19 @@ class _RegisterOneState extends State<RegisterOne> {
                             registerComplete: (u) => Navigator.pushNamed(
                                 context, '/RegisterTwo',
                                 arguments: {"phone": _phoneNumber.text}),
-                            error: (e) =>
-                                _key.currentState.showSnackBar(SnackBar(
-                                  content: Text(e.failure.message),
-                                )));
+                            error: (e) {
+                              return e.failure.maybeMap(
+                                  orElse: () => 1,
+                                  userExist: (value) =>
+                                      _key.currentState.showSnackBar(SnackBar(
+                                        content: Text(value.message),
+                                        action: SnackBarAction(
+                                            label: "Go to login",
+                                            onPressed: () =>
+                                                Navigator.pushNamed(
+                                                    context, '/LoginOne')),
+                                      )));
+                            });
                       }),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
@@ -124,6 +133,8 @@ class _RegisterOneState extends State<RegisterOne> {
                                     _phoneNumber.text,
                                     _password.text));
                               }
+                              // Navigator.pushNamed(context, '/RegisterTwo',
+                              //     arguments: {"phone": 090});
                             },
                             text: 'Continue'),
                       ),

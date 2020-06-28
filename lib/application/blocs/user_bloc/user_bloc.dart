@@ -5,6 +5,7 @@ import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/api.dart';
 import 'package:beep/domain/Interface/storage.dart';
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:beep/infrastructure/models/user.dart';
@@ -13,6 +14,7 @@ part 'user_event.dart';
 part 'user_state.dart';
 part 'user_bloc.freezed.dart';
 
+@injectable
 class UserBloc extends Bloc<UserEvent, UserState> {
   final LocalStorageInterface localStorageInterface;
   final ApiInterface apiInterface;
@@ -41,7 +43,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserError(l);
       }, (r) async* {
         await localStorageInterface.cacheUser(jsonEncode(r));
-        //TODO:Implement cache updated  details
         yield UserUpdated("User Updated");
       });
     }, addBuddy: (e) async* {
@@ -51,6 +52,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserError(l);
       }, (r) async* {
         yield UserUpdated("Buddy Added");
+      });
+    }, updatePassword: (e) async* {
+      final response = await apiInterface.updatePassword(e.password);
+      yield* response.fold((l) async* {
+        yield UserError(l);
+      }, (r) async* {
+        yield UserUpdated("Password Updated");
       });
     });
   }

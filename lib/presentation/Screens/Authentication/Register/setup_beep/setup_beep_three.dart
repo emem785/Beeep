@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:searchable_dropdown/searchable_dropdown.dart';
 import '../../../../../application/blocs/user_bloc/user_bloc.dart';
 
 class SetupBeepThree extends StatefulWidget {
@@ -25,6 +26,20 @@ class _SetupBeepThreeState extends State<SetupBeepThree> {
   final _formKey = GlobalKey<FormState>();
   final _key = GlobalKey<ScaffoldState>();
   FocusNode focusNode = FocusNode();
+  final relationships = [
+    DropdownMenuItem(child: Text('father')),
+    DropdownMenuItem(child: Text('mother')),
+    DropdownMenuItem(child: Text('brother')),
+    DropdownMenuItem(child: Text('sister')),
+    DropdownMenuItem(child: Text('uncle')),
+    DropdownMenuItem(child: Text('aunty')),
+    DropdownMenuItem(child: Text('friend')),
+    DropdownMenuItem(child: Text('colleague')),
+    DropdownMenuItem(child: Text('boss')),
+    DropdownMenuItem(child: Text('pastor')),
+    DropdownMenuItem(child: Text('mentor')),
+    DropdownMenuItem(child: Text('employee')),
+  ];
 
   @override
   void initState() {
@@ -48,6 +63,7 @@ class _SetupBeepThreeState extends State<SetupBeepThree> {
   @override
   Widget build(BuildContext context) {
     final userBloc = Provider.of<UserBloc>(context);
+
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -121,12 +137,12 @@ class _SetupBeepThreeState extends State<SetupBeepThree> {
                         return state.maybeMap(
                             orElse: () => SizedBox(),
                             userUpdating: (e) => Center(
-                                child: Padding(
+                                    child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 0, vertical: 8),
                                   child: Center(
-                                      child:
-                                          SpinKitWave(color: Colors.green,size: 30)),
+                                      child: SpinKitWave(
+                                          color: Colors.green, size: 30)),
                                 )));
                       },
                     ),

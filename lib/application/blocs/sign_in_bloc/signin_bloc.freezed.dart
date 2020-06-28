@@ -659,6 +659,8 @@ abstract class $SignInStateErrorCopyWith<$Res> {
           SignInStateError value, $Res Function(SignInStateError) then) =
       _$SignInStateErrorCopyWithImpl<$Res>;
   $Res call({Failure failure});
+
+  $FailureCopyWith<$Res> get failure;
 }
 
 class _$SignInStateErrorCopyWithImpl<$Res>
@@ -678,6 +680,16 @@ class _$SignInStateErrorCopyWithImpl<$Res>
     return _then(SignInStateError(
       failure == freezed ? _value.failure : failure as Failure,
     ));
+  }
+
+  @override
+  $FailureCopyWith<$Res> get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+    return $FailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
   }
 }
 

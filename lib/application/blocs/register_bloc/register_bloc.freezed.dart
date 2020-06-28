@@ -1266,6 +1266,8 @@ abstract class $RegisterErrorCopyWith<$Res> {
           RegisterError value, $Res Function(RegisterError) then) =
       _$RegisterErrorCopyWithImpl<$Res>;
   $Res call({Failure failure});
+
+  $FailureCopyWith<$Res> get failure;
 }
 
 class _$RegisterErrorCopyWithImpl<$Res>
@@ -1285,6 +1287,16 @@ class _$RegisterErrorCopyWithImpl<$Res>
     return _then(RegisterError(
       failure == freezed ? _value.failure : failure as Failure,
     ));
+  }
+
+  @override
+  $FailureCopyWith<$Res> get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+    return $FailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
   }
 }
 

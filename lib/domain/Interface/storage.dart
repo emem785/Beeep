@@ -1,5 +1,7 @@
 import 'package:beep/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
+
 
 abstract class LocalStorageInterface{
   Future cacheUser(String data);

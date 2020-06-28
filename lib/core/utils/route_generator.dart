@@ -14,8 +14,9 @@ import 'package:beep/presentation/Screens/Authentication/Register/setup_beep/set
 import 'package:beep/presentation/Screens/Authentication/Register/setup_beep/setup_beep_three.dart';
 import 'package:beep/presentation/Screens/Authentication/auth_control.dart';
 import 'package:beep/presentation/Screens/Authentication/splash_screen.dart';
-import 'package:beep/presentation/Screens/MenuPages/profile_pages/change_password.dart';
-import 'package:beep/presentation/Screens/MenuPages/profile_pages/change_password_2.dart';
+import 'package:beep/presentation/Screens/MenuPages/profile_pages/change_password_one.dart';
+import 'package:beep/presentation/Screens/MenuPages/profile_pages/change_password_three.dart';
+import 'package:beep/presentation/Screens/MenuPages/profile_pages/change_password_two.dart';
 import 'package:beep/presentation/Screens/MenuPages/profile_pages/profiles_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -73,7 +74,9 @@ class RouteGenerator {
           break;
 
         case '/ForgotPassword2':
-          screen = ForgotPasswordTwo();
+          screen = ForgotPasswordTwo(
+            phone: args["phone"],
+          );
           break;
 
         case '/ForgotPassword3':
@@ -94,12 +97,15 @@ class RouteGenerator {
           screen = UpgradePlan2();
           break;
 
-        case 'ChangePassword':
-          screen = ChangePassword();
+        case 'ChangePasswordOne':
+          screen = ChangePasswordOne(phone: args["phone"],);
           break;
 
         case 'ChangePasswordTwo':
-          screen = ChangePassword2();
+          screen = ChangePasswordTwo();
+          break;
+        case 'ChangePasswordThree':
+          screen = ChangePasswordThree();
           break;
 
         case 'UpgradePlan':

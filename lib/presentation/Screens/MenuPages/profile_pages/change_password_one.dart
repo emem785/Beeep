@@ -5,15 +5,15 @@ import 'package:beep/application/blocs/register_bloc/register_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class ForgotPasswordTwo extends StatefulWidget {
+class ChangePasswordOne extends StatefulWidget {
   final phone;
 
-  const ForgotPasswordTwo({Key key, this.phone}) : super(key: key);
+  const ChangePasswordOne({Key key, this.phone}) : super(key: key);
   @override
-  _ForgotPasswordTwoState createState() => _ForgotPasswordTwoState();
+  _ChangePasswordOneState createState() => _ChangePasswordOneState();
 }
 
-class _ForgotPasswordTwoState extends State<ForgotPasswordTwo> {
+class _ChangePasswordOneState extends State<ChangePasswordOne> {
   final _formKey = GlobalKey<FormState>();
   final _key = GlobalKey<ScaffoldState>();
   TextEditingController _smsCode;
@@ -155,7 +155,7 @@ class _ForgotPasswordTwoState extends State<ForgotPasswordTwo> {
                           return state.maybeMap(
                               orElse: () => 1,
                               verifyComplete: (u) => Navigator.pushNamed(
-                                  context, '/RegisterThree'),
+                                  context, 'ChangePasswordTwo'),
                               error: (e) =>
                                   _key.currentState.showSnackBar(SnackBar(
                                     content: Text(e.failure.message),
