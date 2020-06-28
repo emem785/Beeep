@@ -1,6 +1,9 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:beep/core/widgets/common_widgets/cus_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../../../../application/blocs/user_bloc/user_bloc.dart';
 
 class ForgotPasswordFour extends StatefulWidget {
   @override
@@ -26,7 +29,10 @@ class _ForgotPasswordFourState extends State<ForgotPasswordFour> {
 
   @override
   Widget build(BuildContext context) {
+    final userBloc = BlocProvider.of<UserBloc>(context);
+
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       key: _key,
       appBar: AppBar(
         leading: IconButton(
@@ -62,17 +68,38 @@ class _ForgotPasswordFourState extends State<ForgotPasswordFour> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       CusTextPas(controller: _password, header: 'Password'),
+                      BlocConsumer<UserBloc, UserState>(
+                        listener: (_, state) {
+                          return state.maybeMap(
+                              orElse: () => 1,
+                              userError: (e) => _key.currentState.showSnackBar(
+                                  SnackBar(content: Text(e.failure.message))),
+                              userUpdated: (u) => Navigator.pushNamed(
+                                  context, '/ForgotPassword5'));
+                        },
+                        builder: (_, state) {
+                          return state.maybeMap(
+                              orElse: () => SizedBox(),
+                              userUpdating: (u) => Center(
+                                      child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 0, vertical: 8),
+                                    child: Center(
+                                        child: SpinKitWave(
+                                            color: Colors.green, size: 30)),
+                                  )));
+                        },
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.only(bottom: 8.0),
                         child: CommonButton(
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
-                                Navigator.pushNamed(
-                                    context, '/ForgotPassword5');
+                                userBloc.add(UpdatePassword(_password.text));
                               }
                             },
                             text: 'Reset'),
-                      )
+                      ),
                     ],
                   ))
             ],

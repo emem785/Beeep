@@ -1,6 +1,6 @@
 
 import 'package:beep/core/error/failure.dart';
-import 'package:beep/domain/Interface/storage.dart';
+import 'package:beep/domain/Interface/local_storage_interface.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';

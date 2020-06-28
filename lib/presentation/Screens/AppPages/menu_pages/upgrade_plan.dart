@@ -1,7 +1,6 @@
 import 'package:beep/core/utils/enums.dart';
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class UpgradePlan extends StatefulWidget {
   @override

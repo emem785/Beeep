@@ -1,7 +1,7 @@
 import 'dart:async';
 
 
-import 'package:beep/domain/Interface/api.dart';
+import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';

@@ -102,18 +102,20 @@ class _LoginOneState extends State<LoginOne> {
                         state.maybeMap(
                             orElse: () => 1,
                             error: (e) => e.failure.maybeMap(
-                                  orElse: () => 1,
+                                  orElse: () =>
+                                      _key.currentState.showSnackBar(SnackBar(
+                                    content: Text(e.failure.message),
+                                  )),
                                   notAuthorized: (value) =>
                                       _key.currentState.showSnackBar(SnackBar(
                                     content: Text(value.message),
                                     action: SnackBarAction(
                                         label: "Verify Number",
                                         onPressed: () => Navigator.pushNamed(
-                                        context, '/RegisterTwo',arguments: {"phone": _phoneNumber.text})),
-                                  )),
-                                  noCredentials: (value) =>
-                                      _key.currentState.showSnackBar(SnackBar(
-                                    content: Text(value.message),
+                                                context, '/RegisterTwo',
+                                                arguments: {
+                                                  "phone": _phoneNumber.text
+                                                })),
                                   )),
                                 ),
                             authenticated: (a) => Navigator.of(context)

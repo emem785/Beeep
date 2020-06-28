@@ -1,14 +1,12 @@
 import 'dart:convert';
 import 'package:beep/core/error/failure.dart';
-import 'package:beep/domain/Interface/api.dart';
+import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:beep/domain/Interface/network_interface.dart';
-import 'package:beep/domain/Interface/storage.dart';
+import 'package:beep/domain/Interface/local_storage_interface.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'local_storage_repo.dart';
-import 'network_client.dart';
 
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
@@ -27,11 +25,6 @@ class HttpApiRepository implements ApiInterface {
         (l) => Left(l),
         (r) => Right(
             r["response"]["content"]["verification_code"]["code"].toString()));
-  }
-
-  @override
-  Future signOut() async {
-    // await localStorageRepo.removeData(USER_KEY);
   }
 
   @override
@@ -122,5 +115,34 @@ class HttpApiRepository implements ApiInterface {
     final response =
         await client.postToken(endpoint: "update_details", body: body);
     return response.fold((l) => Left(l), (r) => Right(true));
+  }
+
+  @override
+  Future<Either<Failure, bool>> beep(
+      String action, double latitude, double longitude) async {
+    final body = {
+      "longitude": latitude.toString(),
+      "latitude": longitude.toString(),
+      "action": action,
+      "user_type": "civilian"
+    };
+    final response =
+        await client.postToken(endpoint: "start_or_stop_beeep", body: body);
+    return response.fold((l) => Left(l), (r) => Right(true));
+    
+  }
+
+  @override
+  Future<Either<Failure, bool>> sendLocation(
+      double latitude, double longitude) async {
+    final body = {
+      "longitude": longitude.toString(),
+      "latitude": latitude.toString(),
+      "user_type": "civilian"
+    };
+    final response =
+        await client.postToken(endpoint: "add_location", body: body);
+    return response.fold((l) => Left(l), (r) => Right(true));
+    ;
   }
 }

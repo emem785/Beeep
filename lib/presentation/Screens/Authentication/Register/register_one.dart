@@ -3,7 +3,6 @@ import 'package:beep/core/widgets/common_widgets/cus_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'package:beep/application/blocs/register_bloc/register_bloc.dart';
 
 class RegisterOne extends StatefulWidget {
@@ -109,7 +108,10 @@ class _RegisterOneState extends State<RegisterOne> {
                                 arguments: {"phone": _phoneNumber.text}),
                             error: (e) {
                               return e.failure.maybeMap(
-                                  orElse: () => 1,
+                                  orElse: () =>
+                                      _key.currentState.showSnackBar(SnackBar(
+                                        content: Text(e.failure.message),
+                                      )),
                                   userExist: (value) =>
                                       _key.currentState.showSnackBar(SnackBar(
                                         content: Text(value.message),

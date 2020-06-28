@@ -1,12 +1,9 @@
 import 'package:beep/core/utils/StyleGuide.dart';
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
-import 'package:beep/infrastructure/models/lawyers.dart';
 import 'package:beep/infrastructure/models/user.dart';
-import 'package:beep/presentation/Screens/MenuPages/profile_pages/change_password_three.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'package:beep/application/blocs/user_bloc/user_bloc.dart';
 
 class ProfileMenu extends StatefulWidget {

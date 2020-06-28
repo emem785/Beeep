@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:beep/core/error/failure.dart';
-import 'package:beep/domain/Interface/api.dart';
-import 'package:beep/domain/Interface/storage.dart';
+import 'package:beep/domain/Interface/api_interface.dart';
+import 'package:beep/domain/Interface/local_storage_interface.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
@@ -43,7 +43,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserError(l);
       }, (r) async* {
         await localStorageInterface.cacheUser(jsonEncode(r));
-        yield UserUpdated("User Updated");
+        yield UserUpdated("Changes Saved");
       });
     }, addBuddy: (e) async* {
       final response = await apiInterface.addBuddy(

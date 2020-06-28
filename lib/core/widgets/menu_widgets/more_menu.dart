@@ -4,8 +4,6 @@ import 'package:beep/presentation/Screens/MenuPages/profile_pages/profiles_menu.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
-import 'package:beep/core/utils/enums.dart';
 import 'package:beep/application/blocs/user_bloc/user_bloc.dart';
 
 import 'menu_item.dart';
@@ -44,7 +42,7 @@ class MoreMenu extends StatelessWidget {
               child: InkWell(
                 onTap: () => userBloc.add(InsertUser()),
                 child: MenuItem(
-                    icon: SvgPicture.asset('assets/images/profile.svg'),
+                    icon: SvgPicture.asset('assets/images/User.svg'),
                     mainText: 'Profile',
                     subText: 'Edit your profile details'),
               ),
@@ -53,7 +51,7 @@ class MoreMenu extends StatelessWidget {
             InkWell(
               onTap: () {},
               child: MenuItem(
-                  icon: SvgPicture.asset('assets/images/invite.svg'),
+                  icon: SvgPicture.asset('assets/images/Share.svg'),
                   mainText: 'Invite',
                   subText: 'Spread the word'),
             ),

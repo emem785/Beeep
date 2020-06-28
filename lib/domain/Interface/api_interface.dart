@@ -3,8 +3,6 @@ import 'dart:core';
 import 'package:beep/core/error/failure.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:dartz/dartz.dart';
-import 'package:injectable/injectable.dart';
-
 
 abstract class ApiInterface {
   Future<Either<Failure, bool>> registerUser(String firstName, String lastName,
@@ -19,6 +17,6 @@ abstract class ApiInterface {
       String email, String phoneNumber, String twitterHandle);
   Future<Either<Failure, bool>> addBuddy(String firstName, String lastName,
       String phoneNumber, String relationship);
-
-  Future signOut();
+  Future<Either<Failure, bool>> beep(String action,double latitude, double longitude);
+  Future<Either<Failure, bool>> sendLocation(double  latitude, double longitude);
 }

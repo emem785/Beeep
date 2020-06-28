@@ -73,7 +73,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     context, '/ForgotPassword2',arguments: {"phone": _phoneNumber.text});
                               }
                             },
-                            text: 'Continue'),
+                            text: 'Request Code'),
                       )
                     ],
                   ))

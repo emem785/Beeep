@@ -155,7 +155,7 @@ class _ForgotPasswordTwoState extends State<ForgotPasswordTwo> {
                           return state.maybeMap(
                               orElse: () => 1,
                               verifyComplete: (u) => Navigator.pushNamed(
-                                  context, '/RegisterThree'),
+                                  context, '/ForgotPassword3'),
                               error: (e) =>
                                   _key.currentState.showSnackBar(SnackBar(
                                     content: Text(e.failure.message),

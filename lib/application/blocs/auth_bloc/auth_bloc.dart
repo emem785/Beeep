@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:beep/domain/Interface/storage.dart';
+import 'package:beep/domain/Interface/local_storage_interface.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';

@@ -1,13 +1,11 @@
-import 'package:beep/core/utils/StyleGuide.dart';
 import 'package:beep/core/utils/enums.dart';
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:beep/core/widgets/common_widgets/cus_text.dart';
-import 'package:beep/infrastructure/models/buddy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
+
 import '../../../../../application/blocs/user_bloc/user_bloc.dart';
 
 class SetupBeepThree extends StatefulWidget {
