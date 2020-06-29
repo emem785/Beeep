@@ -44,6 +44,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
       apiInterface.beep("stop", location.latitude, location.longitude);
       yield NotBroadcasting();
     }, resume: (e) async* {
+      final location = await userLocation.getLocation();
+      apiInterface.beep("start", location.latitude, location.longitude);
       _subscription.resume();
       yield Broadcasting();
     });

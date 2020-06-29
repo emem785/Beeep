@@ -9,8 +9,8 @@ class User {
   String address;
   String email;
   String phone;
-  Null longitude;
-  Null latitude;
+  double longitude;
+  double latitude;
   bool isVerified;
   String image;
 

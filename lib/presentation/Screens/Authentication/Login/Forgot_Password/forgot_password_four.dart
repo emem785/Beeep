@@ -1,8 +1,8 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:beep/core/widgets/common_widgets/cus_text.dart';
+import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../../../application/blocs/user_bloc/user_bloc.dart';
 
 class ForgotPasswordFour extends StatefulWidget {
@@ -80,14 +80,7 @@ class _ForgotPasswordFourState extends State<ForgotPasswordFour> {
                         builder: (_, state) {
                           return state.maybeMap(
                               orElse: () => SizedBox(),
-                              userUpdating: (u) => Center(
-                                      child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 0, vertical: 8),
-                                    child: Center(
-                                        child: SpinKitWave(
-                                            color: Colors.green, size: 30)),
-                                  )));
+                              userUpdating: (u) => LoadingIndicator());
                         },
                       ),
                       Padding(

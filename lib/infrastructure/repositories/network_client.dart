@@ -19,7 +19,7 @@ class NetworkClient implements NetworkInterface {
   final LocalStorageInterface localStorageInterface;
 
   NetworkClient({@required this.localStorageInterface});
-
+  //Authenticated Request
   @override
   Future<Either<Failure, Map<String, dynamic>>> postToken(
       {endpoint, body}) async {
@@ -61,14 +61,47 @@ class NetworkClient implements NetworkInterface {
   }
 
   @override
+  Future<Either<Failure, Map<String, dynamic>>> getToken(endpoint,
+      [data]) async {
+    final url = "$URL_SHORT$endpoint${data != null ? '/' + data : ""}";
+    final token = await localStorageInterface.getToken().then((value) {
+      return value.fold((l) => -1, (r) => jsonDecode(r));
+    });
+    final userMap = await localStorageInterface.getUser().then((value) {
+      return value.fold((l) => -1, (r) => jsonDecode(r));
+    });
+    final phone = userMap["phone"].toString();
+
+    final Map<String, String> headers = {
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: token,
+      "phone": phone
+    };
+    try {
+      final jsonResponse = await http
+          .get(url, headers: headers)
+          .timeout(const Duration(seconds: 10));
+      if (jsonResponse.statusCode == 201) {
+        final response = jsonDecode(jsonResponse.body);
+        return Right(response);
+      } else {
+        return Left(ServerFailure("Server Error"));
+      }
+    } on TimeoutException {
+      return Left(ServerFailure("Request Timeout"));
+    }
+  }
+
+  // Unauthenticated requests
+
+  @override
   Future<Either<Failure, Map<String, dynamic>>> get(endPoint, [data]) async {
     final url = URL + endPoint + "/" + data ?? "";
     try {
       final jsonResponse =
           await http.get(url).timeout(const Duration(seconds: 10));
       if (jsonResponse.statusCode == 200) {
-        final response =
-            jsonDecode(jsonResponse.body).timeout(const Duration(seconds: 10));
+        final response = jsonDecode(jsonResponse.body);
         return Right(response);
       } else {
         return Left(ServerFailure("Server Error"));

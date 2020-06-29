@@ -94,18 +94,3 @@ class _HomeMapState extends State<HomeMap> {
     );
   }
 }
-
-class TestPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraint) {
-        return Container(
-            color: Colors.white,
-            height: constraint.maxHeight,
-            width: constraint.maxWidth,
-            child: MoreMenu());
-      },
-    );
-  }
-}

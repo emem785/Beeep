@@ -8,12 +8,12 @@ import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
 class AuthController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc,AuthState>(
-      builder: (_,state){
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (_, state) {
         return state.map(
-          initial: (i) => Container(color: Colors.white),
-          authenticated: (a) => HomeScreen(),
-          unauthenticated: (u) => SplashScreen());
+            initial: (i) => Container(color: Colors.white),
+            authenticated: (a) => HomeScreen(),
+            unauthenticated: (u) => SplashScreen());
       },
     );
   }

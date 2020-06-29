@@ -1,3 +1,4 @@
+import 'package:beep/core/widgets/receive_beep.dart';
 import 'package:beep/presentation/Screens/AppPages/home_screen.dart';
 import 'package:beep/presentation/Screens/AppPages/menu_pages/upgrade_plan.dart';
 import 'package:beep/presentation/Screens/AppPages/menu_pages/upgrade_plan2.dart';
@@ -36,6 +37,10 @@ class RouteGenerator {
 
         case '/HomeScreen':
           screen = HomeScreen();
+          break;
+
+        case '/ReceiveBeep':
+          screen = ReceiveBeep(phone: args["phone"],);
           break;
         //Registration Pages
 

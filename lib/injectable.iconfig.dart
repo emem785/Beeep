@@ -16,7 +16,9 @@ import 'package:beep/domain/Interface/location_interface.dart';
 import 'package:beep/infrastructure/repositories/http_api.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
+import 'package:beep/application/blocs/lawyer_bloc/lawyer_bloc.dart';
 import 'package:beep/application/blocs/location_bloc/location_bloc.dart';
+import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
 import 'package:beep/application/blocs/register_bloc/register_bloc.dart';
 import 'package:beep/application/blocs/sign_in_bloc/signin_bloc.dart';
 import 'package:beep/application/blocs/user_bloc/user_bloc.dart';
@@ -36,7 +38,11 @@ void $initGetIt(GetIt g, {String environment}) {
       client: g<NetworkInterface>()));
   g.registerFactory<AuthBloc>(
       () => AuthBloc(localStorageInterface: g<LocalStorageInterface>()));
+  g.registerFactory<LawyerBloc>(
+      () => LawyerBloc(apiInterface: g<ApiInterface>()));
   g.registerFactory<LocationBloc>(() => LocationBloc(
+      userLocation: g<UserLocation>(), apiInterface: g<ApiInterface>()));
+  g.registerFactory<MapBloc>(() => MapBloc(
       userLocation: g<UserLocation>(), apiInterface: g<ApiInterface>()));
   g.registerFactory<RegisterBloc>(
       () => RegisterBloc(apiInterface: g<ApiInterface>()));

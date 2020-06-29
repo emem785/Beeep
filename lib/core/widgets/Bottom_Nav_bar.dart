@@ -1,3 +1,4 @@
+import 'package:beep/application/blocs/lawyer_bloc/lawyer_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../application/blocs/navigation_bloc/navigation_bloc.dart';
@@ -22,6 +23,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     final navigationBloc = BlocProvider.of<NavigationBloc>(context);
+    final lawyerBloc = BlocProvider.of<LawyerBloc>(context);
     return Container(
       color: Colors.white,
       height: 50,
@@ -34,8 +36,10 @@ class _BottomBarState extends State<BottomBar> {
               InkWell(
                 onTap: () {
                   widget.onPressed(i);
-
                   navigationBloc.add(ChangeNavState(i));
+                  if (i == 1) {
+                    lawyerBloc.add(GetLawyers());
+                  }
                 },
                 child: NavWidget(
                   itemText: navList[i],

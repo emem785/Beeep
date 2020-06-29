@@ -1,8 +1,8 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:beep/core/widgets/common_widgets/cus_text.dart';
+import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:beep/application/blocs/register_bloc/register_bloc.dart';
 
 class RegisterOne extends StatefulWidget {
@@ -93,13 +93,7 @@ class _RegisterOneState extends State<RegisterOne> {
                           builder: (__, state) {
                         return state.maybeMap(
                             orElse: () => SizedBox(),
-                            loading: (m) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 0, vertical: 8),
-                                  child: Center(
-                                      child: SpinKitWave(
-                                          color: Colors.green, size: 30)),
-                                ));
+                            loading: (m) => LoadingIndicator());
                       }, listener: (_, state) {
                         return state.maybeMap(
                             orElse: () => 1,

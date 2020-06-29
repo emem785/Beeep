@@ -7,4 +7,5 @@ abstract class NetworkInterface {
   Future<Either<Failure, Map<String, dynamic>>> post({endPoint, body});
   Future<Either<Failure, Map<String, dynamic>>> get(endPoint, [data]);
   Future<Either<Failure, Map<String, dynamic>>> postToken({endpoint,body});
+  Future<Either<Failure, Map<String, dynamic>>> getToken(endpoint,[data]);
 }

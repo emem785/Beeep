@@ -1,9 +1,9 @@
 import 'package:beep/core/utils/StyleGuide.dart';
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
+import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:beep/application/blocs/user_bloc/user_bloc.dart';
 
 class ProfileMenu extends StatefulWidget {
@@ -103,14 +103,7 @@ class _ProfileMenuState extends State<ProfileMenu> {
                       builder: (_, state) {
                         return state.maybeMap(
                             orElse: () => SizedBox(),
-                            userUpdating: (u) => Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 0, vertical: 8),
-                                  child: Center(
-                                      child:
-                                          SpinKitWave(color: Colors.green,size: 30)),
-                                )));
+                            userUpdating: (u) => LoadingIndicator());
                       },
                     ),
                     CommonButton(

@@ -1,10 +1,9 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:beep/core/widgets/common_widgets/cus_text.dart';
-import 'package:beep/presentation/Screens/AppPages/home_screen.dart';
+import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:beep/application/blocs/sign_in_bloc/signin_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoginOne extends StatefulWidget {
   @override
@@ -91,13 +90,7 @@ class _LoginOneState extends State<LoginOne> {
                           builder: (_, state) {
                         return state.maybeMap(
                             orElse: () => SizedBox(),
-                            authenticating: (a) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 0, vertical: 8),
-                                  child: Center(
-                                      child: SpinKitWave(
-                                          color: Colors.green, size: 30)),
-                                ));
+                            authenticating: (a) => LoadingIndicator());
                       }, listener: (_, state) {
                         state.maybeMap(
                             orElse: () => 1,
