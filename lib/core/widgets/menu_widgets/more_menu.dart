@@ -16,7 +16,6 @@ class MoreMenu extends StatelessWidget {
     final navBloc = BlocProvider.of<NavigationBloc>(context);
     return Container(
       color: Colors.white,
-      width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 24),
         child: Column(

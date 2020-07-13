@@ -1,8 +1,8 @@
 import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
-import 'package:beep/core/widgets/Bottom_Nav_bar.dart';
-import 'package:beep/core/widgets/map_home.dart';
+import 'package:beep/core/widgets/bottom_nav_bar_widgets/Bottom_Nav_bar.dart';
+import 'package:beep/core/widgets/bottom_nav_bar_widgets/lawyer_bottom_sheet.dart';
+import 'package:beep/core/widgets/map_widgets/map_home.dart';
 import 'package:beep/core/widgets/menu_widgets/more_menu.dart';
-import 'package:beep/core/widgets/sheet.dart';
 import 'package:beep/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
       // Parse the link and warn the user, if it is not correct,
       // but keep in mind it could be `null`.
       if (initialLink != null) {
+
+ 
         Navigator.pushNamed(context, '/ReceiveBeep',
             arguments: {"phone": initialLink.substring(33)});
       }
@@ -53,18 +55,19 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider(
           create: (_) => getIt<LawyerBloc>(),
         ),
-        BlocProvider(
-          create: (_) => getIt<MapBloc>(),
-        )
+        // BlocProvider(
+        //   create: (_) => getIt<MapBloc>(),
+        // )
       ],
-      child: LayoutBuilder(builder: (context, size) {
-        return Scaffold(
+      child: 
+        Scaffold(
           key: _globalKey,
           bottomNavigationBar: BottomBar(
             activeIndex: navIndex,
             onPressed: (i) => setState(() => navIndex = i),
           ),
           body: Container(
+            width: MediaQuery.of(context).size.width,
             child: Stack(
               children: <Widget>[
                 HomeMap(),
@@ -84,17 +87,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   alignment: Alignment.bottomCenter,
                   child: AnimatedContainer(
                     height: _height,
-                    width: size.maxWidth,
+                    width: MediaQuery.of(context).size.width,
                     duration: Duration(milliseconds: 100),
                     curve: Curves.linear,
-                    child: Sheet(),
+                    child: LawyerBottomSheet(),
                   ),
                 ),
               ],
             ),
           ),
-        );
-      }),
+        ),
+      
     );
   }
 }

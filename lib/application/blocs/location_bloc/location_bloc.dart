@@ -14,10 +14,10 @@ part 'location_bloc.freezed.dart';
 
 @injectable
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
-  final UserLocation userLocation;
+  final UserLocationInterface userLocation;
   final ApiInterface apiInterface;
-  StreamController<Location> _controller;
   StreamSubscription<Location> _subscription;
+  Stream<Location> _stream;
 
   LocationBloc({@required this.userLocation, @required this.apiInterface});
   @override
@@ -28,26 +28,27 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     LocationEvent event,
   ) async* {
     yield* event.map(broadcastLocation: (e) async* {
-      userLocation.startLocationStream();
-      _controller = userLocation.getController();
       final location = await userLocation.getLocation();
       apiInterface.beep("start", location.latitude, location.longitude);
-      _subscription = _controller.stream.listen((event) {
+      final _stream = userLocation.getStream();
+      _subscription = _stream.listen((event) {
         apiInterface.sendLocation(event.latitude, event.longitude);
-        print(event.longitude);
         _subscription.pause(Future.delayed(Duration(seconds: 5)));
       });
-      yield Broadcasting();
+      yield Broadcasting(_stream, location);
     }, stopBroadcast: (e) async* {
-      _subscription.pause();
+      _subscription.cancel();
       final location = await userLocation.getLocation();
       apiInterface.beep("stop", location.latitude, location.longitude);
-      yield NotBroadcasting();
+      yield NotBroadcasting(location);
     }, resume: (e) async* {
       final location = await userLocation.getLocation();
-      apiInterface.beep("start", location.latitude, location.longitude);
-      _subscription.resume();
-      yield Broadcasting();
+      final _stream = userLocation.getStream();
+      _subscription = _stream.listen((event) {
+        apiInterface.sendLocation(event.latitude, event.longitude);
+        _subscription.pause(Future.delayed(Duration(seconds: 5)));
+      });
+      yield Broadcasting(_stream, location);
     });
   }
 }

@@ -24,20 +24,6 @@ class _SetupBeepThreeState extends State<SetupBeepThree> {
   final _formKey = GlobalKey<FormState>();
   final _key = GlobalKey<ScaffoldState>();
   FocusNode focusNode = FocusNode();
-  final relationships = [
-    DropdownMenuItem(child: Text('father')),
-    DropdownMenuItem(child: Text('mother')),
-    DropdownMenuItem(child: Text('brother')),
-    DropdownMenuItem(child: Text('sister')),
-    DropdownMenuItem(child: Text('uncle')),
-    DropdownMenuItem(child: Text('aunty')),
-    DropdownMenuItem(child: Text('friend')),
-    DropdownMenuItem(child: Text('colleague')),
-    DropdownMenuItem(child: Text('boss')),
-    DropdownMenuItem(child: Text('pastor')),
-    DropdownMenuItem(child: Text('mentor')),
-    DropdownMenuItem(child: Text('employee')),
-  ];
 
   @override
   void initState() {
@@ -148,6 +134,7 @@ class _SetupBeepThreeState extends State<SetupBeepThree> {
                         userBloc.add(AddBuddy(_firstName.text, _lastName.text,
                             _phoneNumber.text, _relationship.text));
                       }
+                      // Navigator.pushNamed(context, '/SetupBeepFour');
                     },
                   ),
                 ),

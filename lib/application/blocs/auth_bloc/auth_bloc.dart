@@ -35,6 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }, signOut: (e) async* {
       await localStorageInterface.removeUser();
       await localStorageInterface.removeToken();
+      await localStorageInterface.removeBuddy();
     });
   }
 }

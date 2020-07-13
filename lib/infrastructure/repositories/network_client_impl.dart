@@ -15,13 +15,13 @@ const URL = 'http://beeep.pythonanywhere.com/auth/';
 const URL_SHORT = 'http://beeep.pythonanywhere.com/';
 
 @LazySingleton(as: NetworkInterface)
-class NetworkClient implements NetworkInterface {
+class NetworkClientImpl implements NetworkInterface {
   final LocalStorageInterface localStorageInterface;
 
-  NetworkClient({@required this.localStorageInterface});
+  NetworkClientImpl({@required this.localStorageInterface});
   //Authenticated Request
   @override
-  Future<Either<Failure, Map<String, dynamic>>> postToken(
+  Future<Either<Failure, Map<String, dynamic>>> postAuth(
       {endpoint, body}) async {
     final url = URL_SHORT + endpoint;
     final token = await localStorageInterface.getToken().then((value) {
@@ -42,6 +42,7 @@ class NetworkClient implements NetworkInterface {
       final jsonResponse = await http
           .post(url, body: jsonEncode(body), headers: headers)
           .timeout(const Duration(seconds: 10));
+          
       if (jsonResponse.statusCode == 201) {
         final response = jsonDecode(jsonResponse.body);
         return Right(response);
@@ -57,11 +58,14 @@ class NetworkClient implements NetworkInterface {
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
+    }on SocketException{
+      return Left(ServerFailure("Server error"));
     }
+
   }
 
   @override
-  Future<Either<Failure, Map<String, dynamic>>> getToken(endpoint,
+  Future<Either<Failure, Map<String, dynamic>>> getAuth(endpoint,
       [data]) async {
     final url = "$URL_SHORT$endpoint${data != null ? '/' + data : ""}";
     final token = await localStorageInterface.getToken().then((value) {
@@ -89,6 +93,8 @@ class NetworkClient implements NetworkInterface {
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
+    }on SocketException{
+      return Left(ServerFailure("Server error"));
     }
   }
 
@@ -108,7 +114,10 @@ class NetworkClient implements NetworkInterface {
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
+    }on SocketException{
+      return Left(ServerFailure("Server error"));
     }
+
   }
 
   @override
@@ -136,6 +145,9 @@ class NetworkClient implements NetworkInterface {
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
+    }on SocketException{
+      return Left(ServerFailure("Server error"));
     }
+
   }
 }

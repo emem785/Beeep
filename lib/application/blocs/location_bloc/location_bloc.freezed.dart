@@ -361,12 +361,18 @@ class _$LocationStateTearOff {
     return const Initial();
   }
 
-  Broadcasting broadcasting() {
-    return const Broadcasting();
+  Broadcasting broadcasting(
+      Stream<Location> locationStream, Location location) {
+    return Broadcasting(
+      locationStream,
+      location,
+    );
   }
 
-  NotBroadcasting notBroadcasting() {
-    return const NotBroadcasting();
+  NotBroadcasting notBroadcasting(Location location) {
+    return NotBroadcasting(
+      location,
+    );
   }
 }
 
@@ -377,14 +383,15 @@ mixin _$LocationState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required Result broadcasting(),
-    @required Result notBroadcasting(),
+    @required
+        Result broadcasting(Stream<Location> locationStream, Location location),
+    @required Result notBroadcasting(Location location),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result broadcasting(),
-    Result notBroadcasting(),
+    Result broadcasting(Stream<Location> locationStream, Location location),
+    Result notBroadcasting(Location location),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -451,8 +458,9 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required Result broadcasting(),
-    @required Result notBroadcasting(),
+    @required
+        Result broadcasting(Stream<Location> locationStream, Location location),
+    @required Result notBroadcasting(Location location),
   }) {
     assert(initial != null);
     assert(broadcasting != null);
@@ -464,8 +472,8 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result broadcasting(),
-    Result notBroadcasting(),
+    Result broadcasting(Stream<Location> locationStream, Location location),
+    Result notBroadcasting(Location location),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -512,6 +520,7 @@ abstract class $BroadcastingCopyWith<$Res> {
   factory $BroadcastingCopyWith(
           Broadcasting value, $Res Function(Broadcasting) then) =
       _$BroadcastingCopyWithImpl<$Res>;
+  $Res call({Stream<Location> locationStream, Location location});
 }
 
 class _$BroadcastingCopyWithImpl<$Res> extends _$LocationStateCopyWithImpl<$Res>
@@ -522,48 +531,83 @@ class _$BroadcastingCopyWithImpl<$Res> extends _$LocationStateCopyWithImpl<$Res>
 
   @override
   Broadcasting get _value => super._value as Broadcasting;
+
+  @override
+  $Res call({
+    Object locationStream = freezed,
+    Object location = freezed,
+  }) {
+    return _then(Broadcasting(
+      locationStream == freezed
+          ? _value.locationStream
+          : locationStream as Stream<Location>,
+      location == freezed ? _value.location : location as Location,
+    ));
+  }
 }
 
 class _$Broadcasting implements Broadcasting {
-  const _$Broadcasting();
+  const _$Broadcasting(this.locationStream, this.location)
+      : assert(locationStream != null),
+        assert(location != null);
+
+  @override
+  final Stream<Location> locationStream;
+  @override
+  final Location location;
 
   @override
   String toString() {
-    return 'LocationState.broadcasting()';
+    return 'LocationState.broadcasting(locationStream: $locationStream, location: $location)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Broadcasting);
+    return identical(this, other) ||
+        (other is Broadcasting &&
+            (identical(other.locationStream, locationStream) ||
+                const DeepCollectionEquality()
+                    .equals(other.locationStream, locationStream)) &&
+            (identical(other.location, location) ||
+                const DeepCollectionEquality()
+                    .equals(other.location, location)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(locationStream) ^
+      const DeepCollectionEquality().hash(location);
+
+  @override
+  $BroadcastingCopyWith<Broadcasting> get copyWith =>
+      _$BroadcastingCopyWithImpl<Broadcasting>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required Result broadcasting(),
-    @required Result notBroadcasting(),
+    @required
+        Result broadcasting(Stream<Location> locationStream, Location location),
+    @required Result notBroadcasting(Location location),
   }) {
     assert(initial != null);
     assert(broadcasting != null);
     assert(notBroadcasting != null);
-    return broadcasting();
+    return broadcasting(locationStream, location);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result broadcasting(),
-    Result notBroadcasting(),
+    Result broadcasting(Stream<Location> locationStream, Location location),
+    Result notBroadcasting(Location location),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (broadcasting != null) {
-      return broadcasting();
+      return broadcasting(locationStream, location);
     }
     return orElse();
   }
@@ -598,13 +642,19 @@ class _$Broadcasting implements Broadcasting {
 }
 
 abstract class Broadcasting implements LocationState {
-  const factory Broadcasting() = _$Broadcasting;
+  const factory Broadcasting(
+      Stream<Location> locationStream, Location location) = _$Broadcasting;
+
+  Stream<Location> get locationStream;
+  Location get location;
+  $BroadcastingCopyWith<Broadcasting> get copyWith;
 }
 
 abstract class $NotBroadcastingCopyWith<$Res> {
   factory $NotBroadcastingCopyWith(
           NotBroadcasting value, $Res Function(NotBroadcasting) then) =
       _$NotBroadcastingCopyWithImpl<$Res>;
+  $Res call({Location location});
 }
 
 class _$NotBroadcastingCopyWithImpl<$Res>
@@ -616,48 +666,70 @@ class _$NotBroadcastingCopyWithImpl<$Res>
 
   @override
   NotBroadcasting get _value => super._value as NotBroadcasting;
+
+  @override
+  $Res call({
+    Object location = freezed,
+  }) {
+    return _then(NotBroadcasting(
+      location == freezed ? _value.location : location as Location,
+    ));
+  }
 }
 
 class _$NotBroadcasting implements NotBroadcasting {
-  const _$NotBroadcasting();
+  const _$NotBroadcasting(this.location) : assert(location != null);
+
+  @override
+  final Location location;
 
   @override
   String toString() {
-    return 'LocationState.notBroadcasting()';
+    return 'LocationState.notBroadcasting(location: $location)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is NotBroadcasting);
+    return identical(this, other) ||
+        (other is NotBroadcasting &&
+            (identical(other.location, location) ||
+                const DeepCollectionEquality()
+                    .equals(other.location, location)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(location);
+
+  @override
+  $NotBroadcastingCopyWith<NotBroadcasting> get copyWith =>
+      _$NotBroadcastingCopyWithImpl<NotBroadcasting>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required Result broadcasting(),
-    @required Result notBroadcasting(),
+    @required
+        Result broadcasting(Stream<Location> locationStream, Location location),
+    @required Result notBroadcasting(Location location),
   }) {
     assert(initial != null);
     assert(broadcasting != null);
     assert(notBroadcasting != null);
-    return notBroadcasting();
+    return notBroadcasting(location);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result broadcasting(),
-    Result notBroadcasting(),
+    Result broadcasting(Stream<Location> locationStream, Location location),
+    Result notBroadcasting(Location location),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (notBroadcasting != null) {
-      return notBroadcasting();
+      return notBroadcasting(location);
     }
     return orElse();
   }
@@ -692,5 +764,8 @@ class _$NotBroadcasting implements NotBroadcasting {
 }
 
 abstract class NotBroadcasting implements LocationState {
-  const factory NotBroadcasting() = _$NotBroadcasting;
+  const factory NotBroadcasting(Location location) = _$NotBroadcasting;
+
+  Location get location;
+  $NotBroadcastingCopyWith<NotBroadcasting> get copyWith;
 }

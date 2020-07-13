@@ -1,7 +1,7 @@
-import 'package:beep/core/widgets/receive_beep.dart';
 import 'package:beep/presentation/Screens/AppPages/home_screen.dart';
 import 'package:beep/presentation/Screens/AppPages/menu_pages/upgrade_plan.dart';
 import 'package:beep/presentation/Screens/AppPages/menu_pages/upgrade_plan2.dart';
+import 'package:beep/presentation/Screens/AppPages/receive_beep_page.dart';
 import 'package:beep/presentation/Screens/Authentication/Login/Forgot_Password/forgot_password.dart';
 import 'package:beep/presentation/Screens/Authentication/Login/Forgot_Password/forgot_password_five.dart';
 import 'package:beep/presentation/Screens/Authentication/Login/Forgot_Password/forgot_password_four.dart';
@@ -11,8 +11,8 @@ import 'package:beep/presentation/Screens/Authentication/Login/login_one.dart';
 import 'package:beep/presentation/Screens/Authentication/Register/register_one.dart';
 import 'package:beep/presentation/Screens/Authentication/Register/register_three.dart';
 import 'package:beep/presentation/Screens/Authentication/Register/register_two.dart';
-import 'package:beep/presentation/Screens/Authentication/Register/setup_beep/setup_beep_four.dart';
-import 'package:beep/presentation/Screens/Authentication/Register/setup_beep/setup_beep_three.dart';
+import 'package:beep/presentation/Screens/Authentication/Register/setup_beep/setup_beep_two.dart';
+import 'package:beep/presentation/Screens/Authentication/Register/setup_beep/setup_beep.dart';
 import 'package:beep/presentation/Screens/Authentication/auth_control.dart';
 import 'package:beep/presentation/Screens/Authentication/splash_screen.dart';
 import 'package:beep/presentation/Screens/MenuPages/profile_pages/change_password_one.dart';
@@ -40,7 +40,7 @@ class RouteGenerator {
           break;
 
         case '/ReceiveBeep':
-          screen = ReceiveBeep(phone: args["phone"],);
+          screen = ReceiveBeepPage(phone: args["phone"]);
           break;
         //Registration Pages
 
@@ -103,7 +103,9 @@ class RouteGenerator {
           break;
 
         case 'ChangePasswordOne':
-          screen = ChangePasswordOne(phone: args["phone"],);
+          screen = ChangePasswordOne(
+            phone: args["phone"],
+          );
           break;
 
         case 'ChangePasswordTwo':

@@ -1,4 +1,5 @@
-import 'package:beep/core/widgets/map_home.dart';
+import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
+import 'package:beep/injectable.dart';
 import 'package:beep/presentation/Screens/AppPages/home_screen.dart';
 import 'package:beep/presentation/Screens/Authentication/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,8 @@ class AuthController extends StatelessWidget {
       builder: (_, state) {
         return state.map(
             initial: (i) => Container(color: Colors.white),
-            authenticated: (a) => HomeScreen(),
+            authenticated: (a) => BlocProvider(
+                child: HomeScreen(), create: (_) => getIt<MapBloc>()),
             unauthenticated: (u) => SplashScreen());
       },
     );

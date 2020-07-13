@@ -11,41 +11,45 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(child: icon, width: 32),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Container(
-              width: 200,
-                          child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(mainText,
-                      style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600)),
-                  Text(subText,
-                      style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500))
-                ],
+    return LayoutBuilder(
+      builder: (context, size) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(child: icon, width: 32),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Container(
+                              child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(mainText,
+                          style: TextStyle(
+                              fontFamily: 'Nunito',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600)),
+                      Text(subText,
+                          style: TextStyle(
+                              fontFamily: 'Nunito',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500))
+                    ],
+                  ),
+                ),
               ),
-            ),
+              Expanded(child: SizedBox()),
+              Padding(
+                padding: const EdgeInsets.only(left: 90.0),
+                child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Icon(Icons.keyboard_arrow_right)),
+              )
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 90.0),
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: Icon(Icons.keyboard_arrow_right)),
-          )
-        ],
-      ),
+        );
+      }
     );
   }
 }

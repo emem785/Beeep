@@ -6,24 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 
-@Injectable(as: UserLocation)
-class UserLocationImpl implements UserLocation {
+@Injectable(as: UserLocationInterface)
+class UserLocationImpl implements UserLocationInterface {
   final Geolocator geolocator;
-  StreamController<Location> _controller = StreamController<Location>();
 
   UserLocationImpl({@required this.geolocator});
 
   @override
-  void startLocationStream() {
-    geolocator.getPositionStream().listen((event) {
-      _controller
-          .add(Location(latitude: event.latitude, longitude: event.longitude));
-    });
-  }
-
-  @override
-  StreamController<Location> getController() {
-    return _controller;
+  Stream<Location> getStream() {
+    return geolocator.getPositionStream().map((event) =>
+        Location(latitude: event.latitude, longitude: event.longitude)).asBroadcastStream();
   }
 
   @override

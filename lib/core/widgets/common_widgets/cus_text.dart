@@ -29,8 +29,7 @@ class CusText extends StatelessWidget {
             border: OutlineInputBorder(gapPadding: 0.1),
             contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 6),
           ),
-          
-        )
+        ),
       ],
     );
   }
@@ -58,6 +57,8 @@ class CusTextNum extends StatelessWidget {
           ),
         ),
         TextFormField(
+          toolbarOptions: ToolbarOptions(
+              copy: true, paste: true, selectAll: true, cut: true),
           controller: controller,
           validator: isOptional
               ? null
@@ -102,6 +103,8 @@ class _CusTextPasState extends State<CusTextPas> {
           ),
         ),
         TextFormField(
+          toolbarOptions: ToolbarOptions(
+              copy: true, paste: true, selectAll: true, cut: true),
           controller: widget.controller,
           enableInteractiveSelection: false,
           obscureText: obscureText,

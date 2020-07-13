@@ -3,6 +3,7 @@ import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:beep/domain/Interface/network_interface.dart';
 import 'package:beep/domain/Interface/local_storage_interface.dart';
+import 'package:beep/infrastructure/models/buddy.dart';
 import 'package:beep/infrastructure/models/lawyers.dart';
 import 'package:beep/infrastructure/models/location.dart';
 import 'package:beep/infrastructure/models/user.dart';
@@ -14,11 +15,11 @@ const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
 @LazySingleton(as: ApiInterface)
-class HttpApiRepository implements ApiInterface {
+class HttpApiImpl implements ApiInterface {
   final LocalStorageInterface localStorageRepo;
   final NetworkInterface client;
 
-  HttpApiRepository({@required this.localStorageRepo, @required this.client});
+  HttpApiImpl({@required this.localStorageRepo, @required this.client});
 
   //Authentication
   @override
@@ -44,8 +45,10 @@ class HttpApiRepository implements ApiInterface {
     return response.fold((l) => Left(l), (r) async {
       final userMap = r["response"]["content"]["details"];
       final tokenMap = r["response"]["auth_keys"]["access_token"];
+      final buddyMap = r["response"]["content"]["details"]["buddies"][0];
       await localStorageRepo.cacheUser(jsonEncode(userMap));
       await localStorageRepo.cacheToken(jsonEncode(tokenMap));
+      await localStorageRepo.cacheBuddy(jsonEncode(buddyMap));
       final user = User.fromJson(userMap);
       return Right(user);
     });
@@ -77,7 +80,7 @@ class HttpApiRepository implements ApiInterface {
   }
 
   @override
-  Future<Either<Failure, bool>> addBuddy(String firstName, String lastName,
+  Future<Either<Failure, Buddy>> addBuddy(String firstName, String lastName,
       String phoneNumber, String relationship) async {
     final body = {
       "firstname": firstName,
@@ -85,8 +88,11 @@ class HttpApiRepository implements ApiInterface {
       "phone": phoneNumber,
       "relationship": relationship
     };
-    final response = await client.postToken(endpoint: "add_buddy", body: body);
-    return response.fold((l) => Left(l), (r) => Right(true));
+    final response = await client.postAuth(endpoint: "add_buddy", body: body);
+    return response.fold((l) => Left(l), (r) {
+      final buddyMap = r["response"]["content"]["details"];
+      return Right(Buddy.fromJson(buddyMap));
+    });
   }
 
   //Interactions
@@ -103,7 +109,7 @@ class HttpApiRepository implements ApiInterface {
     };
 
     final response =
-        await client.postToken(endpoint: "update_details", body: body);
+        await client.postAuth(endpoint: "update_details", body: body);
     return response.fold((l) => Left(l), (r) async {
       final userMap = r["response"]["content"]["details"];
       final user = User.fromJson(userMap);
@@ -115,7 +121,7 @@ class HttpApiRepository implements ApiInterface {
   Future<Either<Failure, bool>> updatePassword(String password) async {
     final body = {"password": password};
     final response =
-        await client.postToken(endpoint: "update_details", body: body);
+        await client.postAuth(endpoint: "update_details", body: body);
     return response.fold((l) => Left(l), (r) => Right(true));
   }
 
@@ -129,7 +135,7 @@ class HttpApiRepository implements ApiInterface {
       "user_type": "civilian"
     };
     final response =
-        await client.postToken(endpoint: "start_or_stop_beeep", body: body);
+        await client.postAuth(endpoint: "start_or_stop_beeep", body: body);
     return response.fold((l) => Left(l), (r) => Right(true));
   }
 
@@ -142,7 +148,7 @@ class HttpApiRepository implements ApiInterface {
       "user_type": "civilian"
     };
     final response =
-        await client.postToken(endpoint: "add_location", body: body);
+        await client.postAuth(endpoint: "add_location", body: body);
     return response.fold((l) => Left(l), (r) => Right(true));
   }
 
@@ -150,7 +156,7 @@ class HttpApiRepository implements ApiInterface {
   Stream<Location> getLocation(String phoneNumber) async* {
     while (true) {
       await Future.delayed(Duration(seconds: 3));
-      final response = await client.getToken("get_user_location", phoneNumber);
+      final response = await client.getAuth("get_user_location", phoneNumber);
       yield* response.fold((l) async* {
         yield Location(latitude: 0, longitude: 0);
       }, (r) async* {
@@ -164,13 +170,10 @@ class HttpApiRepository implements ApiInterface {
 
   @override
   Future<Either<Failure, List<Lawyer>>> getLawyers() async {
-    final response = await client.getToken("get_closest_lawyers");
+    final response = await client.getAuth("get_closest_lawyers");
     return response.fold((l) => Left(l), (r) {
-      List<Lawyer> lawyerList = [];
-      final lawyerMap = r["response"]["content"]["details"]["0"];
-      lawyerList.add(Lawyer.fromJson(lawyerMap));
-
-      // print(lawyerList.toString());
+      final lawyerMap = r["response"]["content"]["details"];
+      List<Lawyer> lawyerList = List.from(lawyerMap).map((m) => Lawyer.fromJson(m)).toList();
       return Right(lawyerList);
     });
   }

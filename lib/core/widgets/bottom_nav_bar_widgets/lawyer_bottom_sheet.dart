@@ -3,14 +3,15 @@ import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../utils/StyleGuide.dart';
 
-class Sheet extends StatefulWidget {
+class LawyerBottomSheet extends StatefulWidget {
   @override
-  _SheetState createState() => _SheetState();
+  _LawyerBottomSheetState createState() => _LawyerBottomSheetState();
 }
 
-class _SheetState extends State<Sheet> {
-
+class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,23 +52,19 @@ class _SheetState extends State<Sheet> {
                                   SvgPicture.asset('assets/images/logo.svg')),
                           title: Text(
                             law.firstname + "" + law.lastname,
-                            style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16),
+                            style: nunitoMidBold,
                           ),
                           subtitle: Text(
-                            '${law.distance.toStringAsFixed(2)} km away',
-                            style:
-                                TextStyle(fontFamily: 'Nunito', fontSize: 16),
-                          ),
+                              '${law.distance.toStringAsFixed(2)} km away',
+                              style: nunitoMid),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               GestureDetector(
                                 child: Icon(Icons.message),
                                 onTap: () async {
-                                  var url = 'sms:${law.phone}';
+                                  String url = 'sms:${law.phone}';
+                                  await launch(url);
                                 },
                               ),
                               Padding(
@@ -75,7 +72,8 @@ class _SheetState extends State<Sheet> {
                                 child: GestureDetector(
                                   child: Icon(Icons.call),
                                   onTap: () async {
-                                    var url = 'tel:${law.phone}';
+                                    String url = 'tel:${law.phone}';
+                                    await launch(url);
                                   },
                                 ),
                               ),

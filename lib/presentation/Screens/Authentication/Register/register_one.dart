@@ -78,10 +78,12 @@ class _RegisterOneState extends State<RegisterOne> {
               Form(
                   key: _formKey,
                   child: Column(
+
                     children: <Widget>[
                       CusText(controller: _firstName, title: 'First Name'),
                       CusText(controller: _lastName, title: 'Last Name'),
                       CusText(controller: _email, title: 'Email'),
+                    
                       CusTextNum(
                           controller: _phoneNumber, title: 'Phone Number'),
                       CusText(

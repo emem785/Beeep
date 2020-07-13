@@ -1,9 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
+import 'package:beep/domain/Interface/local_storage_interface.dart';
 import 'package:beep/domain/Interface/location_interface.dart';
+import 'package:beep/infrastructure/models/buddy.dart';
 import 'package:beep/infrastructure/models/location.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,11 +19,16 @@ part 'map_bloc.freezed.dart';
 
 @injectable
 class MapBloc extends Bloc<MapEvent, MapState> {
-  final UserLocation userLocation;
+  final UserLocationInterface userLocation;
   final ApiInterface apiInterface;
+  final LocalStorageInterface localStorageInterface;
   StreamSubscription<Location> _subscription;
 
-  MapBloc({@required this.userLocation, @required this.apiInterface});
+  MapBloc({
+    @required this.userLocation,
+    @required this.apiInterface,
+    @required this.localStorageInterface,
+  });
   @override
   MapState get initialState => MapInitial();
 
@@ -26,17 +36,31 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Stream<MapState> mapEventToState(
     MapEvent event,
   ) async* {
+    yield MapLoading();
     yield* event.map(getLocationBroadcast: (e) async* {
-      _subscription = apiInterface.getLocation("08011111111").listen((event) {
-        print(event.longitude);
-      });
-      yield MapBroadcasting();
+      final response = await localStorageInterface.getBuddy();
+      final buddy =
+          response.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
+      final location = await apiInterface.getLocation(buddy.phonenumber).first;
+      yield MapBroadcasting(
+          buddy,
+          apiInterface.getLocation(buddy.phonenumber).asBroadcastStream(),
+          location);
     }, stopSecondBroadcast: (e) async* {
-      _subscription.pause();
-      yield MapNotBroadcasting();
+      final response = await localStorageInterface.getBuddy();
+      final buddy =
+          response.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
+      final location = await apiInterface.getLocation(buddy.phonenumber).first;
+      yield MapNotBroadcasting(location);
     }, resumeSecondBroadcast: (e) async* {
-      _subscription.resume();
-      yield MapBroadcasting();
+      final response = await localStorageInterface.getBuddy();
+      final buddy =
+          response.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
+      final location = await apiInterface.getLocation(buddy.phonenumber).first;
+      yield MapBroadcasting(
+          buddy,
+          apiInterface.getLocation(buddy.phonenumber).asBroadcastStream(),
+          location);
     });
   }
 }

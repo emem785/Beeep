@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+
 class Location {
   final double latitude;
   final double longitude;

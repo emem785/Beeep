@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:beep/domain/Interface/local_storage_interface.dart';
+import 'package:beep/infrastructure/models/buddy.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
@@ -39,6 +40,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }, updateUser: (e) async* {
       final response = await apiInterface.updateUser(
           e.firstName, e.lastName, e.email, e.phoneNumber, e.twitterHandle);
+
       yield* response.fold((l) async* {
         yield UserError(l);
       }, (r) async* {
@@ -48,9 +50,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }, addBuddy: (e) async* {
       final response = await apiInterface.addBuddy(
           e.firstName, e.lastName, e.phoneNumber, e.relationship);
+
       yield* response.fold((l) async* {
         yield UserError(l);
       }, (r) async* {
+        await localStorageInterface.cacheBuddy(jsonEncode(r));
         yield UserUpdated("Buddy Added");
       });
     }, updatePassword: (e) async* {

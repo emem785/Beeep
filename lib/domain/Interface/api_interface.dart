@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:beep/core/error/failure.dart';
+import 'package:beep/infrastructure/models/buddy.dart';
 import 'package:beep/infrastructure/models/lawyers.dart';
 import 'package:beep/infrastructure/models/location.dart';
 import 'package:beep/infrastructure/models/user.dart';
@@ -15,7 +16,7 @@ abstract class ApiInterface {
   Future<Either<Failure, String>> getVerifyCode(String phoneNumber);
 
   Future<Either<Failure, User>> mobileVerify(String phoneNumber, String code);
-  Future<Either<Failure, bool>> addBuddy(String firstName, String lastName,
+  Future<Either<Failure, Buddy>> addBuddy(String firstName, String lastName,
       String phoneNumber, String relationship);
   //Modify user details 
   Future<Either<Failure, User>> updateUser(String firstName, String lastName,
@@ -25,6 +26,6 @@ abstract class ApiInterface {
   Future<Either<Failure, bool>> beep(
       String action, double latitude, double longitude);
   Future<Either<Failure, bool>> sendLocation(double latitude, double longitude);
-  Stream<Location> getLocation(String phoneNumber);
+   Stream<Location> getLocation(String phoneNumber);
   Future<Either<Failure, List<Lawyer>>> getLawyers();
 }

@@ -90,6 +90,8 @@ class _ForgotPasswordFourState extends State<ForgotPasswordFour> {
                               if (_formKey.currentState.validate()) {
                                 userBloc.add(UpdatePassword(_password.text));
                               }
+                              // Navigator.pushNamed(
+                              //     context, '/ForgotPassword5');
                             },
                             text: 'Reset'),
                       ),

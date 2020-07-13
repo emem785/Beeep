@@ -158,8 +158,8 @@ class _ForgotPasswordTwoState extends State<ForgotPasswordTwo> {
                               if (_formKey.currentState.validate()) {
                                 registerBloc.add(
                                     MobileVerify(widget.phone, _smsCode.text));
-                              // Navigator.pushNamed(context, '/RegisterThree');
                               }
+                              // Navigator.pushNamed(context, '/RegisterThree');
                             },
                             text: "Verify Number",
                           ),

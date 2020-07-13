@@ -12,7 +12,6 @@ import 'application/blocs/navigation_bloc/navigation_bloc.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 void main() {
   configureInjection(Environment.prod);
   runApp(
@@ -24,12 +23,8 @@ void main() {
         BlocProvider(
           create: (context) => getIt<SigninBloc>(),
         ),
-        BlocProvider(
-          create: (context) => getIt<RegisterBloc>()
-        ),
-        BlocProvider(
-          create: (_) => getIt<UserBloc>()
-        ),
+        BlocProvider(create: (context) => getIt<RegisterBloc>()),
+        BlocProvider(create: (_) => getIt<UserBloc>()),
         BlocProvider(create: (_) => NavigationBloc())
       ],
       child: MaterialApp(

@@ -1,7 +1,7 @@
 import 'package:beep/application/blocs/lawyer_bloc/lawyer_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../application/blocs/navigation_bloc/navigation_bloc.dart';
+import '../../../application/blocs/navigation_bloc/navigation_bloc.dart';
 import 'nav_widget.dart';
 
 class BottomBar extends StatefulWidget {
@@ -47,7 +47,7 @@ class _BottomBarState extends State<BottomBar> {
                 ),
               )
           ],
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
       ),
     );
