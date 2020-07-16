@@ -13,8 +13,8 @@ part 'navigation_bloc.freezed.dart';
 
 @injectable
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  @override
-  NavigationState get initialState => MapHome(0);
+  NavigationBloc() : super(MapHome(0));
+
 
   @override
   Stream<NavigationState> mapEventToState(

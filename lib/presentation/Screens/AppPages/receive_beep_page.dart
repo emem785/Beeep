@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ReceiveBeepPage extends StatelessWidget {
-  final String phone;
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
-  ReceiveBeepPage({Key key, @required this.phone}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, size) {
@@ -16,7 +14,7 @@ class ReceiveBeepPage extends StatelessWidget {
         key: _globalKey,
         body: BlocProvider(
             create: (_) => getIt<MapBloc>()..add(GetLocationBroadcast("dffd")),
-            child: ReceiveBeep(phone: phone)),
+            child: ReceiveBeep()),
       );
     });
   }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 
+import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -19,9 +20,7 @@ const TOKEN_KEY = 'token';
 class SigninBloc extends Bloc<SignInEvent, SignInState> {
   ApiInterface apiInterface;
 
-  SigninBloc({@required this.apiInterface});
-  @override
-  SignInState get initialState => SignInStateInitial();
+  SigninBloc({@required this.apiInterface}) : super(SignInStateInitial());
 
   @override
   Stream<SignInState> mapEventToState(

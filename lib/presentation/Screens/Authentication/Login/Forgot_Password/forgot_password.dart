@@ -1,5 +1,5 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
-import 'package:beep/core/widgets/common_widgets/cus_text.dart';
+import 'package:beep/core/widgets/common_widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -62,7 +62,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      CusTextNum(
+                      CustomTextFieldNum(
                           controller: _phoneNumber, title: 'Phone Number'),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),

@@ -1,5 +1,5 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
-import 'package:beep/core/widgets/common_widgets/cus_text.dart';
+import 'package:beep/core/widgets/common_widgets/custom_text_form_field.dart';
 import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,7 +67,7 @@ class _ForgotPasswordFourState extends State<ForgotPasswordFour> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      CusTextPas(controller: _password, header: 'Password'),
+                      CustomTextFieldPassword(controller: _password, header: 'Password'),
                       BlocConsumer<UserBloc, UserState>(
                         listener: (_, state) {
                           return state.maybeMap(

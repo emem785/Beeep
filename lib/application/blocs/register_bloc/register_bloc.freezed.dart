@@ -12,14 +12,10 @@ T _$identity<T>(T value) => value;
 class _$RegisterEventTearOff {
   const _$RegisterEventTearOff();
 
-  RegisterUser register(String firstName, String lastName, String email,
-      String phoneNumber, String password) {
+  RegisterUser register({User user, String password}) {
     return RegisterUser(
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      password,
+      user: user,
+      password: password,
     );
   }
 
@@ -41,20 +37,15 @@ class _$RegisterEventTearOff {
 const $RegisterEvent = _$RegisterEventTearOff();
 
 mixin _$RegisterEvent {
-  String get phoneNumber;
-
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required
-        Result register(String firstName, String lastName, String email,
-            String phoneNumber, String password),
+    @required Result register(User user, String password),
     @required Result getCode(String phoneNumber),
     @required Result mobileVerify(String phoneNumber, String code),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result register(String firstName, String lastName, String email,
-        String phoneNumber, String password),
+    Result register(User user, String password),
     Result getCode(String phoneNumber),
     Result mobileVerify(String phoneNumber, String code),
     @required Result orElse(),
@@ -72,15 +63,12 @@ mixin _$RegisterEvent {
     Result mobileVerify(MobileVerify value),
     @required Result orElse(),
   });
-
-  $RegisterEventCopyWith<RegisterEvent> get copyWith;
 }
 
 abstract class $RegisterEventCopyWith<$Res> {
   factory $RegisterEventCopyWith(
           RegisterEvent value, $Res Function(RegisterEvent) then) =
       _$RegisterEventCopyWithImpl<$Res>;
-  $Res call({String phoneNumber});
 }
 
 class _$RegisterEventCopyWithImpl<$Res>
@@ -90,30 +78,13 @@ class _$RegisterEventCopyWithImpl<$Res>
   final RegisterEvent _value;
   // ignore: unused_field
   final $Res Function(RegisterEvent) _then;
-
-  @override
-  $Res call({
-    Object phoneNumber = freezed,
-  }) {
-    return _then(_value.copyWith(
-      phoneNumber:
-          phoneNumber == freezed ? _value.phoneNumber : phoneNumber as String,
-    ));
-  }
 }
 
-abstract class $RegisterUserCopyWith<$Res>
-    implements $RegisterEventCopyWith<$Res> {
+abstract class $RegisterUserCopyWith<$Res> {
   factory $RegisterUserCopyWith(
           RegisterUser value, $Res Function(RegisterUser) then) =
       _$RegisterUserCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {String firstName,
-      String lastName,
-      String email,
-      String phoneNumber,
-      String password});
+  $Res call({User user, String password});
 }
 
 class _$RegisterUserCopyWithImpl<$Res> extends _$RegisterEventCopyWithImpl<$Res>
@@ -127,62 +98,35 @@ class _$RegisterUserCopyWithImpl<$Res> extends _$RegisterEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object firstName = freezed,
-    Object lastName = freezed,
-    Object email = freezed,
-    Object phoneNumber = freezed,
+    Object user = freezed,
     Object password = freezed,
   }) {
     return _then(RegisterUser(
-      firstName == freezed ? _value.firstName : firstName as String,
-      lastName == freezed ? _value.lastName : lastName as String,
-      email == freezed ? _value.email : email as String,
-      phoneNumber == freezed ? _value.phoneNumber : phoneNumber as String,
-      password == freezed ? _value.password : password as String,
+      user: user == freezed ? _value.user : user as User,
+      password: password == freezed ? _value.password : password as String,
     ));
   }
 }
 
 class _$RegisterUser implements RegisterUser {
-  const _$RegisterUser(this.firstName, this.lastName, this.email,
-      this.phoneNumber, this.password)
-      : assert(firstName != null),
-        assert(lastName != null),
-        assert(email != null),
-        assert(phoneNumber != null),
-        assert(password != null);
+  const _$RegisterUser({this.user, this.password});
 
   @override
-  final String firstName;
-  @override
-  final String lastName;
-  @override
-  final String email;
-  @override
-  final String phoneNumber;
+  final User user;
   @override
   final String password;
 
   @override
   String toString() {
-    return 'RegisterEvent.register(firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password)';
+    return 'RegisterEvent.register(user: $user, password: $password)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is RegisterUser &&
-            (identical(other.firstName, firstName) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstName, firstName)) &&
-            (identical(other.lastName, lastName) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastName, lastName)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.phoneNumber, phoneNumber)) &&
+            (identical(other.user, user) ||
+                const DeepCollectionEquality().equals(other.user, user)) &&
             (identical(other.password, password) ||
                 const DeepCollectionEquality()
                     .equals(other.password, password)));
@@ -191,10 +135,7 @@ class _$RegisterUser implements RegisterUser {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(firstName) ^
-      const DeepCollectionEquality().hash(lastName) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(phoneNumber) ^
+      const DeepCollectionEquality().hash(user) ^
       const DeepCollectionEquality().hash(password);
 
   @override
@@ -204,30 +145,27 @@ class _$RegisterUser implements RegisterUser {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required
-        Result register(String firstName, String lastName, String email,
-            String phoneNumber, String password),
+    @required Result register(User user, String password),
     @required Result getCode(String phoneNumber),
     @required Result mobileVerify(String phoneNumber, String code),
   }) {
     assert(register != null);
     assert(getCode != null);
     assert(mobileVerify != null);
-    return register(firstName, lastName, email, phoneNumber, password);
+    return register(user, password);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result register(String firstName, String lastName, String email,
-        String phoneNumber, String password),
+    Result register(User user, String password),
     Result getCode(String phoneNumber),
     Result mobileVerify(String phoneNumber, String code),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (register != null) {
-      return register(firstName, lastName, email, phoneNumber, password);
+      return register(user, password);
     }
     return orElse();
   }
@@ -262,23 +200,16 @@ class _$RegisterUser implements RegisterUser {
 }
 
 abstract class RegisterUser implements RegisterEvent {
-  const factory RegisterUser(String firstName, String lastName, String email,
-      String phoneNumber, String password) = _$RegisterUser;
+  const factory RegisterUser({User user, String password}) = _$RegisterUser;
 
-  String get firstName;
-  String get lastName;
-  String get email;
-  @override
-  String get phoneNumber;
+  User get user;
   String get password;
-  @override
   $RegisterUserCopyWith<RegisterUser> get copyWith;
 }
 
-abstract class $GetCodeCopyWith<$Res> implements $RegisterEventCopyWith<$Res> {
+abstract class $GetCodeCopyWith<$Res> {
   factory $GetCodeCopyWith(GetCode value, $Res Function(GetCode) then) =
       _$GetCodeCopyWithImpl<$Res>;
-  @override
   $Res call({String phoneNumber});
 }
 
@@ -331,9 +262,7 @@ class _$GetCode implements GetCode {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required
-        Result register(String firstName, String lastName, String email,
-            String phoneNumber, String password),
+    @required Result register(User user, String password),
     @required Result getCode(String phoneNumber),
     @required Result mobileVerify(String phoneNumber, String code),
   }) {
@@ -346,8 +275,7 @@ class _$GetCode implements GetCode {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result register(String firstName, String lastName, String email,
-        String phoneNumber, String password),
+    Result register(User user, String password),
     Result getCode(String phoneNumber),
     Result mobileVerify(String phoneNumber, String code),
     @required Result orElse(),
@@ -391,18 +319,14 @@ class _$GetCode implements GetCode {
 abstract class GetCode implements RegisterEvent {
   const factory GetCode(String phoneNumber) = _$GetCode;
 
-  @override
   String get phoneNumber;
-  @override
   $GetCodeCopyWith<GetCode> get copyWith;
 }
 
-abstract class $MobileVerifyCopyWith<$Res>
-    implements $RegisterEventCopyWith<$Res> {
+abstract class $MobileVerifyCopyWith<$Res> {
   factory $MobileVerifyCopyWith(
           MobileVerify value, $Res Function(MobileVerify) then) =
       _$MobileVerifyCopyWithImpl<$Res>;
-  @override
   $Res call({String phoneNumber, String code});
 }
 
@@ -466,9 +390,7 @@ class _$MobileVerify implements MobileVerify {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required
-        Result register(String firstName, String lastName, String email,
-            String phoneNumber, String password),
+    @required Result register(User user, String password),
     @required Result getCode(String phoneNumber),
     @required Result mobileVerify(String phoneNumber, String code),
   }) {
@@ -481,8 +403,7 @@ class _$MobileVerify implements MobileVerify {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result register(String firstName, String lastName, String email,
-        String phoneNumber, String password),
+    Result register(User user, String password),
     Result getCode(String phoneNumber),
     Result mobileVerify(String phoneNumber, String code),
     @required Result orElse(),
@@ -526,10 +447,8 @@ class _$MobileVerify implements MobileVerify {
 abstract class MobileVerify implements RegisterEvent {
   const factory MobileVerify(String phoneNumber, String code) = _$MobileVerify;
 
-  @override
   String get phoneNumber;
   String get code;
-  @override
   $MobileVerifyCopyWith<MobileVerify> get copyWith;
 }
 

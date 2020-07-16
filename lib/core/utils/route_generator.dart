@@ -36,11 +36,13 @@ class RouteGenerator {
           break;
 
         case '/HomeScreen':
-          screen = HomeScreen();
+          screen = HomeScreen(
+            goToReceiveBeep: args["goToReceiveBeep"],
+          );
           break;
 
         case '/ReceiveBeep':
-          screen = ReceiveBeepPage(phone: args["phone"]);
+          screen = ReceiveBeepPage();
           break;
         //Registration Pages
 

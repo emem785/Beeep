@@ -15,9 +15,7 @@ part 'register_bloc.freezed.dart';
 @injectable
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ApiInterface apiInterface;
-  RegisterBloc({this.apiInterface});
-  @override
-  RegisterState get initialState => RegisterUserInitial();
+  RegisterBloc({this.apiInterface}) : super(RegisterUserInitial());
 
   @override
   Stream<RegisterState> mapEventToState(
@@ -25,12 +23,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async* {
     yield RegisterLoading();
     yield* event.map(register: (e) async* {
-      final response = await apiInterface.registerUser(
-          e.firstName, e.lastName, e.email, e.phoneNumber, e.password);
+      final response = await apiInterface.registerUser(user: e.user,password: e.password);
       yield* response.fold((l) async* {
         yield RegisterError(l);
       }, (r) async* {
-        yield RegisterComplete(e.phoneNumber);
+        yield RegisterComplete(e.user.phone);
       });
     }, getCode: (e) async* {
       final response = await apiInterface.getVerifyCode(e.phoneNumber);

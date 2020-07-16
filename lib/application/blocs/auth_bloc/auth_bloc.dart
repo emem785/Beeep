@@ -17,9 +17,7 @@ part 'auth_bloc.freezed.dart';
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   LocalStorageInterface localStorageInterface;
-  AuthBloc({this.localStorageInterface});
-  @override
-  AuthState get initialState => Initial();
+  AuthBloc({this.localStorageInterface}) : super(Initial());
 
   @override
   Stream<AuthState> mapEventToState(

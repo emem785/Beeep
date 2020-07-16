@@ -28,9 +28,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     @required this.userLocation,
     @required this.apiInterface,
     @required this.localStorageInterface,
-  });
-  @override
-  MapState get initialState => MapInitial();
+  }) : super(MapInitial());
 
   @override
   Stream<MapState> mapEventToState(
@@ -42,22 +40,18 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       final buddy =
           response.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
       final location = await apiInterface.getLocation(buddy.phonenumber).first;
-      yield MapBroadcasting(
+      yield ReceivingBroadcast(
           buddy,
           apiInterface.getLocation(buddy.phonenumber).asBroadcastStream(),
           location);
     }, stopSecondBroadcast: (e) async* {
-      final response = await localStorageInterface.getBuddy();
-      final buddy =
-          response.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
-      final location = await apiInterface.getLocation(buddy.phonenumber).first;
-      yield MapNotBroadcasting(location);
+      yield BroadcastEnded();
     }, resumeSecondBroadcast: (e) async* {
       final response = await localStorageInterface.getBuddy();
       final buddy =
           response.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
       final location = await apiInterface.getLocation(buddy.phonenumber).first;
-      yield MapBroadcasting(
+      yield ReceivingBroadcast(
           buddy,
           apiInterface.getLocation(buddy.phonenumber).asBroadcastStream(),
           location);

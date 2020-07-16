@@ -1,6 +1,7 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
-import 'package:beep/core/widgets/common_widgets/cus_text.dart';
+import 'package:beep/core/widgets/common_widgets/custom_text_form_field.dart';
 import 'package:beep/core/widgets/common_widgets/spinner.dart';
+import 'package:beep/infrastructure/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:beep/application/blocs/register_bloc/register_bloc.dart';
@@ -78,19 +79,20 @@ class _RegisterOneState extends State<RegisterOne> {
               Form(
                   key: _formKey,
                   child: Column(
-
                     children: <Widget>[
-                      CusText(controller: _firstName, title: 'First Name'),
-                      CusText(controller: _lastName, title: 'Last Name'),
-                      CusText(controller: _email, title: 'Email'),
-                    
-                      CusTextNum(
+                      CustomTextField(
+                          controller: _firstName, title: 'First Name'),
+                      CustomTextField(
+                          controller: _lastName, title: 'Last Name'),
+                      CustomTextField(controller: _email, title: 'Email'),
+                      CustomTextFieldNum(
                           controller: _phoneNumber, title: 'Phone Number'),
-                      CusText(
+                      CustomTextField(
                           controller: _twitterHandle,
                           title: 'Twitter Handle (Optional)',
                           isOptional: true),
-                      CusTextPas(controller: _password, header: 'Password'),
+                      CustomTextFieldPassword(
+                          controller: _password, header: 'Password'),
                       BlocConsumer<RegisterBloc, RegisterState>(
                           builder: (__, state) {
                         return state.maybeMap(
@@ -125,11 +127,13 @@ class _RegisterOneState extends State<RegisterOne> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 registerBloc.add(RegisterUser(
-                                    _firstName.text,
-                                    _lastName.text,
-                                    _email.text,
-                                    _phoneNumber.text,
-                                    _password.text));
+                                    user: User(
+                                        firstname: _firstName.text,
+                                        lastname: _lastName.text,
+                                        phone: _phoneNumber.text,
+                                        email: _email.text,
+                                        twitterHandle: _twitterHandle.text),
+                                    password: _password.text));
                               }
                               // Navigator.pushNamed(context, '/RegisterTwo',
                               //     arguments: {"phone": 090});

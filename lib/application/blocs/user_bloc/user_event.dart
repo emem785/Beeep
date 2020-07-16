@@ -4,9 +4,7 @@ part of 'user_bloc.dart';
 @freezed
 abstract class UserEvent with _$UserEvent {
   const factory UserEvent.insertUser() = InsertUser;
-  const factory UserEvent.updateUser(String firstName, String lastName,
-      String email, String phoneNumber, String twitterHandle) = UpdateUser;
-  const factory UserEvent.addBuddy(String firstName, String lastName,
-      String phoneNumber, String relationship) = AddBuddy;
+  const factory UserEvent.updateUser(User user) = UpdateUser;
+  const factory UserEvent.addBuddy(Buddy buddy) = AddBuddy;
       const factory UserEvent.updatePassword(String password) = UpdatePassword;
 }

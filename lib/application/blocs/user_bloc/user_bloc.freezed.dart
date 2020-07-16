@@ -16,24 +16,15 @@ class _$UserEventTearOff {
     return const InsertUser();
   }
 
-  UpdateUser updateUser(String firstName, String lastName, String email,
-      String phoneNumber, String twitterHandle) {
+  UpdateUser updateUser(User user) {
     return UpdateUser(
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      twitterHandle,
+      user,
     );
   }
 
-  AddBuddy addBuddy(String firstName, String lastName, String phoneNumber,
-      String relationship) {
+  AddBuddy addBuddy(Buddy buddy) {
     return AddBuddy(
-      firstName,
-      lastName,
-      phoneNumber,
-      relationship,
+      buddy,
     );
   }
 
@@ -51,21 +42,15 @@ mixin _$UserEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result insertUser(),
-    @required
-        Result updateUser(String firstName, String lastName, String email,
-            String phoneNumber, String twitterHandle),
-    @required
-        Result addBuddy(String firstName, String lastName, String phoneNumber,
-            String relationship),
+    @required Result updateUser(User user),
+    @required Result addBuddy(Buddy buddy),
     @required Result updatePassword(String password),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result insertUser(),
-    Result updateUser(String firstName, String lastName, String email,
-        String phoneNumber, String twitterHandle),
-    Result addBuddy(String firstName, String lastName, String phoneNumber,
-        String relationship),
+    Result updateUser(User user),
+    Result addBuddy(Buddy buddy),
     Result updatePassword(String password),
     @required Result orElse(),
   });
@@ -134,12 +119,8 @@ class _$InsertUser implements InsertUser {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result insertUser(),
-    @required
-        Result updateUser(String firstName, String lastName, String email,
-            String phoneNumber, String twitterHandle),
-    @required
-        Result addBuddy(String firstName, String lastName, String phoneNumber,
-            String relationship),
+    @required Result updateUser(User user),
+    @required Result addBuddy(Buddy buddy),
     @required Result updatePassword(String password),
   }) {
     assert(insertUser != null);
@@ -153,10 +134,8 @@ class _$InsertUser implements InsertUser {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result insertUser(),
-    Result updateUser(String firstName, String lastName, String email,
-        String phoneNumber, String twitterHandle),
-    Result addBuddy(String firstName, String lastName, String phoneNumber,
-        String relationship),
+    Result updateUser(User user),
+    Result addBuddy(Buddy buddy),
     Result updatePassword(String password),
     @required Result orElse(),
   }) {
@@ -207,12 +186,7 @@ abstract class $UpdateUserCopyWith<$Res> {
   factory $UpdateUserCopyWith(
           UpdateUser value, $Res Function(UpdateUser) then) =
       _$UpdateUserCopyWithImpl<$Res>;
-  $Res call(
-      {String firstName,
-      String lastName,
-      String email,
-      String phoneNumber,
-      String twitterHandle});
+  $Res call({User user});
 }
 
 class _$UpdateUserCopyWithImpl<$Res> extends _$UserEventCopyWithImpl<$Res>
@@ -225,75 +199,36 @@ class _$UpdateUserCopyWithImpl<$Res> extends _$UserEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object firstName = freezed,
-    Object lastName = freezed,
-    Object email = freezed,
-    Object phoneNumber = freezed,
-    Object twitterHandle = freezed,
+    Object user = freezed,
   }) {
     return _then(UpdateUser(
-      firstName == freezed ? _value.firstName : firstName as String,
-      lastName == freezed ? _value.lastName : lastName as String,
-      email == freezed ? _value.email : email as String,
-      phoneNumber == freezed ? _value.phoneNumber : phoneNumber as String,
-      twitterHandle == freezed ? _value.twitterHandle : twitterHandle as String,
+      user == freezed ? _value.user : user as User,
     ));
   }
 }
 
 class _$UpdateUser implements UpdateUser {
-  const _$UpdateUser(this.firstName, this.lastName, this.email,
-      this.phoneNumber, this.twitterHandle)
-      : assert(firstName != null),
-        assert(lastName != null),
-        assert(email != null),
-        assert(phoneNumber != null),
-        assert(twitterHandle != null);
+  const _$UpdateUser(this.user) : assert(user != null);
 
   @override
-  final String firstName;
-  @override
-  final String lastName;
-  @override
-  final String email;
-  @override
-  final String phoneNumber;
-  @override
-  final String twitterHandle;
+  final User user;
 
   @override
   String toString() {
-    return 'UserEvent.updateUser(firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, twitterHandle: $twitterHandle)';
+    return 'UserEvent.updateUser(user: $user)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is UpdateUser &&
-            (identical(other.firstName, firstName) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstName, firstName)) &&
-            (identical(other.lastName, lastName) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastName, lastName)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.phoneNumber, phoneNumber)) &&
-            (identical(other.twitterHandle, twitterHandle) ||
-                const DeepCollectionEquality()
-                    .equals(other.twitterHandle, twitterHandle)));
+            (identical(other.user, user) ||
+                const DeepCollectionEquality().equals(other.user, user)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(firstName) ^
-      const DeepCollectionEquality().hash(lastName) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(phoneNumber) ^
-      const DeepCollectionEquality().hash(twitterHandle);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(user);
 
   @override
   $UpdateUserCopyWith<UpdateUser> get copyWith =>
@@ -303,35 +238,29 @@ class _$UpdateUser implements UpdateUser {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result insertUser(),
-    @required
-        Result updateUser(String firstName, String lastName, String email,
-            String phoneNumber, String twitterHandle),
-    @required
-        Result addBuddy(String firstName, String lastName, String phoneNumber,
-            String relationship),
+    @required Result updateUser(User user),
+    @required Result addBuddy(Buddy buddy),
     @required Result updatePassword(String password),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
     assert(updatePassword != null);
-    return updateUser(firstName, lastName, email, phoneNumber, twitterHandle);
+    return updateUser(user);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result insertUser(),
-    Result updateUser(String firstName, String lastName, String email,
-        String phoneNumber, String twitterHandle),
-    Result addBuddy(String firstName, String lastName, String phoneNumber,
-        String relationship),
+    Result updateUser(User user),
+    Result addBuddy(Buddy buddy),
     Result updatePassword(String password),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (updateUser != null) {
-      return updateUser(firstName, lastName, email, phoneNumber, twitterHandle);
+      return updateUser(user);
     }
     return orElse();
   }
@@ -369,25 +298,16 @@ class _$UpdateUser implements UpdateUser {
 }
 
 abstract class UpdateUser implements UserEvent {
-  const factory UpdateUser(String firstName, String lastName, String email,
-      String phoneNumber, String twitterHandle) = _$UpdateUser;
+  const factory UpdateUser(User user) = _$UpdateUser;
 
-  String get firstName;
-  String get lastName;
-  String get email;
-  String get phoneNumber;
-  String get twitterHandle;
+  User get user;
   $UpdateUserCopyWith<UpdateUser> get copyWith;
 }
 
 abstract class $AddBuddyCopyWith<$Res> {
   factory $AddBuddyCopyWith(AddBuddy value, $Res Function(AddBuddy) then) =
       _$AddBuddyCopyWithImpl<$Res>;
-  $Res call(
-      {String firstName,
-      String lastName,
-      String phoneNumber,
-      String relationship});
+  $Res call({Buddy buddy});
 }
 
 class _$AddBuddyCopyWithImpl<$Res> extends _$UserEventCopyWithImpl<$Res>
@@ -400,67 +320,36 @@ class _$AddBuddyCopyWithImpl<$Res> extends _$UserEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object firstName = freezed,
-    Object lastName = freezed,
-    Object phoneNumber = freezed,
-    Object relationship = freezed,
+    Object buddy = freezed,
   }) {
     return _then(AddBuddy(
-      firstName == freezed ? _value.firstName : firstName as String,
-      lastName == freezed ? _value.lastName : lastName as String,
-      phoneNumber == freezed ? _value.phoneNumber : phoneNumber as String,
-      relationship == freezed ? _value.relationship : relationship as String,
+      buddy == freezed ? _value.buddy : buddy as Buddy,
     ));
   }
 }
 
 class _$AddBuddy implements AddBuddy {
-  const _$AddBuddy(
-      this.firstName, this.lastName, this.phoneNumber, this.relationship)
-      : assert(firstName != null),
-        assert(lastName != null),
-        assert(phoneNumber != null),
-        assert(relationship != null);
+  const _$AddBuddy(this.buddy) : assert(buddy != null);
 
   @override
-  final String firstName;
-  @override
-  final String lastName;
-  @override
-  final String phoneNumber;
-  @override
-  final String relationship;
+  final Buddy buddy;
 
   @override
   String toString() {
-    return 'UserEvent.addBuddy(firstName: $firstName, lastName: $lastName, phoneNumber: $phoneNumber, relationship: $relationship)';
+    return 'UserEvent.addBuddy(buddy: $buddy)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is AddBuddy &&
-            (identical(other.firstName, firstName) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstName, firstName)) &&
-            (identical(other.lastName, lastName) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastName, lastName)) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.phoneNumber, phoneNumber)) &&
-            (identical(other.relationship, relationship) ||
-                const DeepCollectionEquality()
-                    .equals(other.relationship, relationship)));
+            (identical(other.buddy, buddy) ||
+                const DeepCollectionEquality().equals(other.buddy, buddy)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(firstName) ^
-      const DeepCollectionEquality().hash(lastName) ^
-      const DeepCollectionEquality().hash(phoneNumber) ^
-      const DeepCollectionEquality().hash(relationship);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(buddy);
 
   @override
   $AddBuddyCopyWith<AddBuddy> get copyWith =>
@@ -470,35 +359,29 @@ class _$AddBuddy implements AddBuddy {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result insertUser(),
-    @required
-        Result updateUser(String firstName, String lastName, String email,
-            String phoneNumber, String twitterHandle),
-    @required
-        Result addBuddy(String firstName, String lastName, String phoneNumber,
-            String relationship),
+    @required Result updateUser(User user),
+    @required Result addBuddy(Buddy buddy),
     @required Result updatePassword(String password),
   }) {
     assert(insertUser != null);
     assert(updateUser != null);
     assert(addBuddy != null);
     assert(updatePassword != null);
-    return addBuddy(firstName, lastName, phoneNumber, relationship);
+    return addBuddy(buddy);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result insertUser(),
-    Result updateUser(String firstName, String lastName, String email,
-        String phoneNumber, String twitterHandle),
-    Result addBuddy(String firstName, String lastName, String phoneNumber,
-        String relationship),
+    Result updateUser(User user),
+    Result addBuddy(Buddy buddy),
     Result updatePassword(String password),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (addBuddy != null) {
-      return addBuddy(firstName, lastName, phoneNumber, relationship);
+      return addBuddy(buddy);
     }
     return orElse();
   }
@@ -536,13 +419,9 @@ class _$AddBuddy implements AddBuddy {
 }
 
 abstract class AddBuddy implements UserEvent {
-  const factory AddBuddy(String firstName, String lastName, String phoneNumber,
-      String relationship) = _$AddBuddy;
+  const factory AddBuddy(Buddy buddy) = _$AddBuddy;
 
-  String get firstName;
-  String get lastName;
-  String get phoneNumber;
-  String get relationship;
+  Buddy get buddy;
   $AddBuddyCopyWith<AddBuddy> get copyWith;
 }
 
@@ -604,12 +483,8 @@ class _$UpdatePassword implements UpdatePassword {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result insertUser(),
-    @required
-        Result updateUser(String firstName, String lastName, String email,
-            String phoneNumber, String twitterHandle),
-    @required
-        Result addBuddy(String firstName, String lastName, String phoneNumber,
-            String relationship),
+    @required Result updateUser(User user),
+    @required Result addBuddy(Buddy buddy),
     @required Result updatePassword(String password),
   }) {
     assert(insertUser != null);
@@ -623,10 +498,8 @@ class _$UpdatePassword implements UpdatePassword {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result insertUser(),
-    Result updateUser(String firstName, String lastName, String email,
-        String phoneNumber, String twitterHandle),
-    Result addBuddy(String firstName, String lastName, String phoneNumber,
-        String relationship),
+    Result updateUser(User user),
+    Result addBuddy(Buddy buddy),
     Result updatePassword(String password),
     @required Result orElse(),
   }) {

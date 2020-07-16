@@ -20,10 +20,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final LocalStorageInterface localStorageInterface;
   final ApiInterface apiInterface;
 
-  UserBloc({@required this.localStorageInterface, @required this.apiInterface});
-
-  @override
-  UserState get initialState => UserInitial();
+  UserBloc({@required this.localStorageInterface, @required this.apiInterface})
+      : super(UserInitial());
 
   @override
   Stream<UserState> mapEventToState(
@@ -38,8 +36,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserLoaded(User.fromJson(jsonDecode(r)));
       });
     }, updateUser: (e) async* {
-      final response = await apiInterface.updateUser(
-          e.firstName, e.lastName, e.email, e.phoneNumber, e.twitterHandle);
+      final response = await apiInterface.updateUser(e.user);
 
       yield* response.fold((l) async* {
         yield UserError(l);
@@ -48,8 +45,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserUpdated("Changes Saved");
       });
     }, addBuddy: (e) async* {
-      final response = await apiInterface.addBuddy(
-          e.firstName, e.lastName, e.phoneNumber, e.relationship);
+      final response = await apiInterface.addBuddy(e.buddy);
 
       yield* response.fold((l) async* {
         yield UserError(l);

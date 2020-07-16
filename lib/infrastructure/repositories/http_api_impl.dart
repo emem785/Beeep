@@ -23,13 +23,12 @@ class HttpApiImpl implements ApiInterface {
 
   //Authentication
   @override
-  Future<Either<Failure, bool>> registerUser(String firstName, String lastName,
-      String email, String phoneNumber, String password) async {
+  Future<Either<Failure, bool>> registerUser({User user, String password}) async {
     final body = {
-      "firstname": firstName,
-      "lastname": lastName,
-      "email": email,
-      "phone": phoneNumber,
+      "firstname": user.firstname,
+      "lastname": user.lastname,
+      "email": user.email,
+      "phone": user.phone,
       "password": password
     };
     final response =
@@ -80,13 +79,12 @@ class HttpApiImpl implements ApiInterface {
   }
 
   @override
-  Future<Either<Failure, Buddy>> addBuddy(String firstName, String lastName,
-      String phoneNumber, String relationship) async {
+  Future<Either<Failure, Buddy>> addBuddy(Buddy buddy) async {
     final body = {
-      "firstname": firstName,
-      "lastname": lastName,
-      "phone": phoneNumber,
-      "relationship": relationship
+      "firstname": buddy.firstname,
+      "lastname": buddy.lastname,
+      "phone": buddy.phonenumber,
+      "relationship": buddy.relationship
     };
     final response = await client.postAuth(endpoint: "add_buddy", body: body);
     return response.fold((l) => Left(l), (r) {
@@ -98,14 +96,13 @@ class HttpApiImpl implements ApiInterface {
   //Interactions
 
   @override
-  Future<Either<Failure, User>> updateUser(String firstName, String lastName,
-      String email, String phoneNumber, String twitterHandle) async {
+  Future<Either<Failure, User>> updateUser(User user) async {
     final body = {
-      "firstname": firstName,
-      "lastname": lastName,
-      "phone": phoneNumber,
-      "email": email,
-      "twitter_handle": twitterHandle
+      "firstname": user.firstname,
+      "lastname": user.lastname,
+      "phone": user.phone,
+      "email": user.email,
+      "twitter_handle": user.twitterHandle
     };
 
     final response =
@@ -127,10 +124,10 @@ class HttpApiImpl implements ApiInterface {
 
   @override
   Future<Either<Failure, bool>> beep(
-      String action, double latitude, double longitude) async {
+      String action, Location position) async {
     final body = {
-      "longitude": longitude.toString(),
-      "latitude": latitude.toString(),
+      "longitude": position.longitude.toString(),
+      "latitude": position.latitude.toString(),
       "action": action,
       "user_type": "civilian"
     };

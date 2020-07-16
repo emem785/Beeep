@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/Bottom_Nav_bar.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/lawyer_bottom_sheet.dart';
@@ -13,32 +15,45 @@ import 'package:uni_links/uni_links.dart';
 import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
+  final bool goToReceiveBeep;
+  const HomeScreen({Key key, this.goToReceiveBeep = true}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  StreamSubscription _subscription;
   @override
   void initState() {
     super.initState();
-    initUniLinks();
+    if (widget.goToReceiveBeep) {
+      initUniLinks();
+    }
   }
 
   Future<Null> initUniLinks() async {
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       String initialLink = await getInitialLink();
-      // Parse the link and warn the user, if it is not correct,
-      // but keep in mind it could be `null`.
       if (initialLink != null) {
-
- 
-        Navigator.pushNamed(context, '/ReceiveBeep',
-            arguments: {"phone": initialLink.substring(33)});
+        Navigator.pushNamed(context, '/ReceiveBeep');
       }
+      _subscription = getUriLinksStream().listen((Uri uri) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/ReceiveBeep', ModalRoute.withName('/HomeScreen'));
+      }, onError: (err) {
+        _subscription.cancel();
+        print(err.toString());
+      });
     } on PlatformException {
-      // Handle exception by warning the user their action did not succeed
-      // return?
+      _subscription.cancel();
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (widget.goToReceiveBeep) {
+      _subscription.cancel();
     }
   }
 
@@ -59,45 +74,43 @@ class _HomeScreenState extends State<HomeScreen> {
         //   create: (_) => getIt<MapBloc>(),
         // )
       ],
-      child: 
-        Scaffold(
-          key: _globalKey,
-          bottomNavigationBar: BottomBar(
-            activeIndex: navIndex,
-            onPressed: (i) => setState(() => navIndex = i),
-          ),
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: <Widget>[
-                HomeMap(),
-                BlocConsumer<NavigationBloc, NavigationState>(
-                  builder: (_, state) {
-                    return state.maybeMap(
-                        orElse: () => SizedBox(), menu: (m) => MoreMenu());
-                  },
-                  listener: (_, state) {
-                    return state.map(
-                        mapHome: (h) => setState(() => _height = h.i),
-                        showLawyers: (s) => setState(() => _height = s.i),
-                        menu: (m) => setState(() => _height = m.i));
-                  },
+      child: Scaffold(
+        key: _globalKey,
+        bottomNavigationBar: BottomBar(
+          activeIndex: navIndex,
+          onPressed: (i) => setState(() => navIndex = i),
+        ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Stack(
+            children: <Widget>[
+              HomeMap(),
+              BlocConsumer<NavigationBloc, NavigationState>(
+                builder: (_, state) {
+                  return state.maybeMap(
+                      orElse: () => SizedBox(), menu: (m) => MoreMenu());
+                },
+                listener: (_, state) {
+                  return state.map(
+                      mapHome: (h) => setState(() => _height = h.i),
+                      showLawyers: (s) => setState(() => _height = s.i),
+                      menu: (m) => setState(() => _height = m.i));
+                },
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedContainer(
+                  height: _height,
+                  width: MediaQuery.of(context).size.width,
+                  duration: Duration(milliseconds: 100),
+                  curve: Curves.linear,
+                  child: LawyerBottomSheet(),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: AnimatedContainer(
-                    height: _height,
-                    width: MediaQuery.of(context).size.width,
-                    duration: Duration(milliseconds: 100),
-                    curve: Curves.linear,
-                    child: LawyerBottomSheet(),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      
+      ),
     );
   }
 }

@@ -32,7 +32,7 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
           color: Colors.white,
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 16.0),
+          padding: const EdgeInsets.only(top: 8.0),
           child: BlocBuilder<LawyerBloc, LawyerState>(
             builder: (context, state) {
               return state.maybeMap(

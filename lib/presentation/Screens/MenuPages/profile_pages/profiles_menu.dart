@@ -110,18 +110,20 @@ class _ProfileMenuState extends State<ProfileMenu> {
                         text: 'Save Changes',
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            userBloc.add(UpdateUser(
-                                _firstname.text,
-                                _lastname.text,
-                                _email.text,
-                                _phonenumber.text,
-                                _twitterhandle.text));
+                            userBloc.add(UpdateUser(User(
+                                firstname: _firstname.text,
+                                lastname: _lastname.text,
+                                phone: _phonenumber.text,
+                                twitterHandle: _twitterhandle.text,
+                                email: _email.text)));
 
                             //Navigator.pop(context);
                           }
                         }),
                     CommonButton(
-                        onPressed: () => Navigator.pushNamed(context, 'ChangePasswordOne',arguments: {"phone": _phonenumber.text}),
+                        onPressed: () => Navigator.pushNamed(
+                            context, 'ChangePasswordOne',
+                            arguments: {"phone": _phonenumber.text}),
                         text: 'Change Password',
                         isBrown: true),
                     SizedBox(height: 16)

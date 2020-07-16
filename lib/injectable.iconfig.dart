@@ -29,8 +29,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<Geolocator>(() => registerModule.geolocator);
   g.registerLazySingleton<LocalStorageInterface>(() => LocalStorageImpl());
   g.registerFactory<NavigationBloc>(() => NavigationBloc());
-  g.registerLazySingleton<NetworkInterface>(
-      () => NetworkClientImpl(localStorageInterface: g<LocalStorageInterface>()));
+  g.registerLazySingleton<NetworkInterface>(() =>
+      NetworkClientImpl(localStorageInterface: g<LocalStorageInterface>()));
   g.registerFactory<UserLocationInterface>(
       () => UserLocationImpl(geolocator: g<Geolocator>()));
   g.registerLazySingleton<ApiInterface>(() => HttpApiImpl(
@@ -41,7 +41,8 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<LawyerBloc>(
       () => LawyerBloc(apiInterface: g<ApiInterface>()));
   g.registerFactory<LocationBloc>(() => LocationBloc(
-      userLocation: g<UserLocationInterface>(), apiInterface: g<ApiInterface>()));
+      userLocation: g<UserLocationInterface>(),
+      apiInterface: g<ApiInterface>()));
   g.registerFactory<MapBloc>(() => MapBloc(
         userLocation: g<UserLocationInterface>(),
         apiInterface: g<ApiInterface>(),

@@ -1,11 +1,11 @@
 import 'package:beep/core/utils/enums.dart';
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
-import 'package:beep/core/widgets/common_widgets/cus_text.dart';
+import 'package:beep/core/widgets/common_widgets/custom_text_form_field.dart';
 import 'package:beep/core/widgets/common_widgets/spinner.dart';
+import 'package:beep/infrastructure/models/buddy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../../application/blocs/user_bloc/user_bloc.dart';
 
 class SetupBeepThree extends StatefulWidget {
@@ -102,9 +102,11 @@ class _SetupBeepThreeState extends State<SetupBeepThree> {
                     )
                   ],
                 ),
-                CusText(controller: _lastName, title: 'Last Name'),
-                CusTextNum(controller: _phoneNumber, title: 'Phone Number'),
-                CusText(controller: _relationship, title: 'Relationship'),
+                CustomTextField(controller: _lastName, title: 'Last Name'),
+                CustomTextFieldNum(
+                    controller: _phoneNumber, title: 'Phone Number'),
+                CustomTextField(
+                    controller: _relationship, title: 'Relationship'),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -131,8 +133,11 @@ class _SetupBeepThreeState extends State<SetupBeepThree> {
                     text: 'Save',
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
-                        userBloc.add(AddBuddy(_firstName.text, _lastName.text,
-                            _phoneNumber.text, _relationship.text));
+                        userBloc.add(AddBuddy(Buddy(
+                            firstname: _firstName.text,
+                            lastname: _lastName.text,
+                            phonenumber: _phoneNumber.text,
+                            relationship: _relationship.text)));
                       }
                       // Navigator.pushNamed(context, '/SetupBeepFour');
                     },

@@ -9,23 +9,19 @@ import 'package:dartz/dartz.dart';
 
 abstract class ApiInterface {
   //Authentication
-  Future<Either<Failure, bool>> registerUser(String firstName, String lastName,
-      String email, String phoneNumber, String password);
+  Future<Either<Failure, bool>> registerUser({User user, String password});
 
   Future<Either<Failure, User>> signIn(String phoneNumber, String password);
   Future<Either<Failure, String>> getVerifyCode(String phoneNumber);
 
   Future<Either<Failure, User>> mobileVerify(String phoneNumber, String code);
-  Future<Either<Failure, Buddy>> addBuddy(String firstName, String lastName,
-      String phoneNumber, String relationship);
-  //Modify user details 
-  Future<Either<Failure, User>> updateUser(String firstName, String lastName,
-      String email, String phoneNumber, String twitterHandle);
+  Future<Either<Failure, Buddy>> addBuddy(Buddy buddy);
+  //Modify user details
+  Future<Either<Failure, User>> updateUser(User user);
   Future<Either<Failure, bool>> updatePassword(String password);
   //Location
-  Future<Either<Failure, bool>> beep(
-      String action, double latitude, double longitude);
+  Future<Either<Failure, bool>> beep(String action, Location position);
   Future<Either<Failure, bool>> sendLocation(double latitude, double longitude);
-   Stream<Location> getLocation(String phoneNumber);
+  Stream<Location> getLocation(String phoneNumber);
   Future<Either<Failure, List<Lawyer>>> getLawyers();
 }

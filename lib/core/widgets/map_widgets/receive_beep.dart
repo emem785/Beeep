@@ -19,9 +19,6 @@ import '../../../application/blocs/location_bloc/location_bloc.dart';
 const double ZOOM = 17;
 
 class ReceiveBeep extends StatefulWidget {
-  final String phone;
-
-  const ReceiveBeep({Key key, @required this.phone}) : super(key: key);
   @override
   _ReceiveBeepState createState() => _ReceiveBeepState();
 }
@@ -73,7 +70,9 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
   @override
   void dispose() {
     super.dispose();
-    // _subscription.cancel();
+    if (_subscription != null) {
+      _subscription.cancel();
+    }
   }
 
   @override
@@ -90,84 +89,50 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                   child: BlocConsumer<MapBloc, MapState>(
                 builder: (context, state) {
                   return state.maybeMap(
-                      orElse: () => SizedBox(),
-                      broadcasting: (b) {
-                        return StreamBuilder<Location>(
-                            stream: b.stream,
-                            initialData: b.location,
-                            builder: (context, snapshot) {
-                              return FlutterMap(
-                                options: MapOptions(
-                                  center: LatLng(b.location.latitude,
-                                      b.location.longitude),
-                                  zoom: ZOOM,
+                    orElse: () => SizedBox(),
+                    receivingBroadcast: (b) {
+                      return StreamBuilder<Location>(
+                          stream: b.stream,
+                          initialData: b.location,
+                          builder: (context, snapshot) {
+                            return FlutterMap(
+                              options: MapOptions(
+                                center: LatLng(
+                                    b.location.latitude, b.location.longitude),
+                                zoom: ZOOM,
+                              ),
+                              mapController: controller,
+                              layers: [
+                                TileLayerOptions(
+                                  urlTemplate:
+                                      "https://api.tiles.mapbox.com/v4/"
+                                      "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                                  additionalOptions: {
+                                    'accessToken':
+                                        'pk.eyJ1IjoiZW1lbTc4NSIsImEiOiJjazVmOTViZ2EyZjZpM2xxaGFjNmVqMmxpIn0.IrkZKaDokjBJ3mnKnNzfoQ',
+                                    'id': 'mapbox.mapbox-streets-v8',
+                                  },
                                 ),
-                                mapController: controller,
-                                layers: [
-                                  TileLayerOptions(
-                                    urlTemplate:
-                                        "https://api.tiles.mapbox.com/v4/"
-                                        "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                                    additionalOptions: {
-                                      'accessToken':
-                                          'pk.eyJ1IjoiZW1lbTc4NSIsImEiOiJjazVmOTViZ2EyZjZpM2xxaGFjNmVqMmxpIn0.IrkZKaDokjBJ3mnKnNzfoQ',
-                                      'id': 'mapbox.mapbox-streets-v8',
-                                    },
-                                  ),
-                                  MarkerLayerOptions(
-                                    markers: [_marker],
-                                  ),
-                                ],
-                              );
-                            });
-                      },
-                      notBroadcasting: (n) {
-                        return FlutterMap(
-                          options: MapOptions(
-                            center: LatLng(
-                                n.location.latitude, n.location.longitude),
-                            zoom: ZOOM,
-                          ),
-                          mapController: controller,
-                          layers: [
-                            TileLayerOptions(
-                              urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                                  "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                              additionalOptions: {
-                                'accessToken':
-                                    'pk.eyJ1IjoiZW1lbTc4NSIsImEiOiJjazVmOTViZ2EyZjZpM2xxaGFjNmVqMmxpIn0.IrkZKaDokjBJ3mnKnNzfoQ',
-                                'id': 'mapbox.mapbox-streets-v8',
-                              },
-                            ),
-                            MarkerLayerOptions(
-                              markers: [
-                                Marker(
-                                    point: LatLng(n.location.latitude,
-                                        n.location.longitude),
-                                    builder: (ctx) => new Container(
-                                          child: Icon(Icons.location_on,
-                                              color: Colors.red),
-                                        ),
-                                    width: 80.0,
-                                    height: 80.0)
+                                MarkerLayerOptions(
+                                  markers: [_marker],
+                                ),
                               ],
-                            ),
-                          ],
-                        );
-                      });
+                            );
+                          });
+                    },
+                  );
                 },
                 listener: (context, state) {
                   return state.maybeMap(
                       orElse: () => 1,
-                      broadcasting: (b) async {
+                      receivingBroadcast: (b) async {
                         return _subscription = b.stream.listen((event) {
                           if (event.latitude != null) {
                             _updateCameraPostion(event);
                           }
-                          ;
                         });
                       },
-                      notBroadcasting: (n) => _subscription.cancel());
+                      broadcastEnded: (n) => _subscription.cancel());
                 },
                 buildWhen: (previous, next) {
                   if (previous == MapLoading()) {
@@ -183,7 +148,7 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                   builder: (context, state) {
                     return state.maybeMap(
                         orElse: () => SizedBox(),
-                        broadcasting: (b) => Container(
+                        receivingBroadcast: (b) => Container(
                               color: Colors.grey[100],
                               height: size.maxHeight * 0.2,
                               child: Center(

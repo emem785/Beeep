@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CusText extends StatelessWidget {
+class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String title;
   final isOptional;
 
-  const CusText({Key key, this.controller, this.title, this.isOptional = false})
+  const CustomTextField({Key key, this.controller, this.title, this.isOptional = false})
       : super(key: key);
 
   @override
@@ -35,12 +35,12 @@ class CusText extends StatelessWidget {
   }
 }
 
-class CusTextNum extends StatelessWidget {
+class CustomTextFieldNum extends StatelessWidget {
   final TextEditingController controller;
   final String title;
   final isOptional;
 
-  const CusTextNum(
+  const CustomTextFieldNum (
       {Key key, this.controller, this.title, this.isOptional = false})
       : super(key: key);
 
@@ -74,20 +74,20 @@ class CusTextNum extends StatelessWidget {
   }
 }
 
-class CusTextPas extends StatefulWidget {
+class CustomTextFieldPassword extends StatefulWidget {
   final TextEditingController controller;
   final String header;
   final isOptional;
   //remember to trim right text when authenticaticng
 
-  const CusTextPas(
+  const CustomTextFieldPassword(
       {Key key, this.controller, this.header, this.isOptional = false})
       : super(key: key);
   @override
-  _CusTextPasState createState() => _CusTextPasState();
+  _CustomTextFieldPassword createState() => _CustomTextFieldPassword();
 }
 
-class _CusTextPasState extends State<CusTextPas> {
+class _CustomTextFieldPassword extends State<CustomTextFieldPassword> {
   var obscureText = true;
 
   @override

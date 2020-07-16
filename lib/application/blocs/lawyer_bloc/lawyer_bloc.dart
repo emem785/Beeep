@@ -17,10 +17,8 @@ part 'lawyer_bloc.freezed.dart';
 class LawyerBloc extends Bloc<LawyerEvent, LawyerState> {
   final ApiInterface apiInterface;
 
-  LawyerBloc({@required this.apiInterface});
+  LawyerBloc({@required this.apiInterface}) : super(Initial());
 
-  @override
-  LawyerState get initialState => Initial();
 
   @override
   Stream<LawyerState> mapEventToState(

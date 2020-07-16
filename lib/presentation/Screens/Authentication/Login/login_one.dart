@@ -1,5 +1,5 @@
 import 'package:beep/core/widgets/common_widgets/common_button.dart';
-import 'package:beep/core/widgets/common_widgets/cus_text.dart';
+import 'package:beep/core/widgets/common_widgets/custom_text_form_field.dart';
 import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,9 +68,9 @@ class _LoginOneState extends State<LoginOne> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      CusTextNum(
+                      CustomTextFieldNum(
                           controller: _phoneNumber, title: 'Phone number'),
-                      CusTextPas(controller: _password, header: 'Password'),
+                      CustomTextFieldPassword(controller: _password, header: 'Password'),
                       InkWell(
                         onTap: () =>
                             Navigator.pushNamed(context, '/ForgotPassword'),
