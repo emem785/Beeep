@@ -17,11 +17,14 @@ import 'package:beep/infrastructure/repositories/http_api_impl.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:beep/application/blocs/lawyer_bloc/lawyer_bloc.dart';
-import 'package:beep/application/blocs/location_bloc/location_bloc.dart';
-import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
+import 'package:beep/infrastructure/repositories/map_helper_impl.dart';
+import 'package:beep/domain/Interface/map_interface.dart';
 import 'package:beep/application/blocs/register_bloc/register_bloc.dart';
 import 'package:beep/application/blocs/sign_in_bloc/signin_bloc.dart';
 import 'package:beep/application/blocs/user_bloc/user_bloc.dart';
+import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
+import 'package:beep/application/blocs/location_bloc/location_bloc.dart';
+import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
@@ -40,14 +43,9 @@ void $initGetIt(GetIt g, {String environment}) {
       () => AuthBloc(localStorageInterface: g<LocalStorageInterface>()));
   g.registerFactory<LawyerBloc>(
       () => LawyerBloc(apiInterface: g<ApiInterface>()));
-  g.registerFactory<LocationBloc>(() => LocationBloc(
-      userLocation: g<UserLocationInterface>(),
-      apiInterface: g<ApiInterface>()));
-  g.registerFactory<MapBloc>(() => MapBloc(
-        userLocation: g<UserLocationInterface>(),
-        apiInterface: g<ApiInterface>(),
-        localStorageInterface: g<LocalStorageInterface>(),
-      ));
+  g.registerFactory<MapInterface>(() => MapHelperImpl(
+      apiInterface: g<ApiInterface>(),
+      userLocationInterface: g<UserLocationInterface>()));
   g.registerFactory<RegisterBloc>(
       () => RegisterBloc(apiInterface: g<ApiInterface>()));
   g.registerFactory<SigninBloc>(
@@ -55,6 +53,22 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<UserBloc>(() => UserBloc(
       localStorageInterface: g<LocalStorageInterface>(),
       apiInterface: g<ApiInterface>()));
+  g.registerFactory<AddressBloc>(() => AddressBloc(
+        apiInterface: g<ApiInterface>(),
+        localStorageInterface: g<LocalStorageInterface>(),
+        userLocationInterface: g<UserLocationInterface>(),
+      ));
+  g.registerFactory<LocationBloc>(() => LocationBloc(
+        mapInterface: g<MapInterface>(),
+        userLocation: g<UserLocationInterface>(),
+        apiInterface: g<ApiInterface>(),
+      ));
+  g.registerFactory<MapBloc>(() => MapBloc(
+        userLocationInterface: g<UserLocationInterface>(),
+        mapInterface: g<MapInterface>(),
+        apiInterface: g<ApiInterface>(),
+        localStorageInterface: g<LocalStorageInterface>(),
+      ));
 }
 
 class _$RegisterModule extends RegisterModule {}

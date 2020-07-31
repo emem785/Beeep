@@ -41,7 +41,7 @@ class NetworkClientImpl implements NetworkInterface {
     try {
       final jsonResponse = await http
           .post(url, body: jsonEncode(body), headers: headers)
-          .timeout(const Duration(seconds: 10));
+          .timeout(const  Duration(seconds: 10));
           
       if (jsonResponse.statusCode == 201) {
         final response = jsonDecode(jsonResponse.body);

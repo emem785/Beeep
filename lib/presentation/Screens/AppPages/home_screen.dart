@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/Bottom_Nav_bar.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/lawyer_bottom_sheet.dart';
-import 'package:beep/core/widgets/map_widgets/map_home.dart';
+import 'package:beep/core/widgets/map_widgets/map_home_widgets/map_home.dart';
 import 'package:beep/core/widgets/menu_widgets/more_menu.dart';
 import 'package:beep/injectable.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,6 @@ import 'package:uni_links/uni_links.dart';
 import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
-  final bool goToReceiveBeep;
-  const HomeScreen({Key key, this.goToReceiveBeep = true}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -26,9 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.goToReceiveBeep) {
-      initUniLinks();
-    }
+    initUniLinks();
   }
 
   Future<Null> initUniLinks() async {
@@ -52,9 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-    if (widget.goToReceiveBeep) {
-      _subscription.cancel();
-    }
+    _subscription.cancel();
   }
 
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
@@ -64,15 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => getIt<LocationBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => getIt<LawyerBloc>(),
-        ),
-        // BlocProvider(
-        //   create: (_) => getIt<MapBloc>(),
-        // )
+        BlocProvider(create: (_) => getIt<LocationBloc>()..add(RenderMap())),
+        BlocProvider(create: (_) => getIt<AddressBloc>()..add(GetAddress())),
+        BlocProvider(create: (_) => getIt<LawyerBloc>()),
       ],
       child: Scaffold(
         key: _globalKey,

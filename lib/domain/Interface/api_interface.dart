@@ -4,6 +4,7 @@ import 'package:beep/core/error/failure.dart';
 import 'package:beep/infrastructure/models/buddy.dart';
 import 'package:beep/infrastructure/models/lawyers.dart';
 import 'package:beep/infrastructure/models/location.dart';
+import 'package:beep/infrastructure/models/map_tools.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:dartz/dartz.dart';
 
@@ -22,6 +23,8 @@ abstract class ApiInterface {
   //Location
   Future<Either<Failure, bool>> beep(String action, Location position);
   Future<Either<Failure, bool>> sendLocation(double latitude, double longitude);
+  StreamSubscription<Location> sendLocationAsStream(Stream<Location> locationStream);
   Stream<Location> getLocation(String phoneNumber);
+ 
   Future<Either<Failure, List<Lawyer>>> getLawyers();
 }

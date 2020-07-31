@@ -12,18 +12,19 @@ T _$identity<T>(T value) => value;
 class _$MapEventTearOff {
   const _$MapEventTearOff();
 
-  GetLocationBroadcast getLocationBroadcast(String phoneNumber) {
-    return GetLocationBroadcast(
-      phoneNumber,
+  RenderBuddyMap renderBuddyMap() {
+    return const RenderBuddyMap();
+  }
+
+  StartBroadcast startBroadcast(MapTool mapTool, Buddy buddy) {
+    return StartBroadcast(
+      mapTool,
+      buddy,
     );
   }
 
   StopSecondBroadcast stopSecondBroadcast() {
     return const StopSecondBroadcast();
-  }
-
-  ResumeSecondBroadcast resumeSecondBroadcast() {
-    return const ResumeSecondBroadcast();
   }
 }
 
@@ -33,28 +34,28 @@ const $MapEvent = _$MapEventTearOff();
 mixin _$MapEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result getLocationBroadcast(String phoneNumber),
+    @required Result renderBuddyMap(),
+    @required Result startBroadcast(MapTool mapTool, Buddy buddy),
     @required Result stopSecondBroadcast(),
-    @required Result resumeSecondBroadcast(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result getLocationBroadcast(String phoneNumber),
+    Result renderBuddyMap(),
+    Result startBroadcast(MapTool mapTool, Buddy buddy),
     Result stopSecondBroadcast(),
-    Result resumeSecondBroadcast(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result getLocationBroadcast(GetLocationBroadcast value),
+    @required Result renderBuddyMap(RenderBuddyMap value),
+    @required Result startBroadcast(StartBroadcast value),
     @required Result stopSecondBroadcast(StopSecondBroadcast value),
-    @required Result resumeSecondBroadcast(ResumeSecondBroadcast value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result getLocationBroadcast(GetLocationBroadcast value),
+    Result renderBuddyMap(RenderBuddyMap value),
+    Result startBroadcast(StartBroadcast value),
     Result stopSecondBroadcast(StopSecondBroadcast value),
-    Result resumeSecondBroadcast(ResumeSecondBroadcast value),
     @required Result orElse(),
   });
 }
@@ -72,86 +73,62 @@ class _$MapEventCopyWithImpl<$Res> implements $MapEventCopyWith<$Res> {
   final $Res Function(MapEvent) _then;
 }
 
-abstract class $GetLocationBroadcastCopyWith<$Res> {
-  factory $GetLocationBroadcastCopyWith(GetLocationBroadcast value,
-          $Res Function(GetLocationBroadcast) then) =
-      _$GetLocationBroadcastCopyWithImpl<$Res>;
-  $Res call({String phoneNumber});
+abstract class $RenderBuddyMapCopyWith<$Res> {
+  factory $RenderBuddyMapCopyWith(
+          RenderBuddyMap value, $Res Function(RenderBuddyMap) then) =
+      _$RenderBuddyMapCopyWithImpl<$Res>;
 }
 
-class _$GetLocationBroadcastCopyWithImpl<$Res>
-    extends _$MapEventCopyWithImpl<$Res>
-    implements $GetLocationBroadcastCopyWith<$Res> {
-  _$GetLocationBroadcastCopyWithImpl(
-      GetLocationBroadcast _value, $Res Function(GetLocationBroadcast) _then)
-      : super(_value, (v) => _then(v as GetLocationBroadcast));
+class _$RenderBuddyMapCopyWithImpl<$Res> extends _$MapEventCopyWithImpl<$Res>
+    implements $RenderBuddyMapCopyWith<$Res> {
+  _$RenderBuddyMapCopyWithImpl(
+      RenderBuddyMap _value, $Res Function(RenderBuddyMap) _then)
+      : super(_value, (v) => _then(v as RenderBuddyMap));
 
   @override
-  GetLocationBroadcast get _value => super._value as GetLocationBroadcast;
-
-  @override
-  $Res call({
-    Object phoneNumber = freezed,
-  }) {
-    return _then(GetLocationBroadcast(
-      phoneNumber == freezed ? _value.phoneNumber : phoneNumber as String,
-    ));
-  }
+  RenderBuddyMap get _value => super._value as RenderBuddyMap;
 }
 
-class _$GetLocationBroadcast implements GetLocationBroadcast {
-  const _$GetLocationBroadcast(this.phoneNumber) : assert(phoneNumber != null);
-
-  @override
-  final String phoneNumber;
+class _$RenderBuddyMap implements RenderBuddyMap {
+  const _$RenderBuddyMap();
 
   @override
   String toString() {
-    return 'MapEvent.getLocationBroadcast(phoneNumber: $phoneNumber)';
+    return 'MapEvent.renderBuddyMap()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is GetLocationBroadcast &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.phoneNumber, phoneNumber)));
+    return identical(this, other) || (other is RenderBuddyMap);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(phoneNumber);
-
-  @override
-  $GetLocationBroadcastCopyWith<GetLocationBroadcast> get copyWith =>
-      _$GetLocationBroadcastCopyWithImpl<GetLocationBroadcast>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result getLocationBroadcast(String phoneNumber),
+    @required Result renderBuddyMap(),
+    @required Result startBroadcast(MapTool mapTool, Buddy buddy),
     @required Result stopSecondBroadcast(),
-    @required Result resumeSecondBroadcast(),
   }) {
-    assert(getLocationBroadcast != null);
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
-    assert(resumeSecondBroadcast != null);
-    return getLocationBroadcast(phoneNumber);
+    return renderBuddyMap();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result getLocationBroadcast(String phoneNumber),
+    Result renderBuddyMap(),
+    Result startBroadcast(MapTool mapTool, Buddy buddy),
     Result stopSecondBroadcast(),
-    Result resumeSecondBroadcast(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (getLocationBroadcast != null) {
-      return getLocationBroadcast(phoneNumber);
+    if (renderBuddyMap != null) {
+      return renderBuddyMap();
     }
     return orElse();
   }
@@ -159,38 +136,163 @@ class _$GetLocationBroadcast implements GetLocationBroadcast {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result getLocationBroadcast(GetLocationBroadcast value),
+    @required Result renderBuddyMap(RenderBuddyMap value),
+    @required Result startBroadcast(StartBroadcast value),
     @required Result stopSecondBroadcast(StopSecondBroadcast value),
-    @required Result resumeSecondBroadcast(ResumeSecondBroadcast value),
   }) {
-    assert(getLocationBroadcast != null);
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
-    assert(resumeSecondBroadcast != null);
-    return getLocationBroadcast(this);
+    return renderBuddyMap(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result getLocationBroadcast(GetLocationBroadcast value),
+    Result renderBuddyMap(RenderBuddyMap value),
+    Result startBroadcast(StartBroadcast value),
     Result stopSecondBroadcast(StopSecondBroadcast value),
-    Result resumeSecondBroadcast(ResumeSecondBroadcast value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (getLocationBroadcast != null) {
-      return getLocationBroadcast(this);
+    if (renderBuddyMap != null) {
+      return renderBuddyMap(this);
     }
     return orElse();
   }
 }
 
-abstract class GetLocationBroadcast implements MapEvent {
-  const factory GetLocationBroadcast(String phoneNumber) =
-      _$GetLocationBroadcast;
+abstract class RenderBuddyMap implements MapEvent {
+  const factory RenderBuddyMap() = _$RenderBuddyMap;
+}
 
-  String get phoneNumber;
-  $GetLocationBroadcastCopyWith<GetLocationBroadcast> get copyWith;
+abstract class $StartBroadcastCopyWith<$Res> {
+  factory $StartBroadcastCopyWith(
+          StartBroadcast value, $Res Function(StartBroadcast) then) =
+      _$StartBroadcastCopyWithImpl<$Res>;
+  $Res call({MapTool mapTool, Buddy buddy});
+}
+
+class _$StartBroadcastCopyWithImpl<$Res> extends _$MapEventCopyWithImpl<$Res>
+    implements $StartBroadcastCopyWith<$Res> {
+  _$StartBroadcastCopyWithImpl(
+      StartBroadcast _value, $Res Function(StartBroadcast) _then)
+      : super(_value, (v) => _then(v as StartBroadcast));
+
+  @override
+  StartBroadcast get _value => super._value as StartBroadcast;
+
+  @override
+  $Res call({
+    Object mapTool = freezed,
+    Object buddy = freezed,
+  }) {
+    return _then(StartBroadcast(
+      mapTool == freezed ? _value.mapTool : mapTool as MapTool,
+      buddy == freezed ? _value.buddy : buddy as Buddy,
+    ));
+  }
+}
+
+class _$StartBroadcast implements StartBroadcast {
+  const _$StartBroadcast(this.mapTool, this.buddy)
+      : assert(mapTool != null),
+        assert(buddy != null);
+
+  @override
+  final MapTool mapTool;
+  @override
+  final Buddy buddy;
+
+  @override
+  String toString() {
+    return 'MapEvent.startBroadcast(mapTool: $mapTool, buddy: $buddy)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is StartBroadcast &&
+            (identical(other.mapTool, mapTool) ||
+                const DeepCollectionEquality()
+                    .equals(other.mapTool, mapTool)) &&
+            (identical(other.buddy, buddy) ||
+                const DeepCollectionEquality().equals(other.buddy, buddy)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(mapTool) ^
+      const DeepCollectionEquality().hash(buddy);
+
+  @override
+  $StartBroadcastCopyWith<StartBroadcast> get copyWith =>
+      _$StartBroadcastCopyWithImpl<StartBroadcast>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result renderBuddyMap(),
+    @required Result startBroadcast(MapTool mapTool, Buddy buddy),
+    @required Result stopSecondBroadcast(),
+  }) {
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
+    assert(stopSecondBroadcast != null);
+    return startBroadcast(mapTool, buddy);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result renderBuddyMap(),
+    Result startBroadcast(MapTool mapTool, Buddy buddy),
+    Result stopSecondBroadcast(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (startBroadcast != null) {
+      return startBroadcast(mapTool, buddy);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result renderBuddyMap(RenderBuddyMap value),
+    @required Result startBroadcast(StartBroadcast value),
+    @required Result stopSecondBroadcast(StopSecondBroadcast value),
+  }) {
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
+    assert(stopSecondBroadcast != null);
+    return startBroadcast(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result renderBuddyMap(RenderBuddyMap value),
+    Result startBroadcast(StartBroadcast value),
+    Result stopSecondBroadcast(StopSecondBroadcast value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (startBroadcast != null) {
+      return startBroadcast(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StartBroadcast implements MapEvent {
+  const factory StartBroadcast(MapTool mapTool, Buddy buddy) = _$StartBroadcast;
+
+  MapTool get mapTool;
+  Buddy get buddy;
+  $StartBroadcastCopyWith<StartBroadcast> get copyWith;
 }
 
 abstract class $StopSecondBroadcastCopyWith<$Res> {
@@ -229,22 +331,22 @@ class _$StopSecondBroadcast implements StopSecondBroadcast {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result getLocationBroadcast(String phoneNumber),
+    @required Result renderBuddyMap(),
+    @required Result startBroadcast(MapTool mapTool, Buddy buddy),
     @required Result stopSecondBroadcast(),
-    @required Result resumeSecondBroadcast(),
   }) {
-    assert(getLocationBroadcast != null);
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
-    assert(resumeSecondBroadcast != null);
     return stopSecondBroadcast();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result getLocationBroadcast(String phoneNumber),
+    Result renderBuddyMap(),
+    Result startBroadcast(MapTool mapTool, Buddy buddy),
     Result stopSecondBroadcast(),
-    Result resumeSecondBroadcast(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -257,22 +359,22 @@ class _$StopSecondBroadcast implements StopSecondBroadcast {
   @override
   @optionalTypeArgs
   Result map<Result extends Object>({
-    @required Result getLocationBroadcast(GetLocationBroadcast value),
+    @required Result renderBuddyMap(RenderBuddyMap value),
+    @required Result startBroadcast(StartBroadcast value),
     @required Result stopSecondBroadcast(StopSecondBroadcast value),
-    @required Result resumeSecondBroadcast(ResumeSecondBroadcast value),
   }) {
-    assert(getLocationBroadcast != null);
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
-    assert(resumeSecondBroadcast != null);
     return stopSecondBroadcast(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
-    Result getLocationBroadcast(GetLocationBroadcast value),
+    Result renderBuddyMap(RenderBuddyMap value),
+    Result startBroadcast(StartBroadcast value),
     Result stopSecondBroadcast(StopSecondBroadcast value),
-    Result resumeSecondBroadcast(ResumeSecondBroadcast value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -287,100 +389,6 @@ abstract class StopSecondBroadcast implements MapEvent {
   const factory StopSecondBroadcast() = _$StopSecondBroadcast;
 }
 
-abstract class $ResumeSecondBroadcastCopyWith<$Res> {
-  factory $ResumeSecondBroadcastCopyWith(ResumeSecondBroadcast value,
-          $Res Function(ResumeSecondBroadcast) then) =
-      _$ResumeSecondBroadcastCopyWithImpl<$Res>;
-}
-
-class _$ResumeSecondBroadcastCopyWithImpl<$Res>
-    extends _$MapEventCopyWithImpl<$Res>
-    implements $ResumeSecondBroadcastCopyWith<$Res> {
-  _$ResumeSecondBroadcastCopyWithImpl(
-      ResumeSecondBroadcast _value, $Res Function(ResumeSecondBroadcast) _then)
-      : super(_value, (v) => _then(v as ResumeSecondBroadcast));
-
-  @override
-  ResumeSecondBroadcast get _value => super._value as ResumeSecondBroadcast;
-}
-
-class _$ResumeSecondBroadcast implements ResumeSecondBroadcast {
-  const _$ResumeSecondBroadcast();
-
-  @override
-  String toString() {
-    return 'MapEvent.resumeSecondBroadcast()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ResumeSecondBroadcast);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result getLocationBroadcast(String phoneNumber),
-    @required Result stopSecondBroadcast(),
-    @required Result resumeSecondBroadcast(),
-  }) {
-    assert(getLocationBroadcast != null);
-    assert(stopSecondBroadcast != null);
-    assert(resumeSecondBroadcast != null);
-    return resumeSecondBroadcast();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result getLocationBroadcast(String phoneNumber),
-    Result stopSecondBroadcast(),
-    Result resumeSecondBroadcast(),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (resumeSecondBroadcast != null) {
-      return resumeSecondBroadcast();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result getLocationBroadcast(GetLocationBroadcast value),
-    @required Result stopSecondBroadcast(StopSecondBroadcast value),
-    @required Result resumeSecondBroadcast(ResumeSecondBroadcast value),
-  }) {
-    assert(getLocationBroadcast != null);
-    assert(stopSecondBroadcast != null);
-    assert(resumeSecondBroadcast != null);
-    return resumeSecondBroadcast(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result getLocationBroadcast(GetLocationBroadcast value),
-    Result stopSecondBroadcast(StopSecondBroadcast value),
-    Result resumeSecondBroadcast(ResumeSecondBroadcast value),
-    @required Result orElse(),
-  }) {
-    assert(orElse != null);
-    if (resumeSecondBroadcast != null) {
-      return resumeSecondBroadcast(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ResumeSecondBroadcast implements MapEvent {
-  const factory ResumeSecondBroadcast() = _$ResumeSecondBroadcast;
-}
-
 class _$MapStateTearOff {
   const _$MapStateTearOff();
 
@@ -388,12 +396,16 @@ class _$MapStateTearOff {
     return const MapInitial();
   }
 
-  ReceivingBroadcast receivingBroadcast(
-      Buddy buddy, Stream<Location> stream, Location location) {
-    return ReceivingBroadcast(
+  MapRendered mapRendered(MapTool mapTool) {
+    return MapRendered(
+      mapTool,
+    );
+  }
+
+  BroadcastStarted broadcastStarted(Buddy buddy, MapTool mapTool) {
+    return BroadcastStarted(
       buddy,
-      stream,
-      location,
+      mapTool,
     );
   }
 
@@ -417,9 +429,8 @@ mixin _$MapState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required
-        Result receivingBroadcast(
-            Buddy buddy, Stream<Location> stream, Location location),
+    @required Result mapRendered(MapTool mapTool),
+    @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
     @required Result broadcastEnded(),
     @required Result broadcastError(),
     @required Result loading(),
@@ -427,8 +438,8 @@ mixin _$MapState {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result receivingBroadcast(
-        Buddy buddy, Stream<Location> stream, Location location),
+    Result mapRendered(MapTool mapTool),
+    Result broadcastStarted(Buddy buddy, MapTool mapTool),
     Result broadcastEnded(),
     Result broadcastError(),
     Result loading(),
@@ -437,7 +448,8 @@ mixin _$MapState {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(MapInitial value),
-    @required Result receivingBroadcast(ReceivingBroadcast value),
+    @required Result mapRendered(MapRendered value),
+    @required Result broadcastStarted(BroadcastStarted value),
     @required Result broadcastEnded(BroadcastEnded value),
     @required Result broadcastError(BroadcastError value),
     @required Result loading(MapLoading value),
@@ -445,7 +457,8 @@ mixin _$MapState {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(MapInitial value),
-    Result receivingBroadcast(ReceivingBroadcast value),
+    Result mapRendered(MapRendered value),
+    Result broadcastStarted(BroadcastStarted value),
     Result broadcastEnded(BroadcastEnded value),
     Result broadcastError(BroadcastError value),
     Result loading(MapLoading value),
@@ -501,15 +514,15 @@ class _$MapInitial implements MapInitial {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required
-        Result receivingBroadcast(
-            Buddy buddy, Stream<Location> stream, Location location),
+    @required Result mapRendered(MapTool mapTool),
+    @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
     @required Result broadcastEnded(),
     @required Result broadcastError(),
     @required Result loading(),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -520,8 +533,8 @@ class _$MapInitial implements MapInitial {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result receivingBroadcast(
-        Buddy buddy, Stream<Location> stream, Location location),
+    Result mapRendered(MapTool mapTool),
+    Result broadcastStarted(Buddy buddy, MapTool mapTool),
     Result broadcastEnded(),
     Result broadcastError(),
     Result loading(),
@@ -538,13 +551,15 @@ class _$MapInitial implements MapInitial {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(MapInitial value),
-    @required Result receivingBroadcast(ReceivingBroadcast value),
+    @required Result mapRendered(MapRendered value),
+    @required Result broadcastStarted(BroadcastStarted value),
     @required Result broadcastEnded(BroadcastEnded value),
     @required Result broadcastError(BroadcastError value),
     @required Result loading(MapLoading value),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -555,7 +570,8 @@ class _$MapInitial implements MapInitial {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(MapInitial value),
-    Result receivingBroadcast(ReceivingBroadcast value),
+    Result mapRendered(MapRendered value),
+    Result broadcastStarted(BroadcastStarted value),
     Result broadcastEnded(BroadcastEnded value),
     Result broadcastError(BroadcastError value),
     Result loading(MapLoading value),
@@ -573,112 +589,92 @@ abstract class MapInitial implements MapState {
   const factory MapInitial() = _$MapInitial;
 }
 
-abstract class $ReceivingBroadcastCopyWith<$Res> {
-  factory $ReceivingBroadcastCopyWith(
-          ReceivingBroadcast value, $Res Function(ReceivingBroadcast) then) =
-      _$ReceivingBroadcastCopyWithImpl<$Res>;
-  $Res call({Buddy buddy, Stream<Location> stream, Location location});
+abstract class $MapRenderedCopyWith<$Res> {
+  factory $MapRenderedCopyWith(
+          MapRendered value, $Res Function(MapRendered) then) =
+      _$MapRenderedCopyWithImpl<$Res>;
+  $Res call({MapTool mapTool});
 }
 
-class _$ReceivingBroadcastCopyWithImpl<$Res>
-    extends _$MapStateCopyWithImpl<$Res>
-    implements $ReceivingBroadcastCopyWith<$Res> {
-  _$ReceivingBroadcastCopyWithImpl(
-      ReceivingBroadcast _value, $Res Function(ReceivingBroadcast) _then)
-      : super(_value, (v) => _then(v as ReceivingBroadcast));
+class _$MapRenderedCopyWithImpl<$Res> extends _$MapStateCopyWithImpl<$Res>
+    implements $MapRenderedCopyWith<$Res> {
+  _$MapRenderedCopyWithImpl(
+      MapRendered _value, $Res Function(MapRendered) _then)
+      : super(_value, (v) => _then(v as MapRendered));
 
   @override
-  ReceivingBroadcast get _value => super._value as ReceivingBroadcast;
+  MapRendered get _value => super._value as MapRendered;
 
   @override
   $Res call({
-    Object buddy = freezed,
-    Object stream = freezed,
-    Object location = freezed,
+    Object mapTool = freezed,
   }) {
-    return _then(ReceivingBroadcast(
-      buddy == freezed ? _value.buddy : buddy as Buddy,
-      stream == freezed ? _value.stream : stream as Stream<Location>,
-      location == freezed ? _value.location : location as Location,
+    return _then(MapRendered(
+      mapTool == freezed ? _value.mapTool : mapTool as MapTool,
     ));
   }
 }
 
-class _$ReceivingBroadcast implements ReceivingBroadcast {
-  const _$ReceivingBroadcast(this.buddy, this.stream, this.location)
-      : assert(buddy != null),
-        assert(stream != null),
-        assert(location != null);
+class _$MapRendered implements MapRendered {
+  const _$MapRendered(this.mapTool) : assert(mapTool != null);
 
   @override
-  final Buddy buddy;
-  @override
-  final Stream<Location> stream;
-  @override
-  final Location location;
+  final MapTool mapTool;
 
   @override
   String toString() {
-    return 'MapState.receivingBroadcast(buddy: $buddy, stream: $stream, location: $location)';
+    return 'MapState.mapRendered(mapTool: $mapTool)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ReceivingBroadcast &&
-            (identical(other.buddy, buddy) ||
-                const DeepCollectionEquality().equals(other.buddy, buddy)) &&
-            (identical(other.stream, stream) ||
-                const DeepCollectionEquality().equals(other.stream, stream)) &&
-            (identical(other.location, location) ||
-                const DeepCollectionEquality()
-                    .equals(other.location, location)));
+        (other is MapRendered &&
+            (identical(other.mapTool, mapTool) ||
+                const DeepCollectionEquality().equals(other.mapTool, mapTool)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(buddy) ^
-      const DeepCollectionEquality().hash(stream) ^
-      const DeepCollectionEquality().hash(location);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(mapTool);
 
   @override
-  $ReceivingBroadcastCopyWith<ReceivingBroadcast> get copyWith =>
-      _$ReceivingBroadcastCopyWithImpl<ReceivingBroadcast>(this, _$identity);
+  $MapRenderedCopyWith<MapRendered> get copyWith =>
+      _$MapRenderedCopyWithImpl<MapRendered>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required
-        Result receivingBroadcast(
-            Buddy buddy, Stream<Location> stream, Location location),
+    @required Result mapRendered(MapTool mapTool),
+    @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
     @required Result broadcastEnded(),
     @required Result broadcastError(),
     @required Result loading(),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
-    return receivingBroadcast(buddy, stream, location);
+    return mapRendered(mapTool);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result receivingBroadcast(
-        Buddy buddy, Stream<Location> stream, Location location),
+    Result mapRendered(MapTool mapTool),
+    Result broadcastStarted(Buddy buddy, MapTool mapTool),
     Result broadcastEnded(),
     Result broadcastError(),
     Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (receivingBroadcast != null) {
-      return receivingBroadcast(buddy, stream, location);
+    if (mapRendered != null) {
+      return mapRendered(mapTool);
     }
     return orElse();
   }
@@ -687,46 +683,192 @@ class _$ReceivingBroadcast implements ReceivingBroadcast {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(MapInitial value),
-    @required Result receivingBroadcast(ReceivingBroadcast value),
+    @required Result mapRendered(MapRendered value),
+    @required Result broadcastStarted(BroadcastStarted value),
     @required Result broadcastEnded(BroadcastEnded value),
     @required Result broadcastError(BroadcastError value),
     @required Result loading(MapLoading value),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
-    return receivingBroadcast(this);
+    return mapRendered(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(MapInitial value),
-    Result receivingBroadcast(ReceivingBroadcast value),
+    Result mapRendered(MapRendered value),
+    Result broadcastStarted(BroadcastStarted value),
     Result broadcastEnded(BroadcastEnded value),
     Result broadcastError(BroadcastError value),
     Result loading(MapLoading value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (receivingBroadcast != null) {
-      return receivingBroadcast(this);
+    if (mapRendered != null) {
+      return mapRendered(this);
     }
     return orElse();
   }
 }
 
-abstract class ReceivingBroadcast implements MapState {
-  const factory ReceivingBroadcast(
-          Buddy buddy, Stream<Location> stream, Location location) =
-      _$ReceivingBroadcast;
+abstract class MapRendered implements MapState {
+  const factory MapRendered(MapTool mapTool) = _$MapRendered;
+
+  MapTool get mapTool;
+  $MapRenderedCopyWith<MapRendered> get copyWith;
+}
+
+abstract class $BroadcastStartedCopyWith<$Res> {
+  factory $BroadcastStartedCopyWith(
+          BroadcastStarted value, $Res Function(BroadcastStarted) then) =
+      _$BroadcastStartedCopyWithImpl<$Res>;
+  $Res call({Buddy buddy, MapTool mapTool});
+}
+
+class _$BroadcastStartedCopyWithImpl<$Res> extends _$MapStateCopyWithImpl<$Res>
+    implements $BroadcastStartedCopyWith<$Res> {
+  _$BroadcastStartedCopyWithImpl(
+      BroadcastStarted _value, $Res Function(BroadcastStarted) _then)
+      : super(_value, (v) => _then(v as BroadcastStarted));
+
+  @override
+  BroadcastStarted get _value => super._value as BroadcastStarted;
+
+  @override
+  $Res call({
+    Object buddy = freezed,
+    Object mapTool = freezed,
+  }) {
+    return _then(BroadcastStarted(
+      buddy == freezed ? _value.buddy : buddy as Buddy,
+      mapTool == freezed ? _value.mapTool : mapTool as MapTool,
+    ));
+  }
+}
+
+class _$BroadcastStarted implements BroadcastStarted {
+  const _$BroadcastStarted(this.buddy, this.mapTool)
+      : assert(buddy != null),
+        assert(mapTool != null);
+
+  @override
+  final Buddy buddy;
+  @override
+  final MapTool mapTool;
+
+  @override
+  String toString() {
+    return 'MapState.broadcastStarted(buddy: $buddy, mapTool: $mapTool)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is BroadcastStarted &&
+            (identical(other.buddy, buddy) ||
+                const DeepCollectionEquality().equals(other.buddy, buddy)) &&
+            (identical(other.mapTool, mapTool) ||
+                const DeepCollectionEquality().equals(other.mapTool, mapTool)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(buddy) ^
+      const DeepCollectionEquality().hash(mapTool);
+
+  @override
+  $BroadcastStartedCopyWith<BroadcastStarted> get copyWith =>
+      _$BroadcastStartedCopyWithImpl<BroadcastStarted>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initial(),
+    @required Result mapRendered(MapTool mapTool),
+    @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
+    @required Result broadcastEnded(),
+    @required Result broadcastError(),
+    @required Result loading(),
+  }) {
+    assert(initial != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
+    assert(broadcastEnded != null);
+    assert(broadcastError != null);
+    assert(loading != null);
+    return broadcastStarted(buddy, mapTool);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initial(),
+    Result mapRendered(MapTool mapTool),
+    Result broadcastStarted(Buddy buddy, MapTool mapTool),
+    Result broadcastEnded(),
+    Result broadcastError(),
+    Result loading(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (broadcastStarted != null) {
+      return broadcastStarted(buddy, mapTool);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initial(MapInitial value),
+    @required Result mapRendered(MapRendered value),
+    @required Result broadcastStarted(BroadcastStarted value),
+    @required Result broadcastEnded(BroadcastEnded value),
+    @required Result broadcastError(BroadcastError value),
+    @required Result loading(MapLoading value),
+  }) {
+    assert(initial != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
+    assert(broadcastEnded != null);
+    assert(broadcastError != null);
+    assert(loading != null);
+    return broadcastStarted(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initial(MapInitial value),
+    Result mapRendered(MapRendered value),
+    Result broadcastStarted(BroadcastStarted value),
+    Result broadcastEnded(BroadcastEnded value),
+    Result broadcastError(BroadcastError value),
+    Result loading(MapLoading value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (broadcastStarted != null) {
+      return broadcastStarted(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BroadcastStarted implements MapState {
+  const factory BroadcastStarted(Buddy buddy, MapTool mapTool) =
+      _$BroadcastStarted;
 
   Buddy get buddy;
-  Stream<Location> get stream;
-  Location get location;
-  $ReceivingBroadcastCopyWith<ReceivingBroadcast> get copyWith;
+  MapTool get mapTool;
+  $BroadcastStartedCopyWith<BroadcastStarted> get copyWith;
 }
 
 abstract class $BroadcastEndedCopyWith<$Res> {
@@ -765,15 +907,15 @@ class _$BroadcastEnded implements BroadcastEnded {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required
-        Result receivingBroadcast(
-            Buddy buddy, Stream<Location> stream, Location location),
+    @required Result mapRendered(MapTool mapTool),
+    @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
     @required Result broadcastEnded(),
     @required Result broadcastError(),
     @required Result loading(),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -784,8 +926,8 @@ class _$BroadcastEnded implements BroadcastEnded {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result receivingBroadcast(
-        Buddy buddy, Stream<Location> stream, Location location),
+    Result mapRendered(MapTool mapTool),
+    Result broadcastStarted(Buddy buddy, MapTool mapTool),
     Result broadcastEnded(),
     Result broadcastError(),
     Result loading(),
@@ -802,13 +944,15 @@ class _$BroadcastEnded implements BroadcastEnded {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(MapInitial value),
-    @required Result receivingBroadcast(ReceivingBroadcast value),
+    @required Result mapRendered(MapRendered value),
+    @required Result broadcastStarted(BroadcastStarted value),
     @required Result broadcastEnded(BroadcastEnded value),
     @required Result broadcastError(BroadcastError value),
     @required Result loading(MapLoading value),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -819,7 +963,8 @@ class _$BroadcastEnded implements BroadcastEnded {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(MapInitial value),
-    Result receivingBroadcast(ReceivingBroadcast value),
+    Result mapRendered(MapRendered value),
+    Result broadcastStarted(BroadcastStarted value),
     Result broadcastEnded(BroadcastEnded value),
     Result broadcastError(BroadcastError value),
     Result loading(MapLoading value),
@@ -873,15 +1018,15 @@ class _$BroadcastError implements BroadcastError {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required
-        Result receivingBroadcast(
-            Buddy buddy, Stream<Location> stream, Location location),
+    @required Result mapRendered(MapTool mapTool),
+    @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
     @required Result broadcastEnded(),
     @required Result broadcastError(),
     @required Result loading(),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -892,8 +1037,8 @@ class _$BroadcastError implements BroadcastError {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result receivingBroadcast(
-        Buddy buddy, Stream<Location> stream, Location location),
+    Result mapRendered(MapTool mapTool),
+    Result broadcastStarted(Buddy buddy, MapTool mapTool),
     Result broadcastEnded(),
     Result broadcastError(),
     Result loading(),
@@ -910,13 +1055,15 @@ class _$BroadcastError implements BroadcastError {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(MapInitial value),
-    @required Result receivingBroadcast(ReceivingBroadcast value),
+    @required Result mapRendered(MapRendered value),
+    @required Result broadcastStarted(BroadcastStarted value),
     @required Result broadcastEnded(BroadcastEnded value),
     @required Result broadcastError(BroadcastError value),
     @required Result loading(MapLoading value),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -927,7 +1074,8 @@ class _$BroadcastError implements BroadcastError {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(MapInitial value),
-    Result receivingBroadcast(ReceivingBroadcast value),
+    Result mapRendered(MapRendered value),
+    Result broadcastStarted(BroadcastStarted value),
     Result broadcastEnded(BroadcastEnded value),
     Result broadcastError(BroadcastError value),
     Result loading(MapLoading value),
@@ -980,15 +1128,15 @@ class _$MapLoading implements MapLoading {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result initial(),
-    @required
-        Result receivingBroadcast(
-            Buddy buddy, Stream<Location> stream, Location location),
+    @required Result mapRendered(MapTool mapTool),
+    @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
     @required Result broadcastEnded(),
     @required Result broadcastError(),
     @required Result loading(),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -999,8 +1147,8 @@ class _$MapLoading implements MapLoading {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(),
-    Result receivingBroadcast(
-        Buddy buddy, Stream<Location> stream, Location location),
+    Result mapRendered(MapTool mapTool),
+    Result broadcastStarted(Buddy buddy, MapTool mapTool),
     Result broadcastEnded(),
     Result broadcastError(),
     Result loading(),
@@ -1017,13 +1165,15 @@ class _$MapLoading implements MapLoading {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(MapInitial value),
-    @required Result receivingBroadcast(ReceivingBroadcast value),
+    @required Result mapRendered(MapRendered value),
+    @required Result broadcastStarted(BroadcastStarted value),
     @required Result broadcastEnded(BroadcastEnded value),
     @required Result broadcastError(BroadcastError value),
     @required Result loading(MapLoading value),
   }) {
     assert(initial != null);
-    assert(receivingBroadcast != null);
+    assert(mapRendered != null);
+    assert(broadcastStarted != null);
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
@@ -1034,7 +1184,8 @@ class _$MapLoading implements MapLoading {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(MapInitial value),
-    Result receivingBroadcast(ReceivingBroadcast value),
+    Result mapRendered(MapRendered value),
+    Result broadcastStarted(BroadcastStarted value),
     Result broadcastEnded(BroadcastEnded value),
     Result broadcastError(BroadcastError value),
     Result loading(MapLoading value),

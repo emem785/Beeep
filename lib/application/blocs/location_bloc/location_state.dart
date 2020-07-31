@@ -4,6 +4,7 @@ part of 'location_bloc.dart';
 @freezed
 abstract class LocationState with _$LocationState {
   const factory LocationState.initial() = Initial;
-  const factory LocationState.broadcasting(Stream<Location>locationStream,Location location) = Broadcasting;
-  const factory LocationState.notBroadcasting(Location location) = NotBroadcasting;
+  const factory LocationState.mapRendered(MapTool mapTool) = MapRendered;
+  const factory LocationState.broadcastStarted(MapTool mapTool) = BroadcastStarted;
+  const factory LocationState.broadcastStopped(MapTool mapTool) = BroadcastStopped;
 }

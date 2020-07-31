@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:beep/core/error/failure.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
@@ -14,16 +15,21 @@ import 'package:injectable/injectable.dart';
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
+const API_LOCATION_UPDATE_DELAY = 7;
+const API_LOCATION_REQUEST_DELAY = 7;
+
 @LazySingleton(as: ApiInterface)
 class HttpApiImpl implements ApiInterface {
   final LocalStorageInterface localStorageRepo;
   final NetworkInterface client;
+  StreamSubscription<Location> _subscription;
 
   HttpApiImpl({@required this.localStorageRepo, @required this.client});
 
   //Authentication
   @override
-  Future<Either<Failure, bool>> registerUser({User user, String password}) async {
+  Future<Either<Failure, bool>> registerUser(
+      {User user, String password}) async {
     final body = {
       "firstname": user.firstname,
       "lastname": user.lastname,
@@ -123,8 +129,7 @@ class HttpApiImpl implements ApiInterface {
   }
 
   @override
-  Future<Either<Failure, bool>> beep(
-      String action, Location position) async {
+  Future<Either<Failure, bool>> beep(String action, Location position) async {
     final body = {
       "longitude": position.longitude.toString(),
       "latitude": position.latitude.toString(),
@@ -150,9 +155,19 @@ class HttpApiImpl implements ApiInterface {
   }
 
   @override
+  StreamSubscription<Location> sendLocationAsStream(
+      Stream<Location> locationStream) {
+    _subscription = locationStream.listen((event) {
+      sendLocation(event.latitude, event.longitude);
+      _subscription.pause(Future.delayed(const Duration(seconds: API_LOCATION_UPDATE_DELAY)));
+    });
+    return _subscription;
+  }
+
+  @override
   Stream<Location> getLocation(String phoneNumber) async* {
     while (true) {
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: API_LOCATION_REQUEST_DELAY));
       final response = await client.getAuth("get_user_location", phoneNumber);
       yield* response.fold((l) async* {
         yield Location(latitude: 0, longitude: 0);
@@ -170,8 +185,11 @@ class HttpApiImpl implements ApiInterface {
     final response = await client.getAuth("get_closest_lawyers");
     return response.fold((l) => Left(l), (r) {
       final lawyerMap = r["response"]["content"]["details"];
-      List<Lawyer> lawyerList = List.from(lawyerMap).map((m) => Lawyer.fromJson(m)).toList();
+      List<Lawyer> lawyerList =
+          List.from(lawyerMap).map((m) => Lawyer.fromJson(m)).toList();
       return Right(lawyerList);
     });
   }
+
+
 }

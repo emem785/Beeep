@@ -1,5 +1,6 @@
+import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
-import 'package:beep/core/widgets/map_widgets/receive_beep.dart';
+import 'package:beep/core/widgets/map_widgets/receive_beep_widgets/receive_beep.dart';
 import 'package:beep/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,9 +13,15 @@ class ReceiveBeepPage extends StatelessWidget {
     return LayoutBuilder(builder: (context, size) {
       return Scaffold(
         key: _globalKey,
-        body: BlocProvider(
-            create: (_) => getIt<MapBloc>()..add(GetLocationBroadcast("dffd")),
-            child: ReceiveBeep()),
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (_) => getIt<MapBloc>()..add(RenderBuddyMap())),
+            BlocProvider(
+                create: (_) => getIt<AddressBloc>()..add(GetBuddyAddress())),
+          ],
+          child: ReceiveBeep(),
+        ),
       );
     });
   }

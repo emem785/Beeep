@@ -36,9 +36,7 @@ class RouteGenerator {
           break;
 
         case '/HomeScreen':
-          screen = HomeScreen(
-            goToReceiveBeep: args["goToReceiveBeep"],
-          );
+          screen = HomeScreen();
           break;
 
         case '/ReceiveBeep':

@@ -16,7 +16,7 @@
 
 //   @override
 //   Future<Either<Failure, String>> getVerifyCode(String phoneNumber) async {
-//     await Future.delayed(Duration(seconds: 2));
+//     await Future.delayed(const Duration(seconds: 2));
 //     final jsonResponse = fakeResponse.fakeGetVerifyCode(phoneNumber);
 //     final response = jsonDecode(jsonResponse);
 //     final code = response["response"]["code"]["code"];
@@ -36,7 +36,7 @@
 //   @override
 //   Future<Either<Failure, User>> mobileVerify(
 //       String phoneNumber, String code) async {
-//     await Future.delayed(Duration(seconds: 2));
+//     await Future.delayed(const Duration(seconds: 2));
 //     final jsonResponse = fakeResponse.fakeMobileVerify();
 //     final response = jsonDecode(jsonResponse);
 //     final code = response["response"]["code"]["code"];
@@ -52,7 +52,7 @@
 //   @override
 //   Future<Either<Failure, bool>> registerUser(String firstName, String lastName,
 //       String email, String phoneNumber, String password) async {
-//     await Future.delayed(Duration(seconds: 2));
+//     await Future.delayed(const Duration(seconds: 2));
 //     final jsonResponse = fakeResponse.fakeRegister(firstName);
 //     final response = jsonDecode(jsonResponse);
 //     final code = response["response"]["code"]["code"];
@@ -66,7 +66,7 @@
 //   @override
 //   Future<Either<Failure, User>> signIn(
 //       String phoneNumber, String password) async {
-//     await Future.delayed(Duration(seconds: 2));
+//     await Future.delayed(const Duration(seconds: 2));
 //     final jsonResponse = fakeResponse.fakeSignIn();
 //     final response = jsonDecode(jsonResponse);
 //     var code = response["response"]["code"]["code"];

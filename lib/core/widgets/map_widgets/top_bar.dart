@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TopBar extends StatelessWidget {
+  final String address;
   const TopBar({
     Key key,
+    @required this.address,
   }) : super(key: key);
 
   @override
@@ -29,10 +31,9 @@ class TopBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text('Current Location',
-                          style: TextStyle(
-                              fontSize: 15, fontFamily: 'Nunito')),
+                          style: TextStyle(fontSize: 15, fontFamily: 'Nunito')),
                       Text(
-                        '',
+                        address,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontFamily: 'Nunito',
