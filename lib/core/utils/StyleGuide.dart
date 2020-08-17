@@ -16,6 +16,7 @@ final Color customGreen2 = Color(0xFF32BEA6);
 final TextStyle nunitoLarge = TextStyle(fontFamily: 'Nunito', fontSize: 20);
 final TextStyle nunitoMid = TextStyle(fontFamily: 'Nunito', fontSize: 16);
 final TextStyle nunitoMidBold = TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.w600, fontSize: 16);
+final TextStyle nunitoMidBoldGreen = TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.w600, fontSize: 16,color: Colors.green);
 final TextStyle nunitoMidPrompt = TextStyle(fontFamily: 'Nunito',fontSize: 16,fontWeight: FontWeight.w600,color: Colors.black);
 final TextStyle nunitoMidPromptPink = TextStyle(fontFamily: 'Nunito',fontSize: 16,color: customPink,fontWeight: FontWeight.w600);
 final TextStyle nunitoSmallGreen =TextStyle(fontFamily: 'Nunito', fontSize: 14, color: customGreen2);

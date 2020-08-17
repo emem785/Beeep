@@ -34,6 +34,7 @@ class MapHelperImpl implements MapInterface {
         apiInterface.getLocation(phoneNumber).listen((event) {
       mapTool.updateController(event);
       mapTool.markerStreamController.add(getMarker(event));
+      print(event.longitude);
     });
     return mapUpdateSubscription;
   }
@@ -49,12 +50,13 @@ class MapHelperImpl implements MapInterface {
       ),
     );
   }
-    @override
-  Future<MapTool> getMapToolWithAddressFromApi(MapTool mapTool,String phoneNumber)async {
+
+  @override
+  Future<MapTool> getMapToolWithAddressFromApi(
+      MapTool mapTool, String phoneNumber) async {
     // final location = await apiInterface.getLocation(phoneNumber).first;
     // final address = await userLocationInterface.getBuddyAddressFromLocation(location);
     mapTool.setAddress("dddd");
     return mapTool;
   }
-
 }

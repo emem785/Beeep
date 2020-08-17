@@ -121,7 +121,7 @@ class _LoginOneState extends State<LoginOne> {
                             onPressed: () {
                               if (_formKey.currentState.validate()) {
                                 signInBloc.add(SignInEventOnSubmit(
-                                    _phoneNumber.text, _password.text));
+                                    _phoneNumber.text.trimRight(), _password.text.trimRight()));
                               }
                             },
                             text: 'Login'),

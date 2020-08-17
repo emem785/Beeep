@@ -31,60 +31,57 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
           ),
           color: Colors.white,
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: BlocBuilder<LawyerBloc, LawyerState>(
-            builder: (context, state) {
-              return state.maybeMap(
-                  orElse: () => SizedBox(),
-                  error: (e) {
-                    return Center(child: Text(e.failure.message));
-                  },
-                  loading: (s) => LoadingIndicator(),
-                  loaded: (l) {
-                    return ListView(
-                        children: l.lawyers.map((law) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                              child:
-                                  SvgPicture.asset('assets/images/logo.svg')),
-                          title: Text(
-                            law.firstname + "" + law.lastname,
-                            style: nunitoMidBold,
-                          ),
-                          subtitle: Text(
-                              '${law.distance.toStringAsFixed(2)} km away',
-                              style: nunitoMid),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              GestureDetector(
-                                child: Icon(Icons.message),
+        child: BlocBuilder<LawyerBloc, LawyerState>(
+          builder: (context, state) {
+            return state.maybeMap(
+                orElse: () => SizedBox(),
+                error: (e) {
+                  return Center(child: Text(e.failure.message));
+                },
+                loading: (s) => LoadingIndicator(),
+                loaded: (l) {
+                  return ListView(
+                      children: l.lawyers.map((law) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                            child:
+                                SvgPicture.asset('assets/images/logo.svg')),
+                        title: Text(
+                          law.firstname + "" + law.lastname,
+                          style: nunitoMidBold,
+                        ),
+                        subtitle: Text(
+                            '${law.distance.toStringAsFixed(2)} km away',
+                            style: nunitoMid),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            GestureDetector(
+                              child: Icon(Icons.message),
+                              onTap: () async {
+                                String url = 'sms:${law.phone}';
+                                await launch(url);
+                              },
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: GestureDetector(
+                                child: Icon(Icons.call),
                                 onTap: () async {
-                                  String url = 'sms:${law.phone}';
+                                  String url = 'tel:${law.phone}';
                                   await launch(url);
                                 },
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16.0),
-                                child: GestureDetector(
-                                  child: Icon(Icons.call),
-                                  onTap: () async {
-                                    String url = 'tel:${law.phone}';
-                                    await launch(url);
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      );
-                    }).toList());
-                  });
-            },
-          ),
+                      ),
+                    );
+                  }).toList());
+                });
+          },
         ),
       ),
     );

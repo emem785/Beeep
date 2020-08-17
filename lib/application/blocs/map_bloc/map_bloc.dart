@@ -15,6 +15,7 @@ import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../infrastructure/models/map_tools.dart';
+import '../../../infrastructure/models/lawyers.dart';
 
 part 'map_event.dart';
 part 'map_state.dart';
@@ -40,9 +41,11 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Stream<MapState> mapEventToState(
     MapEvent event,
   ) async* {
+    print("loading");
     yield MapLoading();
     yield* event.map(
       renderBuddyMap: (e) async* {
+        print("render map");
         final buddy = await _getBuddy();
         final buddyLocation = await _getBuddyLocation(buddy);
         final mapTool = MapTool(location: buddyLocation);
@@ -50,6 +53,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         add(StartBroadcast(mapTool, buddy));
       },
       startBroadcast: (e) async* {
+        print("broadcast started");
         _mapUpdateSubscription = mapInterface.startMapUpdateStreamFromApi(
             e.mapTool, e.buddy.phonenumber);
         yield BroadcastStarted(e.buddy, e.mapTool);

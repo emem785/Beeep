@@ -15,8 +15,8 @@ import 'package:injectable/injectable.dart';
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
-const API_LOCATION_UPDATE_DELAY = 7;
-const API_LOCATION_REQUEST_DELAY = 7;
+const API_LOCATION_UPDATE_DELAY = 4;
+const API_LOCATION_REQUEST_DELAY = 9;
 
 @LazySingleton(as: ApiInterface)
 class HttpApiImpl implements ApiInterface {
@@ -174,7 +174,6 @@ class HttpApiImpl implements ApiInterface {
       }, (r) async* {
         final location =
             r["response"]["content"]["details"]["target_user_location"];
-
         yield Location(latitude: location["lat"], longitude: location["lng"]);
       });
     }

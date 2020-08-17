@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
+import 'package:beep/application/cubits/receive_beep_cubit/receive_beep_cubit.dart';
+import 'package:beep/core/widgets/bottom_nav_bar_widgets/lawyer_bottom_sheet.dart';
 import 'package:beep/core/widgets/map_widgets/receive_beep_widgets/bottom_container.dart';
 import 'package:beep/core/widgets/map_widgets/receive_beep_widgets/receive_beep_map.dart';
 import 'package:beep/core/widgets/map_widgets/top_bar.dart';
@@ -48,38 +50,14 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
   @override
   Widget build(BuildContext context) {
     final mapBloc = Provider.of<MapBloc>(context);
+
+    double _height = MediaQuery.of(context).size.height * 0.18;
     return WillPopScope(
       onWillPop: () => _onWillPop(mapBloc),
       child: LayoutBuilder(builder: (context, size) {
         return Container(
           child: Stack(
             children: <Widget>[
-              Container(child:
-                  BlocBuilder<MapBloc, MapState>(builder: (context, state) {
-                return state.maybeMap(
-                  orElse: () => SizedBox(),
-                  mapRendered: (r) => ReceiveBeepMap(
-                      mapTool: r.mapTool,
-                      markerStream: r.mapTool.markerStreamController.stream),
-                  broadcastStarted: (b) => ReceiveBeepMap(
-                      mapTool: b.mapTool,
-                      markerStream: b.mapTool.markerStreamController.stream),
-                );
-              })),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child:
-                    BlocBuilder<MapBloc, MapState>(builder: (context, state) {
-                  return state.maybeMap(
-                      orElse: () => SizedBox(),
-                      mapRendered: (r) =>
-                          BottomContainerLoading(height: size.minHeight * 0.2),
-                      broadcastStarted: (b) => BottomContainer(
-                          height: size.maxHeight * 0.2, buddy: b.buddy),
-                      loading: (l) =>
-                          BottomContainerLoading(height: size.maxHeight * 0.2));
-                }),
-              ),
               BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
                 return state.map(
                     addressInitial: (i) => TopBar(address: ""),
@@ -89,6 +67,55 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                         TopBar(address: "Failed to get address"),
                     addressGotten: (g) => TopBar(address: g.address));
               }),
+              Container(child: BlocBuilder<MapBloc, MapState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    orElse: () => SizedBox(),
+                    mapRendered: (r) => ReceiveBeepMap(
+                        mapTool: r.mapTool,
+                        markerStream: r.mapTool.markerStreamController.stream),
+                    broadcastStarted: (b) => ReceiveBeepMap(
+                        mapTool: b.mapTool,
+                        markerStream: b.mapTool.markerStreamController.stream),
+                  );
+                },
+              )),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: AnimatedContainer(
+                  height: _height,
+                  curve: Curves.linear,
+                  width: MediaQuery.of(context).size.width,
+                  duration: Duration(milliseconds: 100),
+                  child: BlocBuilder<MapBloc, MapState>(
+                    builder: (context, state) {
+                      return state.maybeMap(
+                        orElse: () => SizedBox(),
+                        mapRendered: (r) => BottomContainerLoading(
+                            height: size.maxHeight * 0.18),
+                        broadcastStarted: (b) =>
+                            BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
+                          builder: (context, state) {
+                            return state.map(
+                                initial: (i) => BottomContainer(
+                                    height: size.maxHeight * 0.18,
+                                    buddy: b.buddy,
+                                    ),
+                                lawyersGotten: (l) => LawyerBottomSheet());
+                          },
+                          listener: (context, state) {
+                            return state.maybeMap(
+                                orElse: () => 1,
+                                lawyersGotten: (l) => _height = size.maxHeight * 0.45);
+                          },
+                        ),
+                        loading: (l) => BottomContainerLoading(
+                            height: size.maxHeight * 0.18),
+                      );
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         );

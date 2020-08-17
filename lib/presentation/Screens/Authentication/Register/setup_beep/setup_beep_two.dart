@@ -20,7 +20,7 @@ class SetupBeepFour extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 34.0),
-                  child: Text('Payment successful !',
+                  child: Text('Registration successful !',
                       style: TextStyle(fontFamily: 'Nunito', fontSize: 24)),
                 ),
               ),

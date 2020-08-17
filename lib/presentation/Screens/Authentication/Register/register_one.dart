@@ -128,12 +128,12 @@ class _RegisterOneState extends State<RegisterOne> {
                               if (_formKey.currentState.validate()) {
                                 registerBloc.add(RegisterUser(
                                     user: User(
-                                        firstname: _firstName.text,
-                                        lastname: _lastName.text,
-                                        phone: _phoneNumber.text,
-                                        email: _email.text,
-                                        twitterHandle: _twitterHandle.text),
-                                    password: _password.text));
+                                        firstname: _firstName.text.trimRight(),
+                                        lastname: _lastName.text.trimRight(),
+                                        phone: _phoneNumber.text.trimRight(),
+                                        email: _email.text.trimRight(),
+                                        twitterHandle: _twitterHandle.text.trimRight()),
+                                    password: _password.text.trimRight()));
                               }
                               // Navigator.pushNamed(context, '/RegisterTwo',
                               //     arguments: {"phone": 090});
