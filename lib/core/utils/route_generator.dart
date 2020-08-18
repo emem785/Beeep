@@ -112,7 +112,7 @@ class RouteGenerator {
           screen = ChangePasswordTwo();
           break;
         case 'ChangePasswordThree':
-          screen = ChangePasswordThree();
+          screen = ChangePasswordThreePage();
           break;
 
         case 'UpgradePlan':

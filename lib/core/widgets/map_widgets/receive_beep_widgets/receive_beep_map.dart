@@ -19,7 +19,8 @@ class ReceiveBeepMap extends StatelessWidget {
         builder: (context, snapshot) {
           return FlutterMap(
             options: MapOptions(
-              center: LatLng(30.749889, 103.927444),
+              center:
+                  LatLng(mapTool.location.latitude, mapTool.location.longitude),
               zoom: ZOOM,
             ),
             mapController: mapTool.mapController,

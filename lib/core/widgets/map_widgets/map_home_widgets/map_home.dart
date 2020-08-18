@@ -28,26 +28,27 @@ class _HomeMapState extends State<HomeMap> {
     return Container(
       child: Stack(
         children: <Widget>[
-          Container(child: BlocBuilder<LocationBloc, LocationState>(
-              builder: (context, state) {
-            return state.maybeMap(
-                orElse: () => SizedBox(),
-                mapRendered: (r) {
-                  return Map(
-                      mapTool: r.mapTool,
-                      markerStream: r.mapTool.markerStreamController.stream);
-                },
-                broadcastStarted: (b) {
-                  return Map(
-                      mapTool: b.mapTool,
-                      markerStream: b.mapTool.markerStreamController.stream);
-                },
-                broadcastStopped: (n) {
-                  return Map(
-                      mapTool: n.mapTool,
-                      markerStream: n.mapTool.markerStreamController.stream);
-                });
-          })),
+          Container(
+              child: BlocBuilder<LocationBloc, LocationState>(
+                  builder: (context, state) {
+                return state.maybeMap(
+                    orElse: () => SizedBox(),
+                    mapRendered: (r) {
+                      return Map(
+                          mapTool: r.mapTool,
+                          markerStream: r.mapTool.markerStreamController.stream);
+                    },
+                    broadcastStarted: (b) {
+                      return Map(
+                          mapTool: b.mapTool,
+                          markerStream: b.mapTool.markerStreamController.stream);
+                    },
+                    broadcastStopped: (n) {
+                      return Map(
+                          mapTool: n.mapTool,
+                          markerStream: n.mapTool.markerStreamController.stream);
+                    });
+              })),
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
@@ -74,7 +75,7 @@ class _HomeMapState extends State<HomeMap> {
               ),
             ),
           ),
-              BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
+          BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
             return state.map(
                 addressInitial: (i) => TopBar(address: ""),
                 addressLoading: (l) => TopBar(address: "Getting Address ...."),

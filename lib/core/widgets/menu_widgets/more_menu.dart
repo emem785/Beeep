@@ -36,7 +36,7 @@ class MoreMenu extends StatelessWidget {
                     userLoaded: (u) => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProfileMenu(user: u.user))));
+                            builder: (context) => ProfileMenu(user: u.user),settings: RouteSettings(name: "Profile"))));
               },
               child: InkWell(
                 onTap: () => userBloc.add(InsertUser()),

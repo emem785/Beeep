@@ -6,6 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../application/blocs/user_bloc/user_bloc.dart';
 import '../../../../application/blocs/navigation_bloc/navigation_bloc.dart';
 
+class ChangePasswordThreePage extends StatelessWidget {
+  const ChangePasswordThreePage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ChangePasswordThree(),
+    );
+  }
+}
+
 class ChangePasswordThree extends StatefulWidget {
   @override
   _ChangePasswordThreeState createState() => _ChangePasswordThreeState();
@@ -69,7 +80,8 @@ class _ChangePasswordThreeState extends State<ChangePasswordThree> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      CustomTextFieldPassword(controller: _password, header: 'Password'),
+                      CustomTextFieldPassword(
+                          controller: _password, header: 'Password'),
                       BlocConsumer<UserBloc, UserState>(
                         listener: (_, state) {
                           return state.maybeMap(
@@ -80,14 +92,10 @@ class _ChangePasswordThreeState extends State<ChangePasswordThree> {
                                   _key.currentState.showSnackBar(SnackBar(
                                       content: Text(u.msg),
                                       action: SnackBarAction(
-                                          label: "Go Home",
+                                          label: "Go Back",
                                           onPressed: () {
                                             navBloc.add(ChangeNavState(3));
-                                            Navigator.of(context)
-                                                .pushNamedAndRemoveUntil(
-                                                    '/HomeScreen',
-                                                    (Route<dynamic> route) =>
-                                                        false);
+                                            Navigator.of(context).popUntil(ModalRoute.withName('Profile'));
                                           }))));
                         },
                         builder: (_, state) {
