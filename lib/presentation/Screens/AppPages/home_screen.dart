@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
+import 'package:beep/application/cubits/lawyer_tiles_cubit/lawyer_tiles_cubit.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/Bottom_Nav_bar.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/lawyer_bottom_sheet.dart';
 import 'package:beep/core/widgets/map_widgets/map_home_widgets/map_home.dart';
@@ -93,7 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width,
                   duration: Duration(milliseconds: 100),
                   curve: Curves.linear,
-                  child: LawyerBottomSheet(),
+                  child: BlocProvider(
+                    create: (context) => LawyerTilesCubit(),
+                    child: LawyerBottomSheet(),
+                  ),
                 ),
               ),
             ],

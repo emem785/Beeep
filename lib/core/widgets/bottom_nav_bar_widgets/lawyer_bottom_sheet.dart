@@ -1,4 +1,5 @@
 import 'package:beep/application/blocs/lawyer_bloc/lawyer_bloc.dart';
+import 'package:beep/application/cubits/lawyer_tiles_cubit/lawyer_tiles_cubit.dart';
 import 'package:beep/core/widgets/common_widgets/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,38 +45,48 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
                       children: l.lawyers.map((law) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                            child:
-                                SvgPicture.asset('assets/images/logo.svg')),
-                        title: Text(
-                          law.firstname + "" + law.lastname,
-                          style: nunitoMidBold,
-                        ),
-                        subtitle: Text(
-                            '${law.distance.toStringAsFixed(2)} km away',
-                            style: nunitoMid),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            GestureDetector(
-                              child: Icon(Icons.message),
-                              onTap: () async {
-                                String url = 'sms:${law.phone}';
-                                await launch(url);
-                              },
+                      child: BlocListener<LawyerTilesCubit, LawyerTilesState>(
+                        listener: (context, state) {
+                          _comfirmLawyer(context.bloc<LawyerTilesCubit>());
+                        },
+                        child: ListTile(
+                          leading: CircleAvatar(
+                              child:
+                                  SvgPicture.asset('assets/images/logo.svg')),
+                          title: GestureDetector(
+                            onTap: () => context
+                                .bloc<LawyerTilesCubit>()
+                                .engageLawyer(l.lawyers.indexOf(law)),
+                            child: Text(
+                              law.firstname + "  " + law.lastname,
+                              style: nunitoMidBold,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16.0),
-                              child: GestureDetector(
-                                child: Icon(Icons.call),
+                          ),
+                          subtitle: Text(
+                              '${law.distance.toStringAsFixed(2)} km away',
+                              style: nunitoMid),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              GestureDetector(
+                                child: Icon(Icons.message),
                                 onTap: () async {
-                                  String url = 'tel:${law.phone}';
+                                  String url = 'sms:${law.phone}';
                                   await launch(url);
                                 },
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(left: 16.0),
+                                child: GestureDetector(
+                                  child: Icon(Icons.call),
+                                  onTap: () async {
+                                    String url = 'tel:${law.phone}';
+                                    await launch(url);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -83,6 +94,30 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
                 });
           },
         ),
+      ),
+    );
+  }
+
+  Future<void> _comfirmLawyer(LawyerTilesCubit lawyerTilesCubit) async {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Are you sure?', style: nunitoMid),
+        content: new Text('Do you want to stop receiving Broadcast',
+            style: nunitoMid),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => print("not comfirmed"),
+            child: new Text('NO', style: nunitoMidPromptPink),
+          ),
+          new FlatButton(
+            onPressed: () {
+              print("comfirmed");
+              Navigator.of(context).pop();
+            },
+            child: new Text('YES', style: nunitoMidPrompt),
+          ),
+        ],
       ),
     );
   }
