@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:beep/application/blocs/location_bloc/location_bloc.dart';
+import 'package:beep/application/cubits/lawyer_tiles_cubit/lawyer_tiles_cubit.dart';
+import 'package:beep/core/utils/StyleGuide.dart';
 import 'package:beep/core/widgets/map_widgets/top_bar.dart';
 import 'package:beep/core/widgets/menu_widgets/more_menu.dart';
 import 'package:beep/infrastructure/models/location.dart';
@@ -22,33 +24,58 @@ class HomeMap extends StatefulWidget {
 }
 
 class _HomeMapState extends State<HomeMap> {
+  _showDialogue(BuildContext context,LawyerTilesCubit lawyerTilesCubit,int index) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          print("engaged");
+          return AlertDialog(
+            title: Text("Are you sure you want to hire this lawyer",style: nunitoMid),
+            actions: <Widget>[
+              FlatButton(
+                  child: Text("YES",style: nunitoMidPrompt),
+                  onPressed: () {
+                    lawyerTilesCubit.confirmEngagement(index);
+                    Navigator.of(context).pop();
+                  }),
+              FlatButton(
+                  child: Text("NO",style: nunitoMidPromptPink),
+                  onPressed: () {
+                    lawyerTilesCubit.engagementNotConfirmed();
+                    Navigator.of(context).pop();
+                  }),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final locationBloc = Provider.of<LocationBloc>(context);
+    final lawyerTileCubit = Provider.of<LawyerTilesCubit>(context);
     return Container(
       child: Stack(
         children: <Widget>[
-          Container(
-              child: BlocBuilder<LocationBloc, LocationState>(
-                  builder: (context, state) {
-                return state.maybeMap(
-                    orElse: () => SizedBox(),
-                    mapRendered: (r) {
-                      return Map(
-                          mapTool: r.mapTool,
-                          markerStream: r.mapTool.markerStreamController.stream);
-                    },
-                    broadcastStarted: (b) {
-                      return Map(
-                          mapTool: b.mapTool,
-                          markerStream: b.mapTool.markerStreamController.stream);
-                    },
-                    broadcastStopped: (n) {
-                      return Map(
-                          mapTool: n.mapTool,
-                          markerStream: n.mapTool.markerStreamController.stream);
-                    });
-              })),
+          Container(child: BlocBuilder<LocationBloc, LocationState>(
+              builder: (context, state) {
+            return state.maybeMap(
+                orElse: () => SizedBox(),
+                mapRendered: (r) {
+                  return Map(
+                      mapTool: r.mapTool,
+                      markerStream: r.mapTool.markerStreamController.stream);
+                },
+                broadcastStarted: (b) {
+                  return Map(
+                      mapTool: b.mapTool,
+                      markerStream: b.mapTool.markerStreamController.stream);
+                },
+                broadcastStopped: (n) {
+                  return Map(
+                      mapTool: n.mapTool,
+                      markerStream: n.mapTool.markerStreamController.stream);
+                });
+          })),
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
@@ -75,13 +102,25 @@ class _HomeMapState extends State<HomeMap> {
               ),
             ),
           ),
-          BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
-            return state.map(
-                addressInitial: (i) => TopBar(address: ""),
-                addressLoading: (l) => TopBar(address: "Getting Address ...."),
-                addressFailure: (f) => TopBar(address: "Failed to get address"),
-                addressGotten: (g) => TopBar(address: g.address));
-          }),
+          BlocListener<LawyerTilesCubit, LawyerTilesState>(
+            listener: (context, state) {
+              return state.maybeMap(
+                  orElse: () => 1,
+                  lawyerSelected: (l) {
+                    return _showDialogue(context,lawyerTileCubit,l.index);
+                  });
+            },
+            child: BlocBuilder<AddressBloc, AddressState>(
+                builder: (context, state) {
+              return state.map(
+                  addressInitial: (i) => TopBar(address: ""),
+                  addressLoading: (l) =>
+                      TopBar(address: "Getting Address ...."),
+                  addressFailure: (f) =>
+                      TopBar(address: "Failed to get address"),
+                  addressGotten: (g) => TopBar(address: g.address));
+            }),
+          ),
         ],
       ),
     );

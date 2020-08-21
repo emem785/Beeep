@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'lawyer_bloc.dart';
 
@@ -12,6 +12,7 @@ T _$identity<T>(T value) => value;
 class _$LawyerEventTearOff {
   const _$LawyerEventTearOff();
 
+// ignore: unused_element
   GetLawyers getLawyers() {
     return const GetLawyers();
   }
@@ -20,7 +21,26 @@ class _$LawyerEventTearOff {
 // ignore: unused_element
 const $LawyerEvent = _$LawyerEventTearOff();
 
-mixin _$LawyerEvent {}
+mixin _$LawyerEvent {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getLawyers(),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getLawyers(),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getLawyers(GetLawyers value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getLawyers(GetLawyers value),
+    @required Result orElse(),
+  });
+}
 
 abstract class $LawyerEventCopyWith<$Res> {
   factory $LawyerEventCopyWith(
@@ -66,6 +86,50 @@ class _$GetLawyers implements GetLawyers {
 
   @override
   int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getLawyers(),
+  }) {
+    assert(getLawyers != null);
+    return getLawyers();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getLawyers(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (getLawyers != null) {
+      return getLawyers();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getLawyers(GetLawyers value),
+  }) {
+    assert(getLawyers != null);
+    return getLawyers(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getLawyers(GetLawyers value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (getLawyers != null) {
+      return getLawyers(this);
+    }
+    return orElse();
+  }
 }
 
 abstract class GetLawyers implements LawyerEvent {
@@ -75,20 +139,24 @@ abstract class GetLawyers implements LawyerEvent {
 class _$LawyerStateTearOff {
   const _$LawyerStateTearOff();
 
+// ignore: unused_element
   Initial initial() {
     return const Initial();
   }
 
+// ignore: unused_element
   Loading loading() {
     return const Loading();
   }
 
+// ignore: unused_element
   Error error(Failure failure) {
     return Error(
       failure,
     );
   }
 
+// ignore: unused_element
   Loaded loaded(List<Lawyer> lawyers) {
     return Loaded(
       lawyers,

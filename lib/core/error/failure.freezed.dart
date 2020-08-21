@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'failure.dart';
 
@@ -12,30 +12,35 @@ T _$identity<T>(T value) => value;
 class _$FailureTearOff {
   const _$FailureTearOff();
 
+// ignore: unused_element
   UserExist userExist(String message) {
     return UserExist(
       message,
     );
   }
 
+// ignore: unused_element
   NoCredentials noCredentials(String message) {
     return NoCredentials(
       message,
     );
   }
 
+// ignore: unused_element
   NotAuthorized notAuthorized(String message) {
     return NotAuthorized(
       message,
     );
   }
 
+// ignore: unused_element
   ServerFailure serverFailure(String message) {
     return ServerFailure(
       message,
     );
   }
 
+// ignore: unused_element
   CacheFailure cacheFailure(String message) {
     return CacheFailure(
       message,

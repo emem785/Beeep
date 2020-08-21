@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'location_bloc.dart';
 
@@ -12,18 +12,22 @@ T _$identity<T>(T value) => value;
 class _$LocationEventTearOff {
   const _$LocationEventTearOff();
 
+// ignore: unused_element
   RenderMap renderMap() {
     return const RenderMap();
   }
 
+// ignore: unused_element
   BroadcastLocation broadcastLocation() {
     return const BroadcastLocation();
   }
 
+// ignore: unused_element
   StopBroadcast stopBroadcast() {
     return const StopBroadcast();
   }
 
+// ignore: unused_element
   ResumeBroadcast resumeBroadcast() {
     return const ResumeBroadcast();
   }
@@ -510,22 +514,26 @@ abstract class ResumeBroadcast implements LocationEvent {
 class _$LocationStateTearOff {
   const _$LocationStateTearOff();
 
+// ignore: unused_element
   Initial initial() {
     return const Initial();
   }
 
+// ignore: unused_element
   MapRendered mapRendered(MapTool mapTool) {
     return MapRendered(
       mapTool,
     );
   }
 
+// ignore: unused_element
   BroadcastStarted broadcastStarted(MapTool mapTool) {
     return BroadcastStarted(
       mapTool,
     );
   }
 
+// ignore: unused_element
   BroadcastStopped broadcastStopped(MapTool mapTool) {
     return BroadcastStopped(
       mapTool,

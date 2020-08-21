@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'navigation_bloc.dart';
 
@@ -12,6 +12,7 @@ T _$identity<T>(T value) => value;
 class _$NavigationEventTearOff {
   const _$NavigationEventTearOff();
 
+// ignore: unused_element
   ChangeNavState changeNavState(int i) {
     return ChangeNavState(
       i,
@@ -24,6 +25,25 @@ const $NavigationEvent = _$NavigationEventTearOff();
 
 mixin _$NavigationEvent {
   int get i;
+
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result changeNavState(int i),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result changeNavState(int i),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result changeNavState(ChangeNavState value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result changeNavState(ChangeNavState value),
+    @required Result orElse(),
+  });
 
   $NavigationEventCopyWith<NavigationEvent> get copyWith;
 }
@@ -116,6 +136,50 @@ class _$ChangeNavState with DiagnosticableTreeMixin implements ChangeNavState {
   @override
   $ChangeNavStateCopyWith<ChangeNavState> get copyWith =>
       _$ChangeNavStateCopyWithImpl<ChangeNavState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result changeNavState(int i),
+  }) {
+    assert(changeNavState != null);
+    return changeNavState(i);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result changeNavState(int i),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (changeNavState != null) {
+      return changeNavState(i);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result changeNavState(ChangeNavState value),
+  }) {
+    assert(changeNavState != null);
+    return changeNavState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result changeNavState(ChangeNavState value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (changeNavState != null) {
+      return changeNavState(this);
+    }
+    return orElse();
+  }
 }
 
 abstract class ChangeNavState implements NavigationEvent {
@@ -130,18 +194,21 @@ abstract class ChangeNavState implements NavigationEvent {
 class _$NavigationStateTearOff {
   const _$NavigationStateTearOff();
 
+// ignore: unused_element
   MapHome mapHome(double i) {
     return MapHome(
       i,
     );
   }
 
+// ignore: unused_element
   ShowLawyers showLawyers(double i) {
     return ShowLawyers(
       i,
     );
   }
 
+// ignore: unused_element
   Menu menu(double i) {
     return Menu(
       i,

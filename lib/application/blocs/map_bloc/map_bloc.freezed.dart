@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'map_bloc.dart';
 
@@ -12,10 +12,12 @@ T _$identity<T>(T value) => value;
 class _$MapEventTearOff {
   const _$MapEventTearOff();
 
+// ignore: unused_element
   RenderBuddyMap renderBuddyMap() {
     return const RenderBuddyMap();
   }
 
+// ignore: unused_element
   StartBroadcast startBroadcast(MapTool mapTool, Buddy buddy) {
     return StartBroadcast(
       mapTool,
@@ -23,6 +25,7 @@ class _$MapEventTearOff {
     );
   }
 
+// ignore: unused_element
   StopSecondBroadcast stopSecondBroadcast() {
     return const StopSecondBroadcast();
   }
@@ -392,16 +395,19 @@ abstract class StopSecondBroadcast implements MapEvent {
 class _$MapStateTearOff {
   const _$MapStateTearOff();
 
+// ignore: unused_element
   MapInitial initial() {
     return const MapInitial();
   }
 
+// ignore: unused_element
   MapRendered mapRendered(MapTool mapTool) {
     return MapRendered(
       mapTool,
     );
   }
 
+// ignore: unused_element
   BroadcastStarted broadcastStarted(Buddy buddy, MapTool mapTool) {
     return BroadcastStarted(
       buddy,
@@ -409,14 +415,17 @@ class _$MapStateTearOff {
     );
   }
 
+// ignore: unused_element
   BroadcastEnded broadcastEnded() {
     return const BroadcastEnded();
   }
 
+// ignore: unused_element
   BroadcastError broadcastError() {
     return const BroadcastError();
   }
 
+// ignore: unused_element
   MapLoading loading() {
     return const MapLoading();
   }

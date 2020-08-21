@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'lawyer_tiles_cubit.dart';
 
@@ -12,11 +12,22 @@ T _$identity<T>(T value) => value;
 class _$LawyerTilesStateTearOff {
   const _$LawyerTilesStateTearOff();
 
-  LawyerTilesInitial initial() {
-    return const LawyerTilesInitial();
+// ignore: unused_element
+  LawyerTilesInitial initial(Set<int> engagedLawyersIndex) {
+    return LawyerTilesInitial(
+      engagedLawyersIndex,
+    );
   }
 
-  LawyerEngaged lawyerEngaged(List<int> engagedLawyersIndex) {
+// ignore: unused_element
+  LawyerSelected lawyerSelected(int index) {
+    return LawyerSelected(
+      index,
+    );
+  }
+
+// ignore: unused_element
+  LawyerEngaged lawyerEngaged(Set<int> engagedLawyersIndex) {
     return LawyerEngaged(
       engagedLawyersIndex,
     );
@@ -29,23 +40,27 @@ const $LawyerTilesState = _$LawyerTilesStateTearOff();
 mixin _$LawyerTilesState {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(),
-    @required Result lawyerEngaged(List<int> engagedLawyersIndex),
+    @required Result initial(Set<int> engagedLawyersIndex),
+    @required Result lawyerSelected(int index),
+    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(),
-    Result lawyerEngaged(List<int> engagedLawyersIndex),
+    Result initial(Set<int> engagedLawyersIndex),
+    Result lawyerSelected(int index),
+    Result lawyerEngaged(Set<int> engagedLawyersIndex),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(LawyerTilesInitial value),
+    @required Result lawyerSelected(LawyerSelected value),
     @required Result lawyerEngaged(LawyerEngaged value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(LawyerTilesInitial value),
+    Result lawyerSelected(LawyerSelected value),
     Result lawyerEngaged(LawyerEngaged value),
     @required Result orElse(),
   });
@@ -70,6 +85,7 @@ abstract class $LawyerTilesInitialCopyWith<$Res> {
   factory $LawyerTilesInitialCopyWith(
           LawyerTilesInitial value, $Res Function(LawyerTilesInitial) then) =
       _$LawyerTilesInitialCopyWithImpl<$Res>;
+  $Res call({Set<int> engagedLawyersIndex});
 }
 
 class _$LawyerTilesInitialCopyWithImpl<$Res>
@@ -81,45 +97,73 @@ class _$LawyerTilesInitialCopyWithImpl<$Res>
 
   @override
   LawyerTilesInitial get _value => super._value as LawyerTilesInitial;
+
+  @override
+  $Res call({
+    Object engagedLawyersIndex = freezed,
+  }) {
+    return _then(LawyerTilesInitial(
+      engagedLawyersIndex == freezed
+          ? _value.engagedLawyersIndex
+          : engagedLawyersIndex as Set<int>,
+    ));
+  }
 }
 
 class _$LawyerTilesInitial implements LawyerTilesInitial {
-  const _$LawyerTilesInitial();
+  const _$LawyerTilesInitial(this.engagedLawyersIndex)
+      : assert(engagedLawyersIndex != null);
+
+  @override
+  final Set<int> engagedLawyersIndex;
 
   @override
   String toString() {
-    return 'LawyerTilesState.initial()';
+    return 'LawyerTilesState.initial(engagedLawyersIndex: $engagedLawyersIndex)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is LawyerTilesInitial);
+    return identical(this, other) ||
+        (other is LawyerTilesInitial &&
+            (identical(other.engagedLawyersIndex, engagedLawyersIndex) ||
+                const DeepCollectionEquality()
+                    .equals(other.engagedLawyersIndex, engagedLawyersIndex)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(engagedLawyersIndex);
+
+  @override
+  $LawyerTilesInitialCopyWith<LawyerTilesInitial> get copyWith =>
+      _$LawyerTilesInitialCopyWithImpl<LawyerTilesInitial>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(),
-    @required Result lawyerEngaged(List<int> engagedLawyersIndex),
+    @required Result initial(Set<int> engagedLawyersIndex),
+    @required Result lawyerSelected(int index),
+    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
   }) {
     assert(initial != null);
+    assert(lawyerSelected != null);
     assert(lawyerEngaged != null);
-    return initial();
+    return initial(engagedLawyersIndex);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(),
-    Result lawyerEngaged(List<int> engagedLawyersIndex),
+    Result initial(Set<int> engagedLawyersIndex),
+    Result lawyerSelected(int index),
+    Result lawyerEngaged(Set<int> engagedLawyersIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (initial != null) {
-      return initial();
+      return initial(engagedLawyersIndex);
     }
     return orElse();
   }
@@ -128,9 +172,11 @@ class _$LawyerTilesInitial implements LawyerTilesInitial {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(LawyerTilesInitial value),
+    @required Result lawyerSelected(LawyerSelected value),
     @required Result lawyerEngaged(LawyerEngaged value),
   }) {
     assert(initial != null);
+    assert(lawyerSelected != null);
     assert(lawyerEngaged != null);
     return initial(this);
   }
@@ -139,6 +185,7 @@ class _$LawyerTilesInitial implements LawyerTilesInitial {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(LawyerTilesInitial value),
+    Result lawyerSelected(LawyerSelected value),
     Result lawyerEngaged(LawyerEngaged value),
     @required Result orElse(),
   }) {
@@ -151,14 +198,136 @@ class _$LawyerTilesInitial implements LawyerTilesInitial {
 }
 
 abstract class LawyerTilesInitial implements LawyerTilesState {
-  const factory LawyerTilesInitial() = _$LawyerTilesInitial;
+  const factory LawyerTilesInitial(Set<int> engagedLawyersIndex) =
+      _$LawyerTilesInitial;
+
+  Set<int> get engagedLawyersIndex;
+  $LawyerTilesInitialCopyWith<LawyerTilesInitial> get copyWith;
+}
+
+abstract class $LawyerSelectedCopyWith<$Res> {
+  factory $LawyerSelectedCopyWith(
+          LawyerSelected value, $Res Function(LawyerSelected) then) =
+      _$LawyerSelectedCopyWithImpl<$Res>;
+  $Res call({int index});
+}
+
+class _$LawyerSelectedCopyWithImpl<$Res>
+    extends _$LawyerTilesStateCopyWithImpl<$Res>
+    implements $LawyerSelectedCopyWith<$Res> {
+  _$LawyerSelectedCopyWithImpl(
+      LawyerSelected _value, $Res Function(LawyerSelected) _then)
+      : super(_value, (v) => _then(v as LawyerSelected));
+
+  @override
+  LawyerSelected get _value => super._value as LawyerSelected;
+
+  @override
+  $Res call({
+    Object index = freezed,
+  }) {
+    return _then(LawyerSelected(
+      index == freezed ? _value.index : index as int,
+    ));
+  }
+}
+
+class _$LawyerSelected implements LawyerSelected {
+  const _$LawyerSelected(this.index) : assert(index != null);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'LawyerTilesState.lawyerSelected(index: $index)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is LawyerSelected &&
+            (identical(other.index, index) ||
+                const DeepCollectionEquality().equals(other.index, index)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(index);
+
+  @override
+  $LawyerSelectedCopyWith<LawyerSelected> get copyWith =>
+      _$LawyerSelectedCopyWithImpl<LawyerSelected>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result initial(Set<int> engagedLawyersIndex),
+    @required Result lawyerSelected(int index),
+    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
+  }) {
+    assert(initial != null);
+    assert(lawyerSelected != null);
+    assert(lawyerEngaged != null);
+    return lawyerSelected(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initial(Set<int> engagedLawyersIndex),
+    Result lawyerSelected(int index),
+    Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (lawyerSelected != null) {
+      return lawyerSelected(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initial(LawyerTilesInitial value),
+    @required Result lawyerSelected(LawyerSelected value),
+    @required Result lawyerEngaged(LawyerEngaged value),
+  }) {
+    assert(initial != null);
+    assert(lawyerSelected != null);
+    assert(lawyerEngaged != null);
+    return lawyerSelected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initial(LawyerTilesInitial value),
+    Result lawyerSelected(LawyerSelected value),
+    Result lawyerEngaged(LawyerEngaged value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (lawyerSelected != null) {
+      return lawyerSelected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LawyerSelected implements LawyerTilesState {
+  const factory LawyerSelected(int index) = _$LawyerSelected;
+
+  int get index;
+  $LawyerSelectedCopyWith<LawyerSelected> get copyWith;
 }
 
 abstract class $LawyerEngagedCopyWith<$Res> {
   factory $LawyerEngagedCopyWith(
           LawyerEngaged value, $Res Function(LawyerEngaged) then) =
       _$LawyerEngagedCopyWithImpl<$Res>;
-  $Res call({List<int> engagedLawyersIndex});
+  $Res call({Set<int> engagedLawyersIndex});
 }
 
 class _$LawyerEngagedCopyWithImpl<$Res>
@@ -178,7 +347,7 @@ class _$LawyerEngagedCopyWithImpl<$Res>
     return _then(LawyerEngaged(
       engagedLawyersIndex == freezed
           ? _value.engagedLawyersIndex
-          : engagedLawyersIndex as List<int>,
+          : engagedLawyersIndex as Set<int>,
     ));
   }
 }
@@ -188,7 +357,7 @@ class _$LawyerEngaged implements LawyerEngaged {
       : assert(engagedLawyersIndex != null);
 
   @override
-  final List<int> engagedLawyersIndex;
+  final Set<int> engagedLawyersIndex;
 
   @override
   String toString() {
@@ -216,10 +385,12 @@ class _$LawyerEngaged implements LawyerEngaged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(),
-    @required Result lawyerEngaged(List<int> engagedLawyersIndex),
+    @required Result initial(Set<int> engagedLawyersIndex),
+    @required Result lawyerSelected(int index),
+    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
   }) {
     assert(initial != null);
+    assert(lawyerSelected != null);
     assert(lawyerEngaged != null);
     return lawyerEngaged(engagedLawyersIndex);
   }
@@ -227,8 +398,9 @@ class _$LawyerEngaged implements LawyerEngaged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(),
-    Result lawyerEngaged(List<int> engagedLawyersIndex),
+    Result initial(Set<int> engagedLawyersIndex),
+    Result lawyerSelected(int index),
+    Result lawyerEngaged(Set<int> engagedLawyersIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -242,9 +414,11 @@ class _$LawyerEngaged implements LawyerEngaged {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result initial(LawyerTilesInitial value),
+    @required Result lawyerSelected(LawyerSelected value),
     @required Result lawyerEngaged(LawyerEngaged value),
   }) {
     assert(initial != null);
+    assert(lawyerSelected != null);
     assert(lawyerEngaged != null);
     return lawyerEngaged(this);
   }
@@ -253,6 +427,7 @@ class _$LawyerEngaged implements LawyerEngaged {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result initial(LawyerTilesInitial value),
+    Result lawyerSelected(LawyerSelected value),
     Result lawyerEngaged(LawyerEngaged value),
     @required Result orElse(),
   }) {
@@ -265,8 +440,8 @@ class _$LawyerEngaged implements LawyerEngaged {
 }
 
 abstract class LawyerEngaged implements LawyerTilesState {
-  const factory LawyerEngaged(List<int> engagedLawyersIndex) = _$LawyerEngaged;
+  const factory LawyerEngaged(Set<int> engagedLawyersIndex) = _$LawyerEngaged;
 
-  List<int> get engagedLawyersIndex;
+  Set<int> get engagedLawyersIndex;
   $LawyerEngagedCopyWith<LawyerEngaged> get copyWith;
 }

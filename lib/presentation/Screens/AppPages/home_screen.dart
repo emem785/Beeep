@@ -63,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider(create: (_) => getIt<LocationBloc>()..add(RenderMap())),
         BlocProvider(create: (_) => getIt<AddressBloc>()..add(GetAddress())),
         BlocProvider(create: (_) => getIt<LawyerBloc>()),
+        BlocProvider(create: (_) => LawyerTilesCubit()),
       ],
       child: Scaffold(
         key: _globalKey,
@@ -94,10 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width,
                   duration: Duration(milliseconds: 100),
                   curve: Curves.linear,
-                  child: BlocProvider(
-                    create: (context) => LawyerTilesCubit(),
-                    child: LawyerBottomSheet(),
-                  ),
+                  child: LawyerBottomSheet(),
                 ),
               ),
             ],

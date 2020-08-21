@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'user_bloc.dart';
 
@@ -12,22 +12,26 @@ T _$identity<T>(T value) => value;
 class _$UserEventTearOff {
   const _$UserEventTearOff();
 
+// ignore: unused_element
   InsertUser insertUser() {
     return const InsertUser();
   }
 
+// ignore: unused_element
   UpdateUser updateUser(User user) {
     return UpdateUser(
       user,
     );
   }
 
+// ignore: unused_element
   AddBuddy addBuddy(Buddy buddy) {
     return AddBuddy(
       buddy,
     );
   }
 
+// ignore: unused_element
   UpdatePassword updatePassword(String password) {
     return UpdatePassword(
       password,
@@ -552,28 +556,33 @@ abstract class UpdatePassword implements UserEvent {
 class _$UserStateTearOff {
   const _$UserStateTearOff();
 
+// ignore: unused_element
   UserInitial initial() {
     return const UserInitial();
   }
 
+// ignore: unused_element
   UserLoaded userLoaded(User user) {
     return UserLoaded(
       user,
     );
   }
 
+// ignore: unused_element
   UserError userError(CacheFailure failure) {
     return UserError(
       failure,
     );
   }
 
+// ignore: unused_element
   UserUpdated userUpdated(String msg) {
     return UserUpdated(
       msg,
     );
   }
 
+// ignore: unused_element
   UserUpdating userUpdating() {
     return const UserUpdating();
   }

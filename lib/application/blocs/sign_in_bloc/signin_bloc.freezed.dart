@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'signin_bloc.dart';
 
@@ -12,6 +12,7 @@ T _$identity<T>(T value) => value;
 class _$SignInEventTearOff {
   const _$SignInEventTearOff();
 
+// ignore: unused_element
   SignInEventOnSubmit onSubmit(String phoneNumber, String password) {
     return SignInEventOnSubmit(
       phoneNumber,
@@ -19,6 +20,7 @@ class _$SignInEventTearOff {
     );
   }
 
+// ignore: unused_element
   SignInEventRegister register() {
     return const SignInEventRegister();
   }
@@ -283,18 +285,22 @@ abstract class SignInEventRegister implements SignInEvent {
 class _$SignInStateTearOff {
   const _$SignInStateTearOff();
 
+// ignore: unused_element
   SignInStateInitial initial() {
     return const SignInStateInitial();
   }
 
+// ignore: unused_element
   SignInStateAuthenticating authenticating() {
     return const SignInStateAuthenticating();
   }
 
+// ignore: unused_element
   SignInStateAuthenticated authenticated() {
     return const SignInStateAuthenticated();
   }
 
+// ignore: unused_element
   SignInStateError error(Failure failure) {
     return SignInStateError(
       failure,

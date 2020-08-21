@@ -44,52 +44,68 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
                   return ListView(
                       children: l.lawyers.map((law) {
                     return Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: BlocListener<LawyerTilesCubit, LawyerTilesState>(
-                        listener: (context, state) {
-                          _comfirmLawyer(context.bloc<LawyerTilesCubit>());
-                        },
-                        child: ListTile(
-                          leading: CircleAvatar(
-                              child:
-                                  SvgPicture.asset('assets/images/logo.svg')),
-                          title: GestureDetector(
-                            onTap: () => context
-                                .bloc<LawyerTilesCubit>()
-                                .engageLawyer(l.lawyers.indexOf(law)),
-                            child: Text(
-                              law.firstname + "  " + law.lastname,
-                              style: nunitoMidBold,
+                        width: MediaQuery.of(context).size.width,
+                        child: InkWell(
+                          onTap: () => context
+                              .bloc<LawyerTilesCubit>()
+                              .engageLawyer(l.lawyers.indexOf(law)),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                                child: SvgPicture.asset(
+                                    'assets/images/logo.svg')),
+                            title: BlocBuilder<LawyerTilesCubit,
+                                LawyerTilesState>(
+                              builder: (context, state) {
+                                return state.maybeMap(
+                                    orElse: () => Text(
+                                          law.firstname + "  " + law.lastname,
+                                          style: nunitoMidBold,
+                                        ),
+                                    lawyerEngaged: (e) => Text(
+                                          law.firstname + "  " + law.lastname,
+                                          style: e.engagedLawyersIndex
+                                                  .contains(
+                                                      l.lawyers.indexOf(law))
+                                              ? nunitoMidBoldGreen
+                                              : nunitoMidBold,
+                                        ),
+                                    initial: (i) => Text(
+                                          law.firstname + "  " + law.lastname,
+                                          style: i.engagedLawyersIndex
+                                                  .contains(
+                                                      l.lawyers.indexOf(law))
+                                              ? nunitoMidBoldGreen
+                                              : nunitoMidBold,
+                                        ));
+                              },
                             ),
-                          ),
-                          subtitle: Text(
-                              '${law.distance.toStringAsFixed(2)} km away',
-                              style: nunitoMid),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              GestureDetector(
-                                child: Icon(Icons.message),
-                                onTap: () async {
-                                  String url = 'sms:${law.phone}';
-                                  await launch(url);
-                                },
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16.0),
-                                child: GestureDetector(
-                                  child: Icon(Icons.call),
+                            subtitle: Text(
+                                '${law.distance.toStringAsFixed(2)} km away',
+                                style: nunitoMid),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                GestureDetector(
+                                  child: Icon(Icons.message),
                                   onTap: () async {
-                                    String url = 'tel:${law.phone}';
+                                    String url = 'sms:${law.phone}';
                                     await launch(url);
                                   },
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16.0),
+                                  child: GestureDetector(
+                                    child: Icon(Icons.call),
+                                    onTap: () async {
+                                      String url = 'tel:${law.phone}';
+                                      await launch(url);
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
+                        ));
                   }).toList());
                 });
           },

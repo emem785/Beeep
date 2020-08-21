@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
+// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
 part of 'address_bloc.dart';
 
@@ -12,10 +12,12 @@ T _$identity<T>(T value) => value;
 class _$AddressEventTearOff {
   const _$AddressEventTearOff();
 
+// ignore: unused_element
   GetAddress getAddress() {
     return const GetAddress();
   }
 
+// ignore: unused_element
   GetBuddyAddress getBuddyAddress() {
     return const GetBuddyAddress();
   }
@@ -240,20 +242,24 @@ abstract class GetBuddyAddress implements AddressEvent {
 class _$AddressStateTearOff {
   const _$AddressStateTearOff();
 
+// ignore: unused_element
   AddressInitial addressInitial() {
     return const AddressInitial();
   }
 
+// ignore: unused_element
   AddressLoading addressLoading() {
     return const AddressLoading();
   }
 
+// ignore: unused_element
   AddressGotten addressGotten(String address) {
     return AddressGotten(
       address,
     );
   }
 
+// ignore: unused_element
   AddressFailure addressFailure() {
     return const AddressFailure();
   }
