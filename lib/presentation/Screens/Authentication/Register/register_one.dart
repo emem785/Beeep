@@ -136,7 +136,7 @@ class _RegisterOneState extends State<RegisterOne> {
                                     password: _password.text.trimRight()));
                               }
                               // Navigator.pushNamed(context, '/RegisterTwo',
-                              //     arguments: {"phone": 090});
+                              //     arguments: {"phone": "090"});
                             },
                             text: 'Continue'),
                       ),

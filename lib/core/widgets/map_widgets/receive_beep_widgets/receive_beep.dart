@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
+import 'package:beep/application/cubits/lawyer_tiles_cubit/lawyer_tiles_cubit.dart';
 import 'package:beep/application/cubits/receive_beep_cubit/receive_beep_cubit.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/lawyer_bottom_sheet.dart';
 import 'package:beep/core/widgets/map_widgets/receive_beep_widgets/bottom_container.dart';
@@ -58,15 +59,6 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
         return Container(
           child: Stack(
             children: <Widget>[
-              BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
-                return state.map(
-                    addressInitial: (i) => TopBar(address: ""),
-                    addressLoading: (l) =>
-                        TopBar(address: "Getting Address ...."),
-                    addressFailure: (f) =>
-                        TopBar(address: "Failed to get address"),
-                    addressGotten: (g) => TopBar(address: g.address));
-              }),
               Container(child: BlocBuilder<MapBloc, MapState>(
                 builder: (context, state) {
                   return state.maybeMap(
@@ -93,21 +85,25 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                         orElse: () => SizedBox(),
                         mapRendered: (r) => BottomContainerLoading(
                             height: size.maxHeight * 0.18),
-                        broadcastStarted: (b) =>
-                            BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
-                          builder: (context, state) {
-                            return state.map(
-                                initial: (i) => BottomContainer(
-                                    height: size.maxHeight * 0.18,
-                                    buddy: b.buddy,
-                                    ),
-                                lawyersGotten: (l) => LawyerBottomSheet());
-                          },
-                          listener: (context, state) {
-                            return state.maybeMap(
-                                orElse: () => 1,
-                                lawyersGotten: (l) => _height = size.maxHeight * 0.45);
-                          },
+                        broadcastStarted: (b) => BlocProvider(
+                          create: (context) => LawyerTilesCubit(),
+                          child:
+                              BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
+                            builder: (context, state) {
+                              return state.map(
+                                  initial: (i) => BottomContainer(
+                                        height: size.maxHeight * 0.18,
+                                        buddy: b.buddy,
+                                      ),
+                                  lawyersGotten: (l) => LawyerBottomSheet());
+                            },
+                            listener: (context, state) {
+                              return state.maybeMap(
+                                  orElse: () => 1,
+                                  lawyersGotten: (l) =>
+                                      _height = size.maxHeight * 0.5);
+                            },
+                          ),
                         ),
                         loading: (l) => BottomContainerLoading(
                             height: size.maxHeight * 0.18),
@@ -116,6 +112,15 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                   ),
                 ),
               ),
+              BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
+                return state.map(
+                    addressInitial: (i) => TopBar(address: ""),
+                    addressLoading: (l) =>
+                        TopBar(address: "Getting Address ..."),
+                    addressFailure: (f) =>
+                        TopBar(address: "Failed to get address"),
+                    addressGotten: (g) => TopBar(address: g.address));
+              }),
             ],
           ),
         );

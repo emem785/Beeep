@@ -35,6 +35,7 @@ class HttpApiImpl implements ApiInterface {
       "lastname": user.lastname,
       "email": user.email,
       "phone": user.phone,
+      "twitter_handle": user.twitterHandle,
       "password": password
     };
     final response =

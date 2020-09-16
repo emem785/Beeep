@@ -43,8 +43,10 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       final address =
           await userLocationInterface.getBuddyAddressFromLocation(location);
       yield* address.fold((l) async* {
+        print("failure");
         yield AddressFailure();
       }, (r) async* {
+        print(r);
         yield AddressGotten(r);
       });
     });

@@ -41,11 +41,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   Stream<MapState> mapEventToState(
     MapEvent event,
   ) async* {
-    print("loading");
     yield MapLoading();
     yield* event.map(
       renderBuddyMap: (e) async* {
-        print("render map");
         final buddy = await _getBuddy();
         final buddyLocation = await _getBuddyLocation(buddy);
         final mapTool = MapTool(location: buddyLocation);

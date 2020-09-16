@@ -15,7 +15,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
   final _key = GlobalKey<ScaffoldState>();
   TextEditingController _smsCode;
   Timer _timer;
-  int _count = 60;
+  int _count = 30;
   bool isCounting = false;
 
   @override
@@ -137,6 +137,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
                               onPressed: () => Navigator.pushNamed(
                                   context, '/RegisterThree'),
                               text: 'Verify Number'),
+                              //TODO: Something off
                         ),
                       ],
                     )),
@@ -158,6 +159,7 @@ class _VerifyNumberState extends State<VerifyNumber> {
               timer.cancel();
               setState(() {
                 isCounting = false;
+                _count = 30;
               });
             } else {
               _count = _count - 1;

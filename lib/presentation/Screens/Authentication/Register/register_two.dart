@@ -18,7 +18,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
   final _key = GlobalKey<ScaffoldState>();
   TextEditingController _smsCode;
   Timer _timer;
-  int _count = 60;
+  int _count = 30;
   bool isCounting = false;
 
   @override
@@ -101,26 +101,30 @@ class _RegisterTwoState extends State<RegisterTwo> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 24),
-                          child: InkWell(
-                            onTap: () {
-                              registerBloc.add(GetCode(widget.phone));
-                            }, // timer() ,
-                            child: Row(
-                              children: <Widget>[
-                                Text(
-                                  'Didn’t get the code?',
-                                  style: TextStyle(
-                                      fontFamily: 'Nunito',
-                                      fontSize: 14,
-                                      color: isCounting
-                                          ? Colors.grey
-                                          : Colors.black),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text('$_count'),
-                                )
-                              ],
+                          child: IgnorePointer(
+                            ignoring: isCounting,
+                                                      child: InkWell(
+                              onTap: () {
+                                registerBloc.add(GetCode(widget.phone));
+                                timer();
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    'Didn’t get the code?',
+                                    style: TextStyle(
+                                        fontFamily: 'Nunito',
+                                        fontSize: 14,
+                                        color: isCounting
+                                            ? Colors.grey
+                                            : Colors.black),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Text('$_count'),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -184,6 +188,7 @@ class _RegisterTwoState extends State<RegisterTwo> {
               timer.cancel();
               setState(() {
                 isCounting = false;
+                _count = 30;
               });
             } else {
               _count = _count - 1;
