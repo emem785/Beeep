@@ -1,23 +1,28 @@
+import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'lawyer_tiles_state.dart';
 part 'lawyer_tiles_cubit.freezed.dart';
 
-//TODO: Instead of using index use phone number as unique identifier
+@injectable
 class LawyerTilesCubit extends Cubit<LawyerTilesState> {
-  Set<int> engagedLawyersIndex = Set<int>();
-  LawyerTilesCubit() : super(LawyerTilesInitial({}));
+  final ApiInterface apiInterface;
+  Set<String> engagedLawyersIndex = Set<String>();
+  LawyerTilesCubit({@required this.apiInterface})
+      : super(LawyerTilesInitial({}));
 
-  void engageLawyer(int index) {
+  void engageLawyer(String index) {
     emit(LawyerSelected(index));
   }
 
-  void confirmEngagement(int index) {
+  Future<void> confirmEngagement(String index) async {
     engagedLawyersIndex.add(index);
+    final response = await apiInterface.hireLawyer(index);
     print(engagedLawyersIndex.toString());
-    emit(LawyerEngaged(engagedLawyersIndex));
+    return response.map((r) => emit(LawyerEngaged(engagedLawyersIndex)));
   }
 
   void engagementNotConfirmed() {

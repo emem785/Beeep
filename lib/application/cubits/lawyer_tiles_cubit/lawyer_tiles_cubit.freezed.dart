@@ -13,21 +13,21 @@ class _$LawyerTilesStateTearOff {
   const _$LawyerTilesStateTearOff();
 
 // ignore: unused_element
-  LawyerTilesInitial initial(Set<int> engagedLawyersIndex) {
+  LawyerTilesInitial initial(Set<String> engagedLawyersIndex) {
     return LawyerTilesInitial(
       engagedLawyersIndex,
     );
   }
 
 // ignore: unused_element
-  LawyerSelected lawyerSelected(int index) {
+  LawyerSelected lawyerSelected(String index) {
     return LawyerSelected(
       index,
     );
   }
 
 // ignore: unused_element
-  LawyerEngaged lawyerEngaged(Set<int> engagedLawyersIndex) {
+  LawyerEngaged lawyerEngaged(Set<String> engagedLawyersIndex) {
     return LawyerEngaged(
       engagedLawyersIndex,
     );
@@ -40,15 +40,15 @@ const $LawyerTilesState = _$LawyerTilesStateTearOff();
 mixin _$LawyerTilesState {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(Set<int> engagedLawyersIndex),
-    @required Result lawyerSelected(int index),
-    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    @required Result initial(Set<String> engagedLawyersIndex),
+    @required Result lawyerSelected(String index),
+    @required Result lawyerEngaged(Set<String> engagedLawyersIndex),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(Set<int> engagedLawyersIndex),
-    Result lawyerSelected(int index),
-    Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    Result initial(Set<String> engagedLawyersIndex),
+    Result lawyerSelected(String index),
+    Result lawyerEngaged(Set<String> engagedLawyersIndex),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -85,7 +85,7 @@ abstract class $LawyerTilesInitialCopyWith<$Res> {
   factory $LawyerTilesInitialCopyWith(
           LawyerTilesInitial value, $Res Function(LawyerTilesInitial) then) =
       _$LawyerTilesInitialCopyWithImpl<$Res>;
-  $Res call({Set<int> engagedLawyersIndex});
+  $Res call({Set<String> engagedLawyersIndex});
 }
 
 class _$LawyerTilesInitialCopyWithImpl<$Res>
@@ -105,7 +105,7 @@ class _$LawyerTilesInitialCopyWithImpl<$Res>
     return _then(LawyerTilesInitial(
       engagedLawyersIndex == freezed
           ? _value.engagedLawyersIndex
-          : engagedLawyersIndex as Set<int>,
+          : engagedLawyersIndex as Set<String>,
     ));
   }
 }
@@ -115,7 +115,7 @@ class _$LawyerTilesInitial implements LawyerTilesInitial {
       : assert(engagedLawyersIndex != null);
 
   @override
-  final Set<int> engagedLawyersIndex;
+  final Set<String> engagedLawyersIndex;
 
   @override
   String toString() {
@@ -143,9 +143,9 @@ class _$LawyerTilesInitial implements LawyerTilesInitial {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(Set<int> engagedLawyersIndex),
-    @required Result lawyerSelected(int index),
-    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    @required Result initial(Set<String> engagedLawyersIndex),
+    @required Result lawyerSelected(String index),
+    @required Result lawyerEngaged(Set<String> engagedLawyersIndex),
   }) {
     assert(initial != null);
     assert(lawyerSelected != null);
@@ -156,9 +156,9 @@ class _$LawyerTilesInitial implements LawyerTilesInitial {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(Set<int> engagedLawyersIndex),
-    Result lawyerSelected(int index),
-    Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    Result initial(Set<String> engagedLawyersIndex),
+    Result lawyerSelected(String index),
+    Result lawyerEngaged(Set<String> engagedLawyersIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -198,10 +198,10 @@ class _$LawyerTilesInitial implements LawyerTilesInitial {
 }
 
 abstract class LawyerTilesInitial implements LawyerTilesState {
-  const factory LawyerTilesInitial(Set<int> engagedLawyersIndex) =
+  const factory LawyerTilesInitial(Set<String> engagedLawyersIndex) =
       _$LawyerTilesInitial;
 
-  Set<int> get engagedLawyersIndex;
+  Set<String> get engagedLawyersIndex;
   $LawyerTilesInitialCopyWith<LawyerTilesInitial> get copyWith;
 }
 
@@ -209,7 +209,7 @@ abstract class $LawyerSelectedCopyWith<$Res> {
   factory $LawyerSelectedCopyWith(
           LawyerSelected value, $Res Function(LawyerSelected) then) =
       _$LawyerSelectedCopyWithImpl<$Res>;
-  $Res call({int index});
+  $Res call({String index});
 }
 
 class _$LawyerSelectedCopyWithImpl<$Res>
@@ -227,7 +227,7 @@ class _$LawyerSelectedCopyWithImpl<$Res>
     Object index = freezed,
   }) {
     return _then(LawyerSelected(
-      index == freezed ? _value.index : index as int,
+      index == freezed ? _value.index : index as String,
     ));
   }
 }
@@ -236,7 +236,7 @@ class _$LawyerSelected implements LawyerSelected {
   const _$LawyerSelected(this.index) : assert(index != null);
 
   @override
-  final int index;
+  final String index;
 
   @override
   String toString() {
@@ -262,9 +262,9 @@ class _$LawyerSelected implements LawyerSelected {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(Set<int> engagedLawyersIndex),
-    @required Result lawyerSelected(int index),
-    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    @required Result initial(Set<String> engagedLawyersIndex),
+    @required Result lawyerSelected(String index),
+    @required Result lawyerEngaged(Set<String> engagedLawyersIndex),
   }) {
     assert(initial != null);
     assert(lawyerSelected != null);
@@ -275,9 +275,9 @@ class _$LawyerSelected implements LawyerSelected {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(Set<int> engagedLawyersIndex),
-    Result lawyerSelected(int index),
-    Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    Result initial(Set<String> engagedLawyersIndex),
+    Result lawyerSelected(String index),
+    Result lawyerEngaged(Set<String> engagedLawyersIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -317,9 +317,9 @@ class _$LawyerSelected implements LawyerSelected {
 }
 
 abstract class LawyerSelected implements LawyerTilesState {
-  const factory LawyerSelected(int index) = _$LawyerSelected;
+  const factory LawyerSelected(String index) = _$LawyerSelected;
 
-  int get index;
+  String get index;
   $LawyerSelectedCopyWith<LawyerSelected> get copyWith;
 }
 
@@ -327,7 +327,7 @@ abstract class $LawyerEngagedCopyWith<$Res> {
   factory $LawyerEngagedCopyWith(
           LawyerEngaged value, $Res Function(LawyerEngaged) then) =
       _$LawyerEngagedCopyWithImpl<$Res>;
-  $Res call({Set<int> engagedLawyersIndex});
+  $Res call({Set<String> engagedLawyersIndex});
 }
 
 class _$LawyerEngagedCopyWithImpl<$Res>
@@ -347,7 +347,7 @@ class _$LawyerEngagedCopyWithImpl<$Res>
     return _then(LawyerEngaged(
       engagedLawyersIndex == freezed
           ? _value.engagedLawyersIndex
-          : engagedLawyersIndex as Set<int>,
+          : engagedLawyersIndex as Set<String>,
     ));
   }
 }
@@ -357,7 +357,7 @@ class _$LawyerEngaged implements LawyerEngaged {
       : assert(engagedLawyersIndex != null);
 
   @override
-  final Set<int> engagedLawyersIndex;
+  final Set<String> engagedLawyersIndex;
 
   @override
   String toString() {
@@ -385,9 +385,9 @@ class _$LawyerEngaged implements LawyerEngaged {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(Set<int> engagedLawyersIndex),
-    @required Result lawyerSelected(int index),
-    @required Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    @required Result initial(Set<String> engagedLawyersIndex),
+    @required Result lawyerSelected(String index),
+    @required Result lawyerEngaged(Set<String> engagedLawyersIndex),
   }) {
     assert(initial != null);
     assert(lawyerSelected != null);
@@ -398,9 +398,9 @@ class _$LawyerEngaged implements LawyerEngaged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(Set<int> engagedLawyersIndex),
-    Result lawyerSelected(int index),
-    Result lawyerEngaged(Set<int> engagedLawyersIndex),
+    Result initial(Set<String> engagedLawyersIndex),
+    Result lawyerSelected(String index),
+    Result lawyerEngaged(Set<String> engagedLawyersIndex),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -440,8 +440,9 @@ class _$LawyerEngaged implements LawyerEngaged {
 }
 
 abstract class LawyerEngaged implements LawyerTilesState {
-  const factory LawyerEngaged(Set<int> engagedLawyersIndex) = _$LawyerEngaged;
+  const factory LawyerEngaged(Set<String> engagedLawyersIndex) =
+      _$LawyerEngaged;
 
-  Set<int> get engagedLawyersIndex;
+  Set<String> get engagedLawyersIndex;
   $LawyerEngagedCopyWith<LawyerEngaged> get copyWith;
 }

@@ -48,13 +48,14 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
                         child: InkWell(
                           onTap: () => context
                               .bloc<LawyerTilesCubit>()
-                              .engageLawyer(l.lawyers.indexOf(law)),
+                              .engageLawyer(law.phone),
                           child: ListTile(
                             leading: CircleAvatar(
                                 child: SvgPicture.asset(
-                                    'assets/images/logo.svg')),
-                            title: BlocBuilder<LawyerTilesCubit,
-                                LawyerTilesState>(
+                                    'assets/images/user_default.svg'),
+                                backgroundColor: Color(0xFF32BEA6)),
+                            title:
+                                BlocBuilder<LawyerTilesCubit, LawyerTilesState>(
                               builder: (context, state) {
                                 return state.maybeMap(
                                     orElse: () => Text(
@@ -64,16 +65,14 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
                                     lawyerEngaged: (e) => Text(
                                           law.firstname + "  " + law.lastname,
                                           style: e.engagedLawyersIndex
-                                                  .contains(
-                                                      l.lawyers.indexOf(law))
+                                                  .contains(law.phone)
                                               ? nunitoMidBoldGreen
                                               : nunitoMidBold,
                                         ),
                                     initial: (i) => Text(
                                           law.firstname + "  " + law.lastname,
                                           style: i.engagedLawyersIndex
-                                                  .contains(
-                                                      l.lawyers.indexOf(law))
+                                                  .contains(law.phone)
                                               ? nunitoMidBoldGreen
                                               : nunitoMidBold,
                                         ));
@@ -81,7 +80,7 @@ class _LawyerBottomSheetState extends State<LawyerBottomSheet> {
                             ),
                             subtitle: Text(
                                 '${law.distance.toStringAsFixed(2)} km away',
-                                style: nunitoMid),
+                                style: nunitoSmallBold),
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[

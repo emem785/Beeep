@@ -1,0 +1,74 @@
+{
+    "response": {
+        "code": {
+            "code": 201,
+            "detail": "(Created)"
+        },
+        "task_successful": true,
+        "content": {
+            "details": [
+                {
+                    "longitude": 104.0668,
+                    "latitude": 30.5729,
+                    "firstname": "bane",
+                    "lastname": "joker",
+                    "phone": null,
+                    "distance": 24.317594963768673
+                },
+                {
+                    "longitude": 104.0668,
+                    "latitude": 30.5729,
+                    "firstname": "abe",
+                    "lastname": "song",
+                    "phone": null,
+                    "distance": 24.317594963768673
+                },
+                {
+                    "longitude": 104.0668,
+                    "latitude": 30.5729,
+                    "firstname": "greener",
+                    "lastname": "goblin",
+                    "phone": null,
+                    "distance": 24.317594963768673
+                },
+                {
+                    "longitude": 104.0668,
+                    "latitude": 30.5729,
+                    "firstname": "tha",
+                    "lastname": "nos",
+                    "phone": null,
+                    "distance": 24.317594963768673
+                },
+                {
+                    "longitude": 104.0668,
+                    "latitude": 30.5729,
+                    "firstname": "dr",
+                    "lastname": "octopus",
+                    "phone": null,
+                    "distance": 24.317594963768673
+                },
+                {
+                    "longitude": 87.6298,
+                    "latitude": 41.8781,
+                    "firstname": "dark",
+                    "lastname": "side",
+                    "phone": null,
+                    "distance": 1908.2689731473045
+                },
+                {
+                    "longitude": 2232.0,
+                    "latitude": 2323.0,
+                    "firstname": "clementanes",
+                    "lastname": "oliziore",
+                    "phone": "0809390135",
+                    "distance": 13705.752781323496
+                }
+            ],
+            "distance_unit": "km",
+            "user_type": "Civilian"
+        },
+        "auth_keys": {
+            "access_token": "IN HEADERS"
+        }
+    }
+}

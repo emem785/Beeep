@@ -2,6 +2,7 @@
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Lawyer {
+  
   double longitude;
   double latitude;
   String firstname;

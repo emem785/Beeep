@@ -67,7 +67,7 @@ class BottomContainer extends StatelessWidget {
                     style: nunitoMidBoldGreen),
                 onTap: () {
                   BlocProvider.of<ReceiveBeepCubit>(context).getLawyers();
-                  BlocProvider.of<LawyerBloc>(context).add(GetLawyers());
+                  BlocProvider.of<LawyerBloc>(context).add(GetBuddyLawyers());
                 })
           ],
         ),

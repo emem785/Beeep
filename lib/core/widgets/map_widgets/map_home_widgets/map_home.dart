@@ -24,12 +24,14 @@ class HomeMap extends StatefulWidget {
 }
 
 class _HomeMapState extends State<HomeMap> {
-  _showDialogue(BuildContext context,LawyerTilesCubit lawyerTilesCubit,int index) {
+  _showDialogue(BuildContext context,LawyerTilesCubit lawyerTilesCubit,String index) {
     showDialog(
+      barrierDismissible: false,
         context: context,
         builder: (context) {
           print("engaged");
           return AlertDialog(
+            
             title: Text("Are you sure you want to hire this lawyer",style: nunitoMid),
             actions: <Widget>[
               FlatButton(

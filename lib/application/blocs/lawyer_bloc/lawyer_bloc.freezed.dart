@@ -16,6 +16,11 @@ class _$LawyerEventTearOff {
   GetLawyers getLawyers() {
     return const GetLawyers();
   }
+
+// ignore: unused_element
+  GetBuddyLawyers getBuddyLawyers() {
+    return const GetBuddyLawyers();
+  }
 }
 
 // ignore: unused_element
@@ -25,19 +30,23 @@ mixin _$LawyerEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result getLawyers(),
+    @required Result getBuddyLawyers(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result getLawyers(),
+    Result getBuddyLawyers(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result getLawyers(GetLawyers value),
+    @required Result getBuddyLawyers(GetBuddyLawyers value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result getLawyers(GetLawyers value),
+    Result getBuddyLawyers(GetBuddyLawyers value),
     @required Result orElse(),
   });
 }
@@ -91,8 +100,10 @@ class _$GetLawyers implements GetLawyers {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result getLawyers(),
+    @required Result getBuddyLawyers(),
   }) {
     assert(getLawyers != null);
+    assert(getBuddyLawyers != null);
     return getLawyers();
   }
 
@@ -100,6 +111,7 @@ class _$GetLawyers implements GetLawyers {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result getLawyers(),
+    Result getBuddyLawyers(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -113,8 +125,10 @@ class _$GetLawyers implements GetLawyers {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result getLawyers(GetLawyers value),
+    @required Result getBuddyLawyers(GetBuddyLawyers value),
   }) {
     assert(getLawyers != null);
+    assert(getBuddyLawyers != null);
     return getLawyers(this);
   }
 
@@ -122,6 +136,7 @@ class _$GetLawyers implements GetLawyers {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result getLawyers(GetLawyers value),
+    Result getBuddyLawyers(GetBuddyLawyers value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -134,6 +149,94 @@ class _$GetLawyers implements GetLawyers {
 
 abstract class GetLawyers implements LawyerEvent {
   const factory GetLawyers() = _$GetLawyers;
+}
+
+abstract class $GetBuddyLawyersCopyWith<$Res> {
+  factory $GetBuddyLawyersCopyWith(
+          GetBuddyLawyers value, $Res Function(GetBuddyLawyers) then) =
+      _$GetBuddyLawyersCopyWithImpl<$Res>;
+}
+
+class _$GetBuddyLawyersCopyWithImpl<$Res>
+    extends _$LawyerEventCopyWithImpl<$Res>
+    implements $GetBuddyLawyersCopyWith<$Res> {
+  _$GetBuddyLawyersCopyWithImpl(
+      GetBuddyLawyers _value, $Res Function(GetBuddyLawyers) _then)
+      : super(_value, (v) => _then(v as GetBuddyLawyers));
+
+  @override
+  GetBuddyLawyers get _value => super._value as GetBuddyLawyers;
+}
+
+class _$GetBuddyLawyers implements GetBuddyLawyers {
+  const _$GetBuddyLawyers();
+
+  @override
+  String toString() {
+    return 'LawyerEvent.getBuddyLawyers()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is GetBuddyLawyers);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result getLawyers(),
+    @required Result getBuddyLawyers(),
+  }) {
+    assert(getLawyers != null);
+    assert(getBuddyLawyers != null);
+    return getBuddyLawyers();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result getLawyers(),
+    Result getBuddyLawyers(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (getBuddyLawyers != null) {
+      return getBuddyLawyers();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result getLawyers(GetLawyers value),
+    @required Result getBuddyLawyers(GetBuddyLawyers value),
+  }) {
+    assert(getLawyers != null);
+    assert(getBuddyLawyers != null);
+    return getBuddyLawyers(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result getLawyers(GetLawyers value),
+    Result getBuddyLawyers(GetBuddyLawyers value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (getBuddyLawyers != null) {
+      return getBuddyLawyers(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetBuddyLawyers implements LawyerEvent {
+  const factory GetBuddyLawyers() = _$GetBuddyLawyers;
 }
 
 class _$LawyerStateTearOff {

@@ -10,6 +10,7 @@ import 'package:beep/core/widgets/map_widgets/receive_beep_widgets/receive_beep_
 import 'package:beep/core/widgets/map_widgets/top_bar.dart';
 import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
 import 'package:beep/core/utils/StyleGuide.dart';
+import 'package:beep/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -74,42 +75,40 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
               )),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: AnimatedContainer(
-                  height: _height,
-                  curve: Curves.linear,
-                  width: MediaQuery.of(context).size.width,
-                  duration: Duration(milliseconds: 100),
-                  child: BlocBuilder<MapBloc, MapState>(
-                    builder: (context, state) {
-                      return state.maybeMap(
-                        orElse: () => SizedBox(),
-                        mapRendered: (r) => BottomContainerLoading(
-                            height: size.maxHeight * 0.18),
-                        broadcastStarted: (b) => BlocProvider(
-                          create: (context) => LawyerTilesCubit(),
-                          child:
-                              BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
-                            builder: (context, state) {
-                              return state.map(
-                                  initial: (i) => BottomContainer(
-                                        height: size.maxHeight * 0.18,
-                                        buddy: b.buddy,
-                                      ),
-                                  lawyersGotten: (l) => LawyerBottomSheet());
-                            },
-                            listener: (context, state) {
-                              return state.maybeMap(
-                                  orElse: () => 1,
-                                  lawyersGotten: (l) =>
-                                      _height = size.maxHeight * 0.5);
-                            },
-                          ),
+                child: BlocBuilder<MapBloc, MapState>(
+                  builder: (context, state) {
+                    return state.maybeMap(
+                      orElse: () => SizedBox(),
+                      mapRendered: (r) =>
+                          BottomContainerLoading(height: size.maxHeight * 0.18),
+                      broadcastStarted: (b) => BlocProvider(
+                        create: (context) => getIt<LawyerTilesCubit>(),
+                        child: BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
+                          builder: (context, state) {
+                            return state.map(
+                                initial: (i) => BottomContainer(
+                                      height: size.maxHeight * 0.18,
+                                      buddy: b.buddy,
+                                    ),
+                                lawyersGotten: (l) => AnimatedContainer(
+                                    height: _height,
+                                    curve: Curves.linear,
+                                    width: MediaQuery.of(context).size.width,
+                                    duration: Duration(milliseconds: 100),
+                                    child: LawyerBottomSheet()));
+                          },
+                          listener: (context, state) {
+                            return state.maybeMap(
+                                orElse: () => 1,
+                                lawyersGotten: (l) =>
+                                    _height = size.maxHeight * 0.4);
+                          },
                         ),
-                        loading: (l) => BottomContainerLoading(
-                            height: size.maxHeight * 0.18),
-                      );
-                    },
-                  ),
+                      ),
+                      loading: (l) =>
+                          BottomContainerLoading(height: size.maxHeight * 0.18),
+                    );
+                  },
                 ),
               ),
               BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
@@ -121,6 +120,32 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                         TopBar(address: "Failed to get address"),
                     addressGotten: (g) => TopBar(address: g.address));
               }),
+              BlocBuilder<ReceiveBeepCubit, ReceiveBeepState>(
+                builder: (context, state) {
+                  return state.map(
+                      initial: (i) => SizedBox(),
+                      lawyersGotten: (l) => Positioned(
+                            child: GestureDetector(
+                                onTap: () {
+                                  context
+                                      .bloc<ReceiveBeepCubit>()
+                                      .hideLawyers();
+                                },
+                                child: Container(
+                                  child: Icon(Icons.arrow_left,
+                                      color: Colors.grey),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  height: 40,
+                                  width: 40,
+                                )),
+                            top: MediaQuery.of(context).size.height * 0.50,
+                            right: MediaQuery.of(context).size.width * 0.87,
+                          ));
+                },
+              ),
             ],
           ),
         );

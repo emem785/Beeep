@@ -1,4 +1,6 @@
+import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopBar extends StatelessWidget {
   final String address;
@@ -9,12 +11,13 @@ class TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final addressBloc = BlocProvider.of<AddressBloc>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 37.0),
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          width: 385,
+          width: MediaQuery.of(context).size.width * 0.95,
           height: 60,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
@@ -45,7 +48,7 @@ class TopBar extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () => addressBloc.add(GetAddress()),
                 child: Container(
                   width: 60,
                   child: Center(

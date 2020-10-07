@@ -5,6 +5,7 @@ import 'package:beep/domain/Interface/location_interface.dart';
 import 'package:beep/domain/Interface/map_interface.dart';
 import 'package:beep/infrastructure/models/location.dart';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -36,7 +37,10 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     LocationEvent event,
   ) async* {
     yield* event.map(renderMap: (e) async* {
+      
+      await apiInterface.updateFirebaseKey(e.firebaseMessaging);
       final location = await userLocation.getLocation();
+      await apiInterface.sendLocation(location.latitude, location.longitude);
       mapTool = MapTool(location: location);
       yield MapRendered(mapTool);
     }, broadcastLocation: (e) async* {

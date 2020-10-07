@@ -14,6 +14,12 @@ import '../../core/error/failure.dart';
 const URL = 'http://beeep.pythonanywhere.com/auth/';
 const URL_SHORT = 'http://beeep.pythonanywhere.com/';
 
+const URL2 = 'http://10.0.2.2:8000/auth/';
+const URL_SHORT2 = 'http://10.0.2.2:8000/';
+
+const URL3 = 'http://10.50.2.51:8000/auth/';
+const URL_SHORT3 = 'http://10.50.2.51:8000/';
+
 @LazySingleton(as: NetworkInterface)
 class NetworkClientImpl implements NetworkInterface {
   final LocalStorageInterface localStorageInterface;
@@ -23,7 +29,7 @@ class NetworkClientImpl implements NetworkInterface {
   @override
   Future<Either<Failure, Map<String, dynamic>>> postAuth(
       {endpoint, body}) async {
-    final url = URL_SHORT + endpoint;
+    final url = URL_SHORT2 + endpoint;
     final token = await localStorageInterface.getToken().then((value) {
       return value.fold((l) => -1, (r) => jsonDecode(r));
     });
@@ -41,8 +47,9 @@ class NetworkClientImpl implements NetworkInterface {
     try {
       final jsonResponse = await http
           .post(url, body: jsonEncode(body), headers: headers)
-          .timeout(const  Duration(seconds: 10));
-          
+          .timeout(const Duration(seconds: 10));
+
+
       if (jsonResponse.statusCode == 201) {
         final response = jsonDecode(jsonResponse.body);
         return Right(response);
@@ -54,20 +61,20 @@ class NetworkClientImpl implements NetworkInterface {
       } else if (jsonResponse.statusCode == 412) {
         return Left(UserExist("Phone number already exists"));
       } else {
-        return Left(ServerFailure("Server Error"));
+        return Left(ServerFailure(
+            "Server Error:${jsonResponse.statusCode} status code"));
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
-    }on SocketException{
-      return Left(ServerFailure("Server error"));
+    } on SocketException {
+      return Left(ServerFailure("Socket Excepetion"));
     }
-
   }
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> getAuth(endpoint,
       [data]) async {
-    final url = "$URL_SHORT$endpoint${data != null ? '/' + data : ""}";
+    final url = "$URL_SHORT2$endpoint${data != null ? '/' + data : ""}";
     final token = await localStorageInterface.getToken().then((value) {
       return value.fold((l) => -1, (r) => jsonDecode(r));
     });
@@ -88,13 +95,16 @@ class NetworkClientImpl implements NetworkInterface {
       if (jsonResponse.statusCode == 201) {
         final response = jsonDecode(jsonResponse.body);
         return Right(response);
+      } else if (jsonResponse.statusCode == 401) {
+        return Left(NotAuthorized("user not authenticated"));
       } else {
-        return Left(ServerFailure("Server Error"));
+        return Left(ServerFailure(
+            "Server error:${jsonResponse.statusCode} status code"));
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
-    }on SocketException{
-      return Left(ServerFailure("Server error"));
+    } on SocketException {
+      return Left(ServerFailure("Socket Exception"));
     }
   }
 
@@ -102,7 +112,7 @@ class NetworkClientImpl implements NetworkInterface {
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> get(endPoint, [data]) async {
-    final url = URL + endPoint + "/" + data ?? "";
+    final url = URL2 + endPoint + "/" + data ?? "";
     try {
       final jsonResponse =
           await http.get(url).timeout(const Duration(seconds: 10));
@@ -114,15 +124,14 @@ class NetworkClientImpl implements NetworkInterface {
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
-    }on SocketException{
+    } on SocketException {
       return Left(ServerFailure("Server error"));
     }
-
   }
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> post({endPoint, body}) async {
-    final url = URL + endPoint;
+    final url = URL2 + endPoint;
 
     try {
       final jsonResponse = await http
@@ -145,9 +154,8 @@ class NetworkClientImpl implements NetworkInterface {
       }
     } on TimeoutException {
       return Left(ServerFailure("Request Timeout"));
-    }on SocketException{
+    } on SocketException {
       return Left(ServerFailure("Server error"));
     }
-
   }
 }

@@ -4,4 +4,5 @@ part of 'lawyer_bloc.dart';
 @freezed
 abstract class LawyerEvent with _$LawyerEvent{
   const factory LawyerEvent.getLawyers() = GetLawyers;
+  const factory LawyerEvent.getBuddyLawyers() = GetBuddyLawyers;
 }

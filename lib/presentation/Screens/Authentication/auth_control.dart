@@ -13,8 +13,7 @@ class AuthController extends StatelessWidget {
       builder: (_, state) {
         return state.map(
             initial: (i) => Container(color: Colors.white),
-            authenticated: (a) => BlocProvider(
-                child: HomeScreen(), create: (_) => getIt<MapBloc>()),
+            authenticated: (a) => HomeInitializer(),
             unauthenticated: (u) => SplashScreen());
       },
     );

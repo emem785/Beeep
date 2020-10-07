@@ -10,12 +10,15 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name=".Application"
         android:label="beeep"
         android:icon="@mipmap/ic_launcher">
-        <meta-data
+       <!-- <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDpD7KefBz15WRRlZvVqck4tIh0KWGmJKs" />
+            android:value="AIzaSyDpD7KefBz15WRRlZvVqck4tIh0KWGmJKs" /> -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_logo" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -37,6 +40,10 @@
                     android:scheme="https"
                     android:host="github.com"
                     android:pathPrefix="/emem785/Beeep" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

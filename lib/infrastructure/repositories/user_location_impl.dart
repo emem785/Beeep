@@ -5,6 +5,7 @@ import 'package:beep/domain/Interface/location_interface.dart';
 import 'package:beep/infrastructure/models/location.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 
@@ -33,11 +34,10 @@ class UserLocationImpl implements UserLocationInterface {
   Future<Either<Failure, String>> getAddressFromLocation() async {
     try {
       final location = await getLocation();
-      final placemark = await geolocator.placemarkFromCoordinates(
-          location.latitude, location.longitude);
-      final address =
-          "${placemark[0].name},${placemark[0].locality},${placemark[0].administrativeArea}";
-      return Right(address);
+      final addresses = await Geocoder.local.findAddressesFromCoordinates(
+          Coordinates(location.latitude, location.longitude));
+      final address = addresses.first;
+      return Right(address.addressLine);
     } catch (e) {
       return Left(ServerFailure("Location not gotten"));
     }
@@ -47,11 +47,10 @@ class UserLocationImpl implements UserLocationInterface {
   Future<Either<Failure, String>> getBuddyAddressFromLocation(
       Location location) async {
     try {
-      final placemark = await geolocator.placemarkFromCoordinates(
-          location.latitude, location.longitude);
-      final address =
-          "${placemark[0].name},${placemark[0].locality},${placemark[0].administrativeArea}";
-      return Right(address);
+      final addresses = await Geocoder.local.findAddressesFromCoordinates(
+          Coordinates(location.latitude, location.longitude));
+      final address = addresses.first;
+      return Right(address.addressLine);
     } catch (e) {
       return Left(ServerFailure("Location not gotten"));
     }

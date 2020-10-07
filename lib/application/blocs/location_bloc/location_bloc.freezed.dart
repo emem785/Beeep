@@ -13,8 +13,10 @@ class _$LocationEventTearOff {
   const _$LocationEventTearOff();
 
 // ignore: unused_element
-  RenderMap renderMap() {
-    return const RenderMap();
+  RenderMap renderMap(FirebaseMessaging firebaseMessaging) {
+    return RenderMap(
+      firebaseMessaging,
+    );
   }
 
 // ignore: unused_element
@@ -39,14 +41,14 @@ const $LocationEvent = _$LocationEventTearOff();
 mixin _$LocationEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result renderMap(),
+    @required Result renderMap(FirebaseMessaging firebaseMessaging),
     @required Result broadcastLocation(),
     @required Result stopBroadcast(),
     @required Result resumeBroadcast(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result renderMap(),
+    Result renderMap(FirebaseMessaging firebaseMessaging),
     Result broadcastLocation(),
     Result stopBroadcast(),
     Result resumeBroadcast(),
@@ -87,6 +89,7 @@ class _$LocationEventCopyWithImpl<$Res>
 abstract class $RenderMapCopyWith<$Res> {
   factory $RenderMapCopyWith(RenderMap value, $Res Function(RenderMap) then) =
       _$RenderMapCopyWithImpl<$Res>;
+  $Res call({FirebaseMessaging firebaseMessaging});
 }
 
 class _$RenderMapCopyWithImpl<$Res> extends _$LocationEventCopyWithImpl<$Res>
@@ -96,34 +99,60 @@ class _$RenderMapCopyWithImpl<$Res> extends _$LocationEventCopyWithImpl<$Res>
 
   @override
   RenderMap get _value => super._value as RenderMap;
+
+  @override
+  $Res call({
+    Object firebaseMessaging = freezed,
+  }) {
+    return _then(RenderMap(
+      firebaseMessaging == freezed
+          ? _value.firebaseMessaging
+          : firebaseMessaging as FirebaseMessaging,
+    ));
+  }
 }
 
 class _$RenderMap with DiagnosticableTreeMixin implements RenderMap {
-  const _$RenderMap();
+  const _$RenderMap(this.firebaseMessaging) : assert(firebaseMessaging != null);
+
+  @override
+  final FirebaseMessaging firebaseMessaging;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LocationEvent.renderMap()';
+    return 'LocationEvent.renderMap(firebaseMessaging: $firebaseMessaging)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties..add(DiagnosticsProperty('type', 'LocationEvent.renderMap'));
+    properties
+      ..add(DiagnosticsProperty('type', 'LocationEvent.renderMap'))
+      ..add(DiagnosticsProperty('firebaseMessaging', firebaseMessaging));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is RenderMap);
+    return identical(this, other) ||
+        (other is RenderMap &&
+            (identical(other.firebaseMessaging, firebaseMessaging) ||
+                const DeepCollectionEquality()
+                    .equals(other.firebaseMessaging, firebaseMessaging)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(firebaseMessaging);
+
+  @override
+  $RenderMapCopyWith<RenderMap> get copyWith =>
+      _$RenderMapCopyWithImpl<RenderMap>(this, _$identity);
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result renderMap(),
+    @required Result renderMap(FirebaseMessaging firebaseMessaging),
     @required Result broadcastLocation(),
     @required Result stopBroadcast(),
     @required Result resumeBroadcast(),
@@ -132,13 +161,13 @@ class _$RenderMap with DiagnosticableTreeMixin implements RenderMap {
     assert(broadcastLocation != null);
     assert(stopBroadcast != null);
     assert(resumeBroadcast != null);
-    return renderMap();
+    return renderMap(firebaseMessaging);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result renderMap(),
+    Result renderMap(FirebaseMessaging firebaseMessaging),
     Result broadcastLocation(),
     Result stopBroadcast(),
     Result resumeBroadcast(),
@@ -146,7 +175,7 @@ class _$RenderMap with DiagnosticableTreeMixin implements RenderMap {
   }) {
     assert(orElse != null);
     if (renderMap != null) {
-      return renderMap();
+      return renderMap(firebaseMessaging);
     }
     return orElse();
   }
@@ -184,7 +213,10 @@ class _$RenderMap with DiagnosticableTreeMixin implements RenderMap {
 }
 
 abstract class RenderMap implements LocationEvent {
-  const factory RenderMap() = _$RenderMap;
+  const factory RenderMap(FirebaseMessaging firebaseMessaging) = _$RenderMap;
+
+  FirebaseMessaging get firebaseMessaging;
+  $RenderMapCopyWith<RenderMap> get copyWith;
 }
 
 abstract class $BroadcastLocationCopyWith<$Res> {
@@ -232,7 +264,7 @@ class _$BroadcastLocation
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result renderMap(),
+    @required Result renderMap(FirebaseMessaging firebaseMessaging),
     @required Result broadcastLocation(),
     @required Result stopBroadcast(),
     @required Result resumeBroadcast(),
@@ -247,7 +279,7 @@ class _$BroadcastLocation
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result renderMap(),
+    Result renderMap(FirebaseMessaging firebaseMessaging),
     Result broadcastLocation(),
     Result stopBroadcast(),
     Result resumeBroadcast(),
@@ -338,7 +370,7 @@ class _$StopBroadcast with DiagnosticableTreeMixin implements StopBroadcast {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result renderMap(),
+    @required Result renderMap(FirebaseMessaging firebaseMessaging),
     @required Result broadcastLocation(),
     @required Result stopBroadcast(),
     @required Result resumeBroadcast(),
@@ -353,7 +385,7 @@ class _$StopBroadcast with DiagnosticableTreeMixin implements StopBroadcast {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result renderMap(),
+    Result renderMap(FirebaseMessaging firebaseMessaging),
     Result broadcastLocation(),
     Result stopBroadcast(),
     Result resumeBroadcast(),
@@ -447,7 +479,7 @@ class _$ResumeBroadcast
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result renderMap(),
+    @required Result renderMap(FirebaseMessaging firebaseMessaging),
     @required Result broadcastLocation(),
     @required Result stopBroadcast(),
     @required Result resumeBroadcast(),
@@ -462,7 +494,7 @@ class _$ResumeBroadcast
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result renderMap(),
+    Result renderMap(FirebaseMessaging firebaseMessaging),
     Result broadcastLocation(),
     Result stopBroadcast(),
     Result resumeBroadcast(),

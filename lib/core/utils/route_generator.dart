@@ -36,7 +36,7 @@ class RouteGenerator {
           break;
 
         case '/HomeScreen':
-          screen = HomeScreen();
+          screen = HomeInitializer();
           break;
 
         case '/ReceiveBeep':

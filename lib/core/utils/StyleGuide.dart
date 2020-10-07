@@ -21,6 +21,7 @@ final TextStyle nunitoMidPrompt = TextStyle(fontFamily: 'Nunito',fontSize: 16,fo
 final TextStyle nunitoMidPromptPink = TextStyle(fontFamily: 'Nunito',fontSize: 16,color: customPink,fontWeight: FontWeight.w600);
 final TextStyle nunitoSmallGreen =TextStyle(fontFamily: 'Nunito', fontSize: 14, color: customGreen2);
 final TextStyle nunitoSmall = TextStyle(fontFamily: 'Nunito', fontSize: 14);
+final TextStyle nunitoSmallBold = TextStyle(fontFamily: 'Nunito', fontWeight: FontWeight.w600, fontSize: 14);
 final TextStyle success = TextStyle(fontFamily: 'Space Mono', fontSize: 24);
 final TextStyle successSub = TextStyle(fontFamily: 'Space Mono', fontSize: 18);
 final TextStyle cardSmall =TextStyle(fontFamily: 'Nunito', fontSize: 16, color: cardTextColor);

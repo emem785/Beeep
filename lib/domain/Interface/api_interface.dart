@@ -7,6 +7,7 @@ import 'package:beep/infrastructure/models/location.dart';
 import 'package:beep/infrastructure/models/map_tools.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 abstract class ApiInterface {
   //Authentication
@@ -20,6 +21,7 @@ abstract class ApiInterface {
   //Modify user details
   Future<Either<Failure, User>> updateUser(User user);
   Future<Either<Failure, bool>> updatePassword(String password);
+  Future<Either<Failure, bool>> updateFirebaseKey(FirebaseMessaging firebaseMessaging);
   //Location
   Future<Either<Failure, bool>> beep(String action, Location position);
   Future<Either<Failure, bool>> sendLocation(double latitude, double longitude);
@@ -27,4 +29,6 @@ abstract class ApiInterface {
   Stream<Location> getLocation(String phoneNumber);
  
   Future<Either<Failure, List<Lawyer>>> getLawyers();
+  Future<Either<Failure, bool>> hireLawyer(String phoneNumber);
+  Future<Either<Failure, List<Lawyer>>> getBuddyLawyers();
 }

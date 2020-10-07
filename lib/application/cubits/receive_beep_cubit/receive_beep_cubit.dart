@@ -1,3 +1,4 @@
+import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -10,5 +11,9 @@ class ReceiveBeepCubit extends Cubit<ReceiveBeepState> {
 
   void getLawyers() {
     emit(ReceiveBeepLawyersGotten());
+  }
+
+  void hideLawyers() {
+    emit(ReceiveBeepInitial());
   }
 }

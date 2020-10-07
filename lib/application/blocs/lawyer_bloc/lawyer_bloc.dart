@@ -19,19 +19,25 @@ class LawyerBloc extends Bloc<LawyerEvent, LawyerState> {
 
   LawyerBloc({@required this.apiInterface}) : super(Initial());
 
-
   @override
   Stream<LawyerState> mapEventToState(
     LawyerEvent event,
   ) async* {
     yield Loading();
-    if (event is GetLawyers) {
+    yield* event.map(getLawyers: (l) async* {
       final response = await apiInterface.getLawyers();
       yield* response.fold((l) async* {
         yield Error(l);
       }, (r) async* {
         yield Loaded(r);
       });
-    }
+    }, getBuddyLawyers: (b) async* {
+      final response = await apiInterface.getBuddyLawyers();
+      yield* response.fold((l) async* {
+        yield Error(l);
+      }, (r) async* {
+        yield Loaded(r);
+      });
+    });
   }
 }

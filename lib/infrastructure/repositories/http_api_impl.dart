@@ -9,6 +9,7 @@ import 'package:beep/infrastructure/models/lawyers.dart';
 import 'package:beep/infrastructure/models/location.dart';
 import 'package:beep/infrastructure/models/user.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,7 +17,7 @@ const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
 const API_LOCATION_UPDATE_DELAY = 4;
-const API_LOCATION_REQUEST_DELAY = 9;
+const API_LOCATION_REQUEST_DELAY = 4;
 
 @LazySingleton(as: ApiInterface)
 class HttpApiImpl implements ApiInterface {
@@ -24,7 +25,10 @@ class HttpApiImpl implements ApiInterface {
   final NetworkInterface client;
   StreamSubscription<Location> _subscription;
 
-  HttpApiImpl({@required this.localStorageRepo, @required this.client});
+  HttpApiImpl({
+    @required this.localStorageRepo,
+    @required this.client,
+  });
 
   //Authentication
   @override
@@ -160,7 +164,8 @@ class HttpApiImpl implements ApiInterface {
       Stream<Location> locationStream) {
     _subscription = locationStream.listen((event) {
       sendLocation(event.latitude, event.longitude);
-      _subscription.pause(Future.delayed(const Duration(seconds: API_LOCATION_UPDATE_DELAY)));
+      _subscription.pause(
+          Future.delayed(const Duration(seconds: API_LOCATION_UPDATE_DELAY)));
     });
     return _subscription;
   }
@@ -191,5 +196,37 @@ class HttpApiImpl implements ApiInterface {
     });
   }
 
+  @override
+  Future<Either<Failure, bool>> updateFirebaseKey(
+      FirebaseMessaging firebaseMessaging) async {
+    final firebaseKey = await firebaseMessaging.getToken();
+    print(firebaseKey);
+    final body = {"firebase_key": firebaseKey};
+    final response =
+        await client.postAuth(endpoint: "update_details", body: body);
 
+    return response.fold((l) => Left(l), (r) => Right(true));
+  }
+
+  @override
+  Future<Either<Failure, List<Lawyer>>> getBuddyLawyers() async {
+    final storageResponse = await localStorageRepo.getBuddy();
+    final buddy =
+        storageResponse.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
+    final response =
+        await client.getAuth("get_closest_lawyers_to_user", buddy.phonenumber);
+    return response.fold((l) => Left(l), (r) {
+      final lawyerMap = r["response"]["content"]["details"];
+      List<Lawyer> lawyerList =
+          List.from(lawyerMap).map((m) => Lawyer.fromJson(m)).toList();
+      return Right(lawyerList);
+    });
+  }
+
+  @override
+  Future<Either<Failure, bool>> hireLawyer(String phoneNumber) async {
+    final body = {"phone": phoneNumber};
+    final response = await client.postAuth(endpoint: "ping_lawyer", body: body);
+    return response.fold((l) => Left(l), (r) => Right(true));
+  }
 }

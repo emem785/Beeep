@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:beep/application/blocs/address_bloc/address_bloc.dart';
 import 'package:beep/application/blocs/map_bloc/map_bloc.dart';
 import 'package:beep/application/cubits/lawyer_tiles_cubit/lawyer_tiles_cubit.dart';
+import 'package:beep/core/hooks/firbase_messaging_hook.dart';
+import 'package:beep/core/hooks/unilink_hook.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/Bottom_Nav_bar.dart';
 import 'package:beep/core/widgets/bottom_nav_bar_widgets/lawyer_bottom_sheet.dart';
 import 'package:beep/core/widgets/map_widgets/map_home_widgets/map_home.dart';
@@ -10,11 +12,24 @@ import 'package:beep/core/widgets/menu_widgets/more_menu.dart';
 import 'package:beep/injectable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_it/get_it.dart';
 import '../../../application/blocs/navigation_bloc/navigation_bloc.dart';
 import '../../../application/blocs/location_bloc/location_bloc.dart';
 import '../../../application/blocs/lawyer_bloc/lawyer_bloc.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:flutter/services.dart';
+
+class HomeInitializer extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    useUnilinkHook();
+    final firebase = useFirebaseMessagingHook();
+    return BlocProvider(
+        create: (_) => getIt<LocationBloc>()..add(RenderMap(firebase)),
+        child: HomeScreen());
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,36 +37,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  StreamSubscription _subscription;
-  @override
-  void initState() {
-    super.initState();
-    initUniLinks();
-  }
-
-  Future<Null> initUniLinks() async {
-    try {
-      String initialLink = await getInitialLink();
-      if (initialLink != null) {
-        Navigator.pushNamed(context, '/ReceiveBeep');
-      }
-      _subscription = getUriLinksStream().listen((Uri uri) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/ReceiveBeep', ModalRoute.withName('/HomeScreen'));
-      }, onError: (err) {
-        _subscription.cancel();
-        print(err.toString());
-      });
-    } on PlatformException {
-      _subscription.cancel();
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _subscription.cancel();
-  }
+  //TODO: Initialize firebase
 
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   int navIndex = 0;
@@ -60,10 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<LocationBloc>()..add(RenderMap())),
         BlocProvider(create: (_) => getIt<AddressBloc>()..add(GetAddress())),
         BlocProvider(create: (_) => getIt<LawyerBloc>()),
-        BlocProvider(create: (_) => LawyerTilesCubit()),
+        BlocProvider(create: (_) => getIt<LawyerTilesCubit>()),
       ],
       child: Scaffold(
         key: _globalKey,

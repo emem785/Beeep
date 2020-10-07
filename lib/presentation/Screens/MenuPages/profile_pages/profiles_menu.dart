@@ -168,17 +168,19 @@ class CusTextFine extends StatelessWidget {
             children: <Widget>[
               Stack(
                 children: <Widget>[
-                  Positioned(
-                    child: Text(
-                      'Edit',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Nunito',
-                          fontWeight: FontWeight.w600,
-                          color: Colors.green[900]),
-                    ),
-                    left: 290,
-                    top: 14,
+                  Align(
+                    child: Row(children: [
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.7),
+                      Text(
+                        'Edit',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'Nunito',
+                            fontWeight: FontWeight.w600,
+                            color: Colors.green[900]),
+                      ),
+                    ]),
+                    alignment: Alignment.topRight,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
