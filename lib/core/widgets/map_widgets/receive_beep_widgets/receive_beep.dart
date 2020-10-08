@@ -49,9 +49,38 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
         false;
   }
 
+  _showDialogue(
+      BuildContext context, LawyerTilesCubit lawyerTilesCubit, String index) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          print("engaged");
+          return AlertDialog(
+            title: Text("Are you sure you want to hire this lawyer",
+                style: nunitoMid),
+            actions: <Widget>[
+              FlatButton(
+                  child: Text("YES", style: nunitoMidPrompt),
+                  onPressed: () {
+                    lawyerTilesCubit.confirmEngagement(index);
+                    Navigator.of(context).pop();
+                  }),
+              FlatButton(
+                  child: Text("NO", style: nunitoMidPromptPink),
+                  onPressed: () {
+                    lawyerTilesCubit.engagementNotConfirmed();
+                    Navigator.of(context).pop();
+                  }),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mapBloc = Provider.of<MapBloc>(context);
+    final lawyerTileCubit = Provider.of<LawyerTilesCubit>(context);
 
     double _height = MediaQuery.of(context).size.height * 0.18;
     return WillPopScope(
@@ -81,29 +110,27 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                       orElse: () => SizedBox(),
                       mapRendered: (r) =>
                           BottomContainerLoading(height: size.maxHeight * 0.18),
-                      broadcastStarted: (b) => BlocProvider(
-                        create: (context) => getIt<LawyerTilesCubit>(),
-                        child: BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
-                          builder: (context, state) {
-                            return state.map(
-                                initial: (i) => BottomContainer(
-                                      height: size.maxHeight * 0.18,
-                                      buddy: b.buddy,
-                                    ),
-                                lawyersGotten: (l) => AnimatedContainer(
-                                    height: _height,
-                                    curve: Curves.linear,
-                                    width: MediaQuery.of(context).size.width,
-                                    duration: Duration(milliseconds: 100),
-                                    child: LawyerBottomSheet()));
-                          },
-                          listener: (context, state) {
-                            return state.maybeMap(
-                                orElse: () => 1,
-                                lawyersGotten: (l) =>
-                                    _height = size.maxHeight * 0.4);
-                          },
-                        ),
+                      broadcastStarted: (b) =>
+                          BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
+                        builder: (context, state) {
+                          return state.map(
+                              initial: (i) => BottomContainer(
+                                    height: size.maxHeight * 0.18,
+                                    buddy: b.buddy,
+                                  ),
+                              lawyersGotten: (l) => AnimatedContainer(
+                                  height: _height,
+                                  curve: Curves.linear,
+                                  width: MediaQuery.of(context).size.width,
+                                  duration: Duration(milliseconds: 100),
+                                  child: LawyerBottomSheet()));
+                        },
+                        listener: (context, state) {
+                          return state.maybeMap(
+                              orElse: () => 1,
+                              lawyersGotten: (l) =>
+                                  _height = size.maxHeight * 0.4);
+                        },
                       ),
                       loading: (l) =>
                           BottomContainerLoading(height: size.maxHeight * 0.18),
@@ -111,15 +138,24 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                   },
                 ),
               ),
-              BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
-                return state.map(
-                    addressInitial: (i) => TopBar(address: ""),
-                    addressLoading: (l) =>
-                        TopBar(address: "Getting Address ..."),
-                    addressFailure: (f) =>
-                        TopBar(address: "Failed to get address"),
-                    addressGotten: (g) => TopBar(address: g.address));
-              }),
+              BlocListener<LawyerTilesCubit, LawyerTilesState>(
+                listener: (context, state) {
+                  return state.maybeMap(
+                      orElse: () => 1,
+                      lawyerSelected: (l) =>
+                          _showDialogue(context, lawyerTileCubit, l.index));
+                },
+                child: BlocBuilder<AddressBloc, AddressState>(
+                    builder: (context, state) {
+                  return state.map(
+                      addressInitial: (i) => TopBar(address: ""),
+                      addressLoading: (l) =>
+                          TopBar(address: "Getting Address ..."),
+                      addressFailure: (f) =>
+                          TopBar(address: "Failed to get address"),
+                      addressGotten: (g) => TopBar(address: g.address));
+                }),
+              ),
               BlocBuilder<ReceiveBeepCubit, ReceiveBeepState>(
                 builder: (context, state) {
                   return state.map(
@@ -132,8 +168,7 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                                       .hideLawyers();
                                 },
                                 child: Container(
-                                  child: Icon(Icons.arrow_left,
-                                      color: Colors.grey),
+                                  child: Icon(Icons.cancel, color: Colors.grey),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.all(

@@ -7,6 +7,7 @@ class Lawyer {
   double latitude;
   String firstname;
   String lastname;
+  bool onCall;
   String phone;
   double distance;
 
@@ -16,6 +17,7 @@ class Lawyer {
       this.firstname,
       this.lastname,
       this.phone,
+      this.onCall,
       this.distance});
 
   Lawyer.fromJson(Map<String, dynamic> json) {
@@ -25,6 +27,7 @@ class Lawyer {
     lastname = json['lastname'];
     phone = json['phone'];
     distance = json['distance'];
+    onCall = json['on_call'];
   }
 
   Map<String, dynamic> toJson() {

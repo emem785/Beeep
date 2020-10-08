@@ -16,8 +16,8 @@ import 'package:injectable/injectable.dart';
 const USER_KEY = 'user';
 const TOKEN_KEY = 'token';
 
-const API_LOCATION_UPDATE_DELAY = 4;
-const API_LOCATION_REQUEST_DELAY = 4;
+const API_LOCATION_UPDATE_DELAY = 6;
+const API_LOCATION_REQUEST_DELAY = 6;
 
 @LazySingleton(as: ApiInterface)
 class HttpApiImpl implements ApiInterface {
@@ -143,7 +143,20 @@ class HttpApiImpl implements ApiInterface {
     };
     final response =
         await client.postAuth(endpoint: "start_or_stop_beeep", body: body);
-    return response.fold((l) => Left(l), (r) => Right(true));
+
+    return response.fold((l) => Left(l), (r) {
+      if (action == "start") {
+        final message = r["response"]["content"]["details"]["message"];
+        print(message);
+        if (message == "New Beeep started") {
+          return Right(true);
+        } else {
+          return Right(false);
+        }
+      } else {
+        return Right(true);
+      }
+    });
   }
 
   @override
@@ -190,8 +203,10 @@ class HttpApiImpl implements ApiInterface {
     final response = await client.getAuth("get_closest_lawyers");
     return response.fold((l) => Left(l), (r) {
       final lawyerMap = r["response"]["content"]["details"];
-      List<Lawyer> lawyerList =
-          List.from(lawyerMap).map((m) => Lawyer.fromJson(m)).toList();
+      List<Lawyer> lawyerList = List.from(lawyerMap)
+          .map((m) => Lawyer.fromJson(m))
+          .where((element) => element.onCall == true)
+          .toList();
       return Right(lawyerList);
     });
   }

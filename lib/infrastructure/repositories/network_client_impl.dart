@@ -33,7 +33,7 @@ class NetworkClientImpl implements NetworkInterface {
   @override
   Future<Either<Failure, Map<String, dynamic>>> postAuth(
       {endpoint, body}) async {
-    final url = URL_SHORT4 + endpoint;
+    final url = URL_SHORT2 + endpoint;
     final token = await localStorageInterface.getToken().then((value) {
       return value.fold((l) => -1, (r) => jsonDecode(r));
     });
@@ -78,7 +78,7 @@ class NetworkClientImpl implements NetworkInterface {
   @override
   Future<Either<Failure, Map<String, dynamic>>> getAuth(endpoint,
       [data]) async {
-    final url = "$URL_SHORT4$endpoint${data != null ? '/' + data : ""}";
+    final url = "$URL_SHORT2$endpoint${data != null ? '/' + data : ""}";
     final token = await localStorageInterface.getToken().then((value) {
       return value.fold((l) => -1, (r) => jsonDecode(r));
     });
@@ -116,7 +116,7 @@ class NetworkClientImpl implements NetworkInterface {
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> get(endPoint, [data]) async {
-    final url = URL4 + endPoint + "/" + data ?? "";
+    final url = URL2 + endPoint + "/" + data ?? "";
     try {
       final jsonResponse =
           await http.get(url).timeout(const Duration(seconds: 10));
@@ -135,7 +135,7 @@ class NetworkClientImpl implements NetworkInterface {
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> post({endPoint, body}) async {
-    final url = URL4 + endPoint;
+    final url = URL2 + endPoint;
 
     try {
       final jsonResponse = await http

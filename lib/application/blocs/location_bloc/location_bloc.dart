@@ -5,6 +5,7 @@ import 'package:beep/domain/Interface/location_interface.dart';
 import 'package:beep/domain/Interface/map_interface.dart';
 import 'package:beep/infrastructure/models/location.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -37,18 +38,21 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     LocationEvent event,
   ) async* {
     yield* event.map(renderMap: (e) async* {
-      
       await apiInterface.updateFirebaseKey(e.firebaseMessaging);
       final location = await userLocation.getLocation();
       await apiInterface.sendLocation(location.latitude, location.longitude);
       mapTool = MapTool(location: location);
       yield MapRendered(mapTool);
     }, broadcastLocation: (e) async* {
-      await _startOrStopBeep("start");
-      _apiUpdateSubscription = apiInterface
-          .sendLocationAsStream(userLocation.getUserLocationStream());
-      _mapUpdateSubscription = mapInterface.startMapUpdateStream(mapTool);
-      yield BroadcastStarted(mapTool);
+      final isNotBeeping = await _startOrStopBeep("start");
+      if (isNotBeeping) {
+        _apiUpdateSubscription = apiInterface
+            .sendLocationAsStream(userLocation.getUserLocationStream());
+        _mapUpdateSubscription = mapInterface.startMapUpdateStream(mapTool);
+        yield BroadcastStarted(mapTool);
+      }else{
+        await _startOrStopBeep("stop");
+      }
     }, stopBroadcast: (e) async* {
       await _startOrStopBeep("stop");
       _apiUpdateSubscription.cancel();
@@ -63,8 +67,9 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     });
   }
 
-  _startOrStopBeep(String action) async {
+  Future<bool> _startOrStopBeep(String action) async {
     final location = await userLocation.getLocation();
-    apiInterface.beep(action, location);
+    final response = await apiInterface.beep(action, location);
+    return response.fold((l) => null, (r) => r);
   }
 }

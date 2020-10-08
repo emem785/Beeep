@@ -1,3 +1,4 @@
+import 'package:beep/core/utils/StyleGuide.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,6 +34,7 @@ class _FirebaseMessagingHookState
     firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("$message");
+        createDialogue(context, message);
       },
       onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
@@ -45,6 +47,38 @@ class _FirebaseMessagingHookState
         Navigator.pushNamed(context, '/ReceiveBeep');
         // _navigateToItemDetail(message);
       },
+    );
+  }
+
+    Future<void> createDialogue(
+      BuildContext context, Map<String, dynamic> message) async {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('${message["data"]["name"]} sent out an alert and may be in trouble', style: nunitoMid),
+        content: Container(
+          height: 70,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('You can start tracking', style: nunitoMid)
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: new Text('Ignore', style: nunitoMidPromptPink),
+          ),
+          new FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.pushNamed(context, '/ReceiveBeep');
+            },
+            child: new Text('Start Tracking', style: nunitoMidPrompt),
+          ),
+        ],
+      ),
     );
   }
 
