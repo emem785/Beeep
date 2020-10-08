@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => getIt<AddressBloc>()..add(GetAddress())),
+        BlocProvider(create: (_) => getIt<AddressBloc>()),
         BlocProvider(create: (_) => getIt<LawyerBloc>()),
         BlocProvider(create: (_) => getIt<LawyerTilesCubit>()),
       ],

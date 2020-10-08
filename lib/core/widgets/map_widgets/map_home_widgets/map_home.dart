@@ -24,24 +24,25 @@ class HomeMap extends StatefulWidget {
 }
 
 class _HomeMapState extends State<HomeMap> {
-  _showDialogue(BuildContext context,LawyerTilesCubit lawyerTilesCubit,String index) {
+  _showDialogue(
+      BuildContext context, LawyerTilesCubit lawyerTilesCubit, String index) {
     showDialog(
-      barrierDismissible: false,
+        barrierDismissible: false,
         context: context,
         builder: (context) {
           print("engaged");
           return AlertDialog(
-            
-            title: Text("Are you sure you want to hire this lawyer",style: nunitoMid),
+            title: Text("Are you sure you want to hire this lawyer",
+                style: nunitoMid),
             actions: <Widget>[
               FlatButton(
-                  child: Text("YES",style: nunitoMidPrompt),
+                  child: Text("YES", style: nunitoMidPrompt),
                   onPressed: () {
                     lawyerTilesCubit.confirmEngagement(index);
                     Navigator.of(context).pop();
                   }),
               FlatButton(
-                  child: Text("NO",style: nunitoMidPromptPink),
+                  child: Text("NO", style: nunitoMidPromptPink),
                   onPressed: () {
                     lawyerTilesCubit.engagementNotConfirmed();
                     Navigator.of(context).pop();
@@ -58,8 +59,9 @@ class _HomeMapState extends State<HomeMap> {
     return Container(
       child: Stack(
         children: <Widget>[
-          Container(child: BlocBuilder<LocationBloc, LocationState>(
-              builder: (context, state) {
+          Container(
+              child: BlocConsumer<LocationBloc, LocationState>(
+                  builder: (context, state) {
             return state.maybeMap(
                 orElse: () => SizedBox(),
                 mapRendered: (r) {
@@ -77,6 +79,11 @@ class _HomeMapState extends State<HomeMap> {
                       mapTool: n.mapTool,
                       markerStream: n.mapTool.markerStreamController.stream);
                 });
+          }, listener: (context, state) {
+            return state.maybeMap(
+                orElse: () => 1,
+                mapRendered: (m) =>
+                    context.bloc<AddressBloc>().add(GetAddress()));
           })),
           Align(
             alignment: Alignment.bottomCenter,
@@ -109,7 +116,7 @@ class _HomeMapState extends State<HomeMap> {
               return state.maybeMap(
                   orElse: () => 1,
                   lawyerSelected: (l) {
-                    return _showDialogue(context,lawyerTileCubit,l.index);
+                    return _showDialogue(context, lawyerTileCubit, l.index);
                   });
             },
             child: BlocBuilder<AddressBloc, AddressState>(
