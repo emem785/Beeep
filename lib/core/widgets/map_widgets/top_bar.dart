@@ -48,7 +48,10 @@ class TopBar extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => addressBloc.add(GetAddress()),
+                onTap: () {
+                  // addressBloc.add(GetAddress());
+                  Navigator.pushNamed(context, '/ReceiveBeep');
+                },
                 child: Container(
                   width: 60,
                   child: Center(

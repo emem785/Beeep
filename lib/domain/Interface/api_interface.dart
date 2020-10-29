@@ -26,7 +26,7 @@ abstract class ApiInterface {
   Future<Either<Failure, bool>> beep(String action, Location position);
   Future<Either<Failure, bool>> sendLocation(double latitude, double longitude);
   StreamSubscription<Location> sendLocationAsStream(Stream<Location> locationStream);
-  Stream<Location> getLocation(String phoneNumber);
+  Future<Either<Failure,Location>> getLocation(String phoneNumber);
  
   Future<Either<Failure, List<Lawyer>>> getLawyers();
   Future<Either<Failure, bool>> hireLawyer(String phoneNumber);

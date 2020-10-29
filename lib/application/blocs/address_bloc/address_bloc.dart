@@ -56,7 +56,8 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     final response = await localStorageInterface.getBuddy();
     final buddy =
         response.fold((l) => null, (r) => Buddy.fromJson(jsonDecode(r)));
-    final location = await apiInterface.getLocation(buddy.phonenumber).first;
-    return location;
+    final apiResponse = await apiInterface.getLocation(buddy.phonenumber);
+    return apiResponse.fold(
+        (l) => Location(latitude: 0, longitude: 0), (r) => r);
   }
 }

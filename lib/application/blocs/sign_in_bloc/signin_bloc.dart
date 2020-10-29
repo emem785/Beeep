@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
+import 'package:beep/domain/Interface/location_interface.dart';
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
@@ -18,9 +19,10 @@ const TOKEN_KEY = 'token';
 
 @injectable
 class SigninBloc extends Bloc<SignInEvent, SignInState> {
-  ApiInterface apiInterface;
+  final ApiInterface apiInterface;
+  final UserLocationInterface userLocation;
 
-  SigninBloc({@required this.apiInterface}) : super(SignInStateInitial());
+  SigninBloc({@required this.userLocation, @required this.apiInterface}) : super(SignInStateInitial());
 
   @override
   Stream<SignInState> mapEventToState(
@@ -32,6 +34,9 @@ class SigninBloc extends Bloc<SignInEvent, SignInState> {
       yield* response.fold((l) async* {
         yield SignInStateError(l);
       }, (r) async* {
+        
+      final location = await userLocation.getLocation();
+      await apiInterface.sendLocation(location.latitude, location.longitude);
         yield SignInStateAuthenticated();
       });
     }, register: (e) async* {

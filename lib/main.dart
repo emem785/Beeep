@@ -17,12 +17,8 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => getIt<AuthBloc>()..add(AppLoaded()),
-        ),
-        BlocProvider(
-          create: (context) => getIt<SigninBloc>(),
-        ),
+        BlocProvider(create: (context) => getIt<AuthBloc>()..add(AppLoaded())),
+        BlocProvider(create: (context) => getIt<SigninBloc>()),
         BlocProvider(create: (context) => getIt<RegisterBloc>()),
         BlocProvider(create: (_) => getIt<UserBloc>()),
         BlocProvider(create: (_) => NavigationBloc())
@@ -42,8 +38,4 @@ void main() {
       ),
     ),
   );
-
-
 }
-
-

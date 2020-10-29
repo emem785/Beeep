@@ -183,19 +183,30 @@ class HttpApiImpl implements ApiInterface {
     return _subscription;
   }
 
+  // @override
+  // Stream<Location> getLocation(String phoneNumber) async* {
+  //   while (true) {
+  //     await Future.delayed(const Duration(seconds: API_LOCATION_REQUEST_DELAY));
+  //     final response = await client.getAuth("get_user_location", phoneNumber);
+  //     yield* response.fold((l) async* {
+  //       yield Location(latitude: 0, longitude: 0);
+  //     }, (r) async* {
+  //       final location =
+  //           r["response"]["content"]["details"]["target_user_location"];
+  //       yield Location(latitude: location["lat"], longitude: location["lng"]);
+  //     });
+  //   }
+  // }
+
   @override
-  Stream<Location> getLocation(String phoneNumber) async* {
-    while (true) {
-      await Future.delayed(const Duration(seconds: API_LOCATION_REQUEST_DELAY));
-      final response = await client.getAuth("get_user_location", phoneNumber);
-      yield* response.fold((l) async* {
-        yield Location(latitude: 0, longitude: 0);
-      }, (r) async* {
-        final location =
-            r["response"]["content"]["details"]["target_user_location"];
-        yield Location(latitude: location["lat"], longitude: location["lng"]);
-      });
-    }
+  Future<Either<Failure, Location>> getLocation(String phoneNumber) async {
+    final response = await client.getAuth("get_user_location", phoneNumber);
+    return response.fold((l) => Left(l), (r) {
+      final location =
+          r["response"]["content"]["details"]["target_user_location"];
+      return Right(
+          Location(latitude: location["lat"], longitude: location["lng"]));
+    });
   }
 
   @override

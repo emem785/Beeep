@@ -29,6 +29,13 @@ class _$MapEventTearOff {
   StopSecondBroadcast stopSecondBroadcast() {
     return const StopSecondBroadcast();
   }
+
+// ignore: unused_element
+  OnBroadcastError onBroadcastError(Failure failure) {
+    return OnBroadcastError(
+      failure,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -40,12 +47,14 @@ mixin _$MapEvent {
     @required Result renderBuddyMap(),
     @required Result startBroadcast(MapTool mapTool, Buddy buddy),
     @required Result stopSecondBroadcast(),
+    @required Result onBroadcastError(Failure failure),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result renderBuddyMap(),
     Result startBroadcast(MapTool mapTool, Buddy buddy),
     Result stopSecondBroadcast(),
+    Result onBroadcastError(Failure failure),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -53,12 +62,14 @@ mixin _$MapEvent {
     @required Result renderBuddyMap(RenderBuddyMap value),
     @required Result startBroadcast(StartBroadcast value),
     @required Result stopSecondBroadcast(StopSecondBroadcast value),
+    @required Result onBroadcastError(OnBroadcastError value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result renderBuddyMap(RenderBuddyMap value),
     Result startBroadcast(StartBroadcast value),
     Result stopSecondBroadcast(StopSecondBroadcast value),
+    Result onBroadcastError(OnBroadcastError value),
     @required Result orElse(),
   });
 }
@@ -114,10 +125,12 @@ class _$RenderBuddyMap implements RenderBuddyMap {
     @required Result renderBuddyMap(),
     @required Result startBroadcast(MapTool mapTool, Buddy buddy),
     @required Result stopSecondBroadcast(),
+    @required Result onBroadcastError(Failure failure),
   }) {
     assert(renderBuddyMap != null);
     assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
     return renderBuddyMap();
   }
 
@@ -127,6 +140,7 @@ class _$RenderBuddyMap implements RenderBuddyMap {
     Result renderBuddyMap(),
     Result startBroadcast(MapTool mapTool, Buddy buddy),
     Result stopSecondBroadcast(),
+    Result onBroadcastError(Failure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -142,10 +156,12 @@ class _$RenderBuddyMap implements RenderBuddyMap {
     @required Result renderBuddyMap(RenderBuddyMap value),
     @required Result startBroadcast(StartBroadcast value),
     @required Result stopSecondBroadcast(StopSecondBroadcast value),
+    @required Result onBroadcastError(OnBroadcastError value),
   }) {
     assert(renderBuddyMap != null);
     assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
     return renderBuddyMap(this);
   }
 
@@ -155,6 +171,7 @@ class _$RenderBuddyMap implements RenderBuddyMap {
     Result renderBuddyMap(RenderBuddyMap value),
     Result startBroadcast(StartBroadcast value),
     Result stopSecondBroadcast(StopSecondBroadcast value),
+    Result onBroadcastError(OnBroadcastError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -239,10 +256,12 @@ class _$StartBroadcast implements StartBroadcast {
     @required Result renderBuddyMap(),
     @required Result startBroadcast(MapTool mapTool, Buddy buddy),
     @required Result stopSecondBroadcast(),
+    @required Result onBroadcastError(Failure failure),
   }) {
     assert(renderBuddyMap != null);
     assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
     return startBroadcast(mapTool, buddy);
   }
 
@@ -252,6 +271,7 @@ class _$StartBroadcast implements StartBroadcast {
     Result renderBuddyMap(),
     Result startBroadcast(MapTool mapTool, Buddy buddy),
     Result stopSecondBroadcast(),
+    Result onBroadcastError(Failure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -267,10 +287,12 @@ class _$StartBroadcast implements StartBroadcast {
     @required Result renderBuddyMap(RenderBuddyMap value),
     @required Result startBroadcast(StartBroadcast value),
     @required Result stopSecondBroadcast(StopSecondBroadcast value),
+    @required Result onBroadcastError(OnBroadcastError value),
   }) {
     assert(renderBuddyMap != null);
     assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
     return startBroadcast(this);
   }
 
@@ -280,6 +302,7 @@ class _$StartBroadcast implements StartBroadcast {
     Result renderBuddyMap(RenderBuddyMap value),
     Result startBroadcast(StartBroadcast value),
     Result stopSecondBroadcast(StopSecondBroadcast value),
+    Result onBroadcastError(OnBroadcastError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -337,10 +360,12 @@ class _$StopSecondBroadcast implements StopSecondBroadcast {
     @required Result renderBuddyMap(),
     @required Result startBroadcast(MapTool mapTool, Buddy buddy),
     @required Result stopSecondBroadcast(),
+    @required Result onBroadcastError(Failure failure),
   }) {
     assert(renderBuddyMap != null);
     assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
     return stopSecondBroadcast();
   }
 
@@ -350,6 +375,7 @@ class _$StopSecondBroadcast implements StopSecondBroadcast {
     Result renderBuddyMap(),
     Result startBroadcast(MapTool mapTool, Buddy buddy),
     Result stopSecondBroadcast(),
+    Result onBroadcastError(Failure failure),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -365,10 +391,12 @@ class _$StopSecondBroadcast implements StopSecondBroadcast {
     @required Result renderBuddyMap(RenderBuddyMap value),
     @required Result startBroadcast(StartBroadcast value),
     @required Result stopSecondBroadcast(StopSecondBroadcast value),
+    @required Result onBroadcastError(OnBroadcastError value),
   }) {
     assert(renderBuddyMap != null);
     assert(startBroadcast != null);
     assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
     return stopSecondBroadcast(this);
   }
 
@@ -378,6 +406,7 @@ class _$StopSecondBroadcast implements StopSecondBroadcast {
     Result renderBuddyMap(RenderBuddyMap value),
     Result startBroadcast(StartBroadcast value),
     Result stopSecondBroadcast(StopSecondBroadcast value),
+    Result onBroadcastError(OnBroadcastError value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -390,6 +419,141 @@ class _$StopSecondBroadcast implements StopSecondBroadcast {
 
 abstract class StopSecondBroadcast implements MapEvent {
   const factory StopSecondBroadcast() = _$StopSecondBroadcast;
+}
+
+abstract class $OnBroadcastErrorCopyWith<$Res> {
+  factory $OnBroadcastErrorCopyWith(
+          OnBroadcastError value, $Res Function(OnBroadcastError) then) =
+      _$OnBroadcastErrorCopyWithImpl<$Res>;
+  $Res call({Failure failure});
+
+  $FailureCopyWith<$Res> get failure;
+}
+
+class _$OnBroadcastErrorCopyWithImpl<$Res> extends _$MapEventCopyWithImpl<$Res>
+    implements $OnBroadcastErrorCopyWith<$Res> {
+  _$OnBroadcastErrorCopyWithImpl(
+      OnBroadcastError _value, $Res Function(OnBroadcastError) _then)
+      : super(_value, (v) => _then(v as OnBroadcastError));
+
+  @override
+  OnBroadcastError get _value => super._value as OnBroadcastError;
+
+  @override
+  $Res call({
+    Object failure = freezed,
+  }) {
+    return _then(OnBroadcastError(
+      failure == freezed ? _value.failure : failure as Failure,
+    ));
+  }
+
+  @override
+  $FailureCopyWith<$Res> get failure {
+    if (_value.failure == null) {
+      return null;
+    }
+    return $FailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
+  }
+}
+
+class _$OnBroadcastError implements OnBroadcastError {
+  const _$OnBroadcastError(this.failure) : assert(failure != null);
+
+  @override
+  final Failure failure;
+
+  @override
+  String toString() {
+    return 'MapEvent.onBroadcastError(failure: $failure)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is OnBroadcastError &&
+            (identical(other.failure, failure) ||
+                const DeepCollectionEquality().equals(other.failure, failure)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failure);
+
+  @override
+  $OnBroadcastErrorCopyWith<OnBroadcastError> get copyWith =>
+      _$OnBroadcastErrorCopyWithImpl<OnBroadcastError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result renderBuddyMap(),
+    @required Result startBroadcast(MapTool mapTool, Buddy buddy),
+    @required Result stopSecondBroadcast(),
+    @required Result onBroadcastError(Failure failure),
+  }) {
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
+    assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
+    return onBroadcastError(failure);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result renderBuddyMap(),
+    Result startBroadcast(MapTool mapTool, Buddy buddy),
+    Result stopSecondBroadcast(),
+    Result onBroadcastError(Failure failure),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (onBroadcastError != null) {
+      return onBroadcastError(failure);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result renderBuddyMap(RenderBuddyMap value),
+    @required Result startBroadcast(StartBroadcast value),
+    @required Result stopSecondBroadcast(StopSecondBroadcast value),
+    @required Result onBroadcastError(OnBroadcastError value),
+  }) {
+    assert(renderBuddyMap != null);
+    assert(startBroadcast != null);
+    assert(stopSecondBroadcast != null);
+    assert(onBroadcastError != null);
+    return onBroadcastError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result renderBuddyMap(RenderBuddyMap value),
+    Result startBroadcast(StartBroadcast value),
+    Result stopSecondBroadcast(StopSecondBroadcast value),
+    Result onBroadcastError(OnBroadcastError value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (onBroadcastError != null) {
+      return onBroadcastError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnBroadcastError implements MapEvent {
+  const factory OnBroadcastError(Failure failure) = _$OnBroadcastError;
+
+  Failure get failure;
+  $OnBroadcastErrorCopyWith<OnBroadcastError> get copyWith;
 }
 
 class _$MapStateTearOff {
@@ -416,13 +580,17 @@ class _$MapStateTearOff {
   }
 
 // ignore: unused_element
-  BroadcastEnded broadcastEnded() {
-    return const BroadcastEnded();
+  BroadcastEnded broadcastEnded(Location location) {
+    return BroadcastEnded(
+      location,
+    );
   }
 
 // ignore: unused_element
-  BroadcastError broadcastError() {
-    return const BroadcastError();
+  BroadcastError broadcastError(Location location) {
+    return BroadcastError(
+      location,
+    );
   }
 
 // ignore: unused_element
@@ -440,8 +608,8 @@ mixin _$MapState {
     @required Result initial(),
     @required Result mapRendered(MapTool mapTool),
     @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    @required Result broadcastEnded(),
-    @required Result broadcastError(),
+    @required Result broadcastEnded(Location location),
+    @required Result broadcastError(Location location),
     @required Result loading(),
   });
   @optionalTypeArgs
@@ -449,8 +617,8 @@ mixin _$MapState {
     Result initial(),
     Result mapRendered(MapTool mapTool),
     Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    Result broadcastEnded(),
-    Result broadcastError(),
+    Result broadcastEnded(Location location),
+    Result broadcastError(Location location),
     Result loading(),
     @required Result orElse(),
   });
@@ -525,8 +693,8 @@ class _$MapInitial implements MapInitial {
     @required Result initial(),
     @required Result mapRendered(MapTool mapTool),
     @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    @required Result broadcastEnded(),
-    @required Result broadcastError(),
+    @required Result broadcastEnded(Location location),
+    @required Result broadcastError(Location location),
     @required Result loading(),
   }) {
     assert(initial != null);
@@ -544,8 +712,8 @@ class _$MapInitial implements MapInitial {
     Result initial(),
     Result mapRendered(MapTool mapTool),
     Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    Result broadcastEnded(),
-    Result broadcastError(),
+    Result broadcastEnded(Location location),
+    Result broadcastError(Location location),
     Result loading(),
     @required Result orElse(),
   }) {
@@ -657,8 +825,8 @@ class _$MapRendered implements MapRendered {
     @required Result initial(),
     @required Result mapRendered(MapTool mapTool),
     @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    @required Result broadcastEnded(),
-    @required Result broadcastError(),
+    @required Result broadcastEnded(Location location),
+    @required Result broadcastError(Location location),
     @required Result loading(),
   }) {
     assert(initial != null);
@@ -676,8 +844,8 @@ class _$MapRendered implements MapRendered {
     Result initial(),
     Result mapRendered(MapTool mapTool),
     Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    Result broadcastEnded(),
-    Result broadcastError(),
+    Result broadcastEnded(Location location),
+    Result broadcastError(Location location),
     Result loading(),
     @required Result orElse(),
   }) {
@@ -802,8 +970,8 @@ class _$BroadcastStarted implements BroadcastStarted {
     @required Result initial(),
     @required Result mapRendered(MapTool mapTool),
     @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    @required Result broadcastEnded(),
-    @required Result broadcastError(),
+    @required Result broadcastEnded(Location location),
+    @required Result broadcastError(Location location),
     @required Result loading(),
   }) {
     assert(initial != null);
@@ -821,8 +989,8 @@ class _$BroadcastStarted implements BroadcastStarted {
     Result initial(),
     Result mapRendered(MapTool mapTool),
     Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    Result broadcastEnded(),
-    Result broadcastError(),
+    Result broadcastEnded(Location location),
+    Result broadcastError(Location location),
     Result loading(),
     @required Result orElse(),
   }) {
@@ -884,6 +1052,7 @@ abstract class $BroadcastEndedCopyWith<$Res> {
   factory $BroadcastEndedCopyWith(
           BroadcastEnded value, $Res Function(BroadcastEnded) then) =
       _$BroadcastEndedCopyWithImpl<$Res>;
+  $Res call({Location location});
 }
 
 class _$BroadcastEndedCopyWithImpl<$Res> extends _$MapStateCopyWithImpl<$Res>
@@ -894,23 +1063,44 @@ class _$BroadcastEndedCopyWithImpl<$Res> extends _$MapStateCopyWithImpl<$Res>
 
   @override
   BroadcastEnded get _value => super._value as BroadcastEnded;
+
+  @override
+  $Res call({
+    Object location = freezed,
+  }) {
+    return _then(BroadcastEnded(
+      location == freezed ? _value.location : location as Location,
+    ));
+  }
 }
 
 class _$BroadcastEnded implements BroadcastEnded {
-  const _$BroadcastEnded();
+  const _$BroadcastEnded(this.location) : assert(location != null);
+
+  @override
+  final Location location;
 
   @override
   String toString() {
-    return 'MapState.broadcastEnded()';
+    return 'MapState.broadcastEnded(location: $location)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is BroadcastEnded);
+    return identical(this, other) ||
+        (other is BroadcastEnded &&
+            (identical(other.location, location) ||
+                const DeepCollectionEquality()
+                    .equals(other.location, location)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(location);
+
+  @override
+  $BroadcastEndedCopyWith<BroadcastEnded> get copyWith =>
+      _$BroadcastEndedCopyWithImpl<BroadcastEnded>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -918,8 +1108,8 @@ class _$BroadcastEnded implements BroadcastEnded {
     @required Result initial(),
     @required Result mapRendered(MapTool mapTool),
     @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    @required Result broadcastEnded(),
-    @required Result broadcastError(),
+    @required Result broadcastEnded(Location location),
+    @required Result broadcastError(Location location),
     @required Result loading(),
   }) {
     assert(initial != null);
@@ -928,7 +1118,7 @@ class _$BroadcastEnded implements BroadcastEnded {
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
-    return broadcastEnded();
+    return broadcastEnded(location);
   }
 
   @override
@@ -937,14 +1127,14 @@ class _$BroadcastEnded implements BroadcastEnded {
     Result initial(),
     Result mapRendered(MapTool mapTool),
     Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    Result broadcastEnded(),
-    Result broadcastError(),
+    Result broadcastEnded(Location location),
+    Result broadcastError(Location location),
     Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (broadcastEnded != null) {
-      return broadcastEnded();
+      return broadcastEnded(location);
     }
     return orElse();
   }
@@ -988,13 +1178,17 @@ class _$BroadcastEnded implements BroadcastEnded {
 }
 
 abstract class BroadcastEnded implements MapState {
-  const factory BroadcastEnded() = _$BroadcastEnded;
+  const factory BroadcastEnded(Location location) = _$BroadcastEnded;
+
+  Location get location;
+  $BroadcastEndedCopyWith<BroadcastEnded> get copyWith;
 }
 
 abstract class $BroadcastErrorCopyWith<$Res> {
   factory $BroadcastErrorCopyWith(
           BroadcastError value, $Res Function(BroadcastError) then) =
       _$BroadcastErrorCopyWithImpl<$Res>;
+  $Res call({Location location});
 }
 
 class _$BroadcastErrorCopyWithImpl<$Res> extends _$MapStateCopyWithImpl<$Res>
@@ -1005,23 +1199,44 @@ class _$BroadcastErrorCopyWithImpl<$Res> extends _$MapStateCopyWithImpl<$Res>
 
   @override
   BroadcastError get _value => super._value as BroadcastError;
+
+  @override
+  $Res call({
+    Object location = freezed,
+  }) {
+    return _then(BroadcastError(
+      location == freezed ? _value.location : location as Location,
+    ));
+  }
 }
 
 class _$BroadcastError implements BroadcastError {
-  const _$BroadcastError();
+  const _$BroadcastError(this.location) : assert(location != null);
+
+  @override
+  final Location location;
 
   @override
   String toString() {
-    return 'MapState.broadcastError()';
+    return 'MapState.broadcastError(location: $location)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is BroadcastError);
+    return identical(this, other) ||
+        (other is BroadcastError &&
+            (identical(other.location, location) ||
+                const DeepCollectionEquality()
+                    .equals(other.location, location)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(location);
+
+  @override
+  $BroadcastErrorCopyWith<BroadcastError> get copyWith =>
+      _$BroadcastErrorCopyWithImpl<BroadcastError>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1029,8 +1244,8 @@ class _$BroadcastError implements BroadcastError {
     @required Result initial(),
     @required Result mapRendered(MapTool mapTool),
     @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    @required Result broadcastEnded(),
-    @required Result broadcastError(),
+    @required Result broadcastEnded(Location location),
+    @required Result broadcastError(Location location),
     @required Result loading(),
   }) {
     assert(initial != null);
@@ -1039,7 +1254,7 @@ class _$BroadcastError implements BroadcastError {
     assert(broadcastEnded != null);
     assert(broadcastError != null);
     assert(loading != null);
-    return broadcastError();
+    return broadcastError(location);
   }
 
   @override
@@ -1048,14 +1263,14 @@ class _$BroadcastError implements BroadcastError {
     Result initial(),
     Result mapRendered(MapTool mapTool),
     Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    Result broadcastEnded(),
-    Result broadcastError(),
+    Result broadcastEnded(Location location),
+    Result broadcastError(Location location),
     Result loading(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (broadcastError != null) {
-      return broadcastError();
+      return broadcastError(location);
     }
     return orElse();
   }
@@ -1099,7 +1314,10 @@ class _$BroadcastError implements BroadcastError {
 }
 
 abstract class BroadcastError implements MapState {
-  const factory BroadcastError() = _$BroadcastError;
+  const factory BroadcastError(Location location) = _$BroadcastError;
+
+  Location get location;
+  $BroadcastErrorCopyWith<BroadcastError> get copyWith;
 }
 
 abstract class $MapLoadingCopyWith<$Res> {
@@ -1139,8 +1357,8 @@ class _$MapLoading implements MapLoading {
     @required Result initial(),
     @required Result mapRendered(MapTool mapTool),
     @required Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    @required Result broadcastEnded(),
-    @required Result broadcastError(),
+    @required Result broadcastEnded(Location location),
+    @required Result broadcastError(Location location),
     @required Result loading(),
   }) {
     assert(initial != null);
@@ -1158,8 +1376,8 @@ class _$MapLoading implements MapLoading {
     Result initial(),
     Result mapRendered(MapTool mapTool),
     Result broadcastStarted(Buddy buddy, MapTool mapTool),
-    Result broadcastEnded(),
-    Result broadcastError(),
+    Result broadcastEnded(Location location),
+    Result broadcastError(Location location),
     Result loading(),
     @required Result orElse(),
   }) {

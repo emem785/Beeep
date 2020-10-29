@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import '../map_home_widgets/map.dart';
+import 'alertDialogues.dart';
 
 const double ZOOM = 17;
 
@@ -24,67 +25,19 @@ class ReceiveBeep extends StatefulWidget {
 }
 
 class _ReceiveBeepState extends State<ReceiveBeep> {
-  Future<bool> _onWillPop(MapBloc mapBloc) async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Are you sure?', style: nunitoMid),
-            content: new Text('Do you want to stop receiving Broadcast',
-                style: nunitoMid),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('NO', style: nunitoMidPromptPink),
-              ),
-              new FlatButton(
-                onPressed: () {
-                  mapBloc.add(StopSecondBroadcast());
-                  Navigator.of(context).pop(true);
-                },
-                child: new Text('YES', style: nunitoMidPrompt),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
-
-  _showDialogue(
-      BuildContext context, LawyerTilesCubit lawyerTilesCubit, String index) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          print("engaged");
-          return AlertDialog(
-            title: Text("Are you sure you want to hire this lawyer",
-                style: nunitoMid),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text("YES", style: nunitoMidPrompt),
-                  onPressed: () {
-                    lawyerTilesCubit.confirmEngagement(index);
-                    Navigator.of(context).pop();
-                  }),
-              FlatButton(
-                  child: Text("NO", style: nunitoMidPromptPink),
-                  onPressed: () {
-                    lawyerTilesCubit.engagementNotConfirmed();
-                    Navigator.of(context).pop();
-                  }),
-            ],
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     final mapBloc = Provider.of<MapBloc>(context);
     final lawyerTileCubit = Provider.of<LawyerTilesCubit>(context);
+    final SnackBar snackBar = SnackBar(
+      duration: const Duration(seconds: 6),
+      content:
+          Text("There was an error establishing a connection with your buddy"),
+    );
 
     double _height = MediaQuery.of(context).size.height * 0.18;
     return WillPopScope(
-      onWillPop: () => _onWillPop(mapBloc),
+      onWillPop: () => onWillPop(mapBloc, context),
       child: LayoutBuilder(builder: (context, size) {
         return Container(
           child: Stack(
@@ -92,49 +45,64 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
               Container(child: BlocBuilder<MapBloc, MapState>(
                 builder: (context, state) {
                   return state.maybeMap(
-                    orElse: () => SizedBox(),
-                    mapRendered: (r) => ReceiveBeepMap(
-                        mapTool: r.mapTool,
-                        markerStream: r.mapTool.markerStreamController.stream),
-                    broadcastStarted: (b) => ReceiveBeepMap(
-                        mapTool: b.mapTool,
-                        markerStream: b.mapTool.markerStreamController.stream),
-                  );
+                      orElse: () => SizedBox(),
+                      mapRendered: (r) => ReceiveBeepMap(
+                          mapTool: r.mapTool,
+                          markerStream:
+                              r.mapTool.markerStreamController.stream),
+                      broadcastStarted: (b) => ReceiveBeepMap(
+                          mapTool: b.mapTool,
+                          markerStream:
+                              b.mapTool.markerStreamController.stream),
+                      broadcastEnded: (e) =>
+                          ReceiveBeepMapEnded(location: e.location),
+                      broadcastError: (e) =>
+                          ReceiveBeepMapEnded(location: e.location));
                 },
               )),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: BlocBuilder<MapBloc, MapState>(
+                child: BlocConsumer<MapBloc, MapState>(
                   builder: (context, state) {
                     return state.maybeMap(
-                      orElse: () => SizedBox(),
-                      mapRendered: (r) =>
-                          BottomContainerLoading(height: size.maxHeight * 0.18),
-                      broadcastStarted: (b) =>
-                          BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
-                        builder: (context, state) {
-                          return state.map(
-                              initial: (i) => BottomContainer(
-                                    height: size.maxHeight * 0.18,
-                                    buddy: b.buddy,
-                                  ),
-                              lawyersGotten: (l) => AnimatedContainer(
-                                  height: _height,
-                                  curve: Curves.linear,
-                                  width: MediaQuery.of(context).size.width,
-                                  duration: Duration(milliseconds: 100),
-                                  child: LawyerBottomSheet()));
-                        },
-                        listener: (context, state) {
-                          return state.maybeMap(
-                              orElse: () => 1,
-                              lawyersGotten: (l) =>
-                                  _height = size.maxHeight * 0.4);
-                        },
-                      ),
-                      loading: (l) =>
-                          BottomContainerLoading(height: size.maxHeight * 0.18),
-                    );
+                        orElse: () => SizedBox(),
+                        mapRendered: (r) => BottomContainerLoading(
+                            height: size.maxHeight * 0.18),
+                        broadcastStarted: (b) =>
+                            BlocConsumer<ReceiveBeepCubit, ReceiveBeepState>(
+                              builder: (context, state) {
+                                return state.map(
+                                    initial: (i) => BottomContainer(
+                                          height: size.maxHeight * 0.18,
+                                          buddy: b.buddy,
+                                        ),
+                                    lawyersGotten: (l) => AnimatedContainer(
+                                        height: _height,
+                                        curve: Curves.linear,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        duration: Duration(milliseconds: 100),
+                                        child: LawyerBottomSheet()));
+                              },
+                              listener: (context, state) {
+                                return state.maybeMap(
+                                    orElse: () => 1,
+                                    lawyersGotten: (l) =>
+                                        _height = size.maxHeight * 0.4);
+                              },
+                            ),
+                        loading: (l) => BottomContainerLoading(
+                            height: size.maxHeight * 0.18),
+                        broadcastError: (e) => BottomContainerError(
+                            height: size.maxHeight * 0.18));
+                  },
+                  listener: (context, state) {
+                    return state.maybeMap(
+                        orElse: () => 1,
+                        broadcastEnded: (e) =>
+                            showDialogueDone(context, mapBloc),
+                        broadcastError: (b) =>
+                            Scaffold.of(context).showSnackBar(snackBar));
                   },
                 ),
               ),
@@ -143,7 +111,7 @@ class _ReceiveBeepState extends State<ReceiveBeep> {
                   return state.maybeMap(
                       orElse: () => 1,
                       lawyerSelected: (l) =>
-                          _showDialogue(context, lawyerTileCubit, l.index));
+                          showDialogue(context, lawyerTileCubit, l.index));
                 },
                 child: BlocBuilder<AddressBloc, AddressState>(
                     builder: (context, state) {

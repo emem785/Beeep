@@ -1,4 +1,5 @@
 import 'package:beep/core/utils/StyleGuide.dart';
+import 'package:beep/core/widgets/common_widgets/common_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -40,28 +41,26 @@ class _FirebaseMessagingHookState
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
         Navigator.pushNamed(context, '/ReceiveBeep');
-        // _navigateToItemDetail(message);
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
         Navigator.pushNamed(context, '/ReceiveBeep');
-        // _navigateToItemDetail(message);
       },
     );
   }
 
-    Future<void> createDialogue(
+  Future<void> createDialogue(
       BuildContext context, Map<String, dynamic> message) async {
     return showDialog(
       context: context,
       builder: (context) => new AlertDialog(
-        title: new Text('${message["data"]["name"]} sent out an alert and may be in trouble', style: nunitoMid),
+        title: Text("Beep Alert Received!",style: nunitoMidBold,textAlign: TextAlign.center),
         content: Container(
-          height: 70,
+          height: 85,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('You can start tracking', style: nunitoMid)
+              Text("Your beeep buddy ${message["data"]["name"]} may be in danger, you can begin tracking him/her",style: nunitoMid),              
             ],
           ),
         ),
@@ -84,5 +83,4 @@ class _FirebaseMessagingHookState
 
   @override
   FirebaseMessaging build(BuildContext context) => firebaseMessaging;
-  
 }

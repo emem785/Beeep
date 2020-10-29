@@ -14,6 +14,8 @@ import 'package:beep/infrastructure/repositories/network_client_impl.dart';
 import 'package:beep/domain/Interface/network_interface.dart';
 import 'package:beep/infrastructure/repositories/user_location_impl.dart';
 import 'package:beep/domain/Interface/location_interface.dart';
+import 'package:beep/infrastructure/repositories/websocket_impl.dart';
+import 'package:beep/domain/Interface/websocket_interface.dart';
 import 'package:beep/infrastructure/repositories/http_api_impl.dart';
 import 'package:beep/domain/Interface/api_interface.dart';
 import 'package:beep/application/blocs/auth_bloc/auth_bloc.dart';
@@ -39,6 +41,8 @@ void $initGetIt(GetIt g, {String environment}) {
       NetworkClientImpl(localStorageInterface: g<LocalStorageInterface>()));
   g.registerFactory<UserLocationInterface>(
       () => UserLocationImpl(geolocator: g<Geolocator>()));
+  g.registerFactory<WebSocketInterface>(
+      () => WebSocketImpl(userLocationInterface: g<UserLocationInterface>()));
   g.registerLazySingleton<ApiInterface>(() => HttpApiImpl(
       localStorageRepo: g<LocalStorageInterface>(),
       client: g<NetworkInterface>()));
@@ -49,12 +53,16 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<LawyerTilesCubit>(
       () => LawyerTilesCubit(apiInterface: g<ApiInterface>()));
   g.registerFactory<MapInterface>(() => MapHelperImpl(
-      apiInterface: g<ApiInterface>(),
-      userLocationInterface: g<UserLocationInterface>()));
-  g.registerFactory<RegisterBloc>(
-      () => RegisterBloc(apiInterface: g<ApiInterface>()));
-  g.registerFactory<SigninBloc>(
-      () => SigninBloc(apiInterface: g<ApiInterface>()));
+        webSocketInterface: g<WebSocketInterface>(),
+        apiInterface: g<ApiInterface>(),
+        userLocationInterface: g<UserLocationInterface>(),
+      ));
+  g.registerFactory<RegisterBloc>(() => RegisterBloc(
+      userLocation: g<UserLocationInterface>(),
+      apiInterface: g<ApiInterface>()));
+  g.registerFactory<SigninBloc>(() => SigninBloc(
+      userLocation: g<UserLocationInterface>(),
+      apiInterface: g<ApiInterface>()));
   g.registerFactory<UserBloc>(() => UserBloc(
       localStorageInterface: g<LocalStorageInterface>(),
       apiInterface: g<ApiInterface>()));
@@ -64,11 +72,14 @@ void $initGetIt(GetIt g, {String environment}) {
         userLocationInterface: g<UserLocationInterface>(),
       ));
   g.registerFactory<LocationBloc>(() => LocationBloc(
+        localStorageInterface: g<LocalStorageInterface>(),
         mapInterface: g<MapInterface>(),
         userLocation: g<UserLocationInterface>(),
         apiInterface: g<ApiInterface>(),
+        webSocketInterface: g<WebSocketInterface>(),
       ));
   g.registerFactory<MapBloc>(() => MapBloc(
+        webSocketInterface: g<WebSocketInterface>(),
         userLocationInterface: g<UserLocationInterface>(),
         mapInterface: g<MapInterface>(),
         apiInterface: g<ApiInterface>(),

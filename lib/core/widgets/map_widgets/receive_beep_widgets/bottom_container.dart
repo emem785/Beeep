@@ -75,3 +75,29 @@ class BottomContainer extends StatelessWidget {
     );
   }
 }
+
+class BottomContainerError extends StatelessWidget {
+  final double height;
+  const BottomContainerError({
+    Key key,
+    @required this.height,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.grey[100],
+      height: height,
+      child: Center(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 21, vertical: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text("Connection Error", style: nunitoMidBold),
+          ],
+        ),
+      )),
+    );
+  }
+}

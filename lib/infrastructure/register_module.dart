@@ -8,4 +8,5 @@ abstract class RegisterModule {
   Geolocator get geolocator => Geolocator();
   @injectable
   FirebaseMessaging get firebaseMessaging => FirebaseMessaging();
+
 }

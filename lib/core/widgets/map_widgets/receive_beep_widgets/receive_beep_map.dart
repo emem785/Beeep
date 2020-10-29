@@ -40,3 +40,39 @@ class ReceiveBeepMap extends StatelessWidget {
         });
   }
 }
+
+class ReceiveBeepMapEnded extends StatelessWidget {
+  final Location location;
+  ReceiveBeepMapEnded({@required this.location});
+
+  @override
+  Widget build(BuildContext context) {
+    return FlutterMap(
+      options: MapOptions(
+        center: LatLng(location.latitude, location.longitude),
+        zoom: ZOOM,
+      ),
+      layers: [
+        TileLayerOptions(
+          urlTemplate:
+              "https://api.mapbox.com/styles/v1/{id}/{z}/{x}/{y}@2x?access_token={accessToken}",
+          additionalOptions: {
+            'accessToken':
+                'pk.eyJ1IjoiZW1lbTc4NSIsImEiOiJjazVmOTViZ2EyZjZpM2xxaGFjNmVqMmxpIn0.IrkZKaDokjBJ3mnKnNzfoQ',
+            'id': 'emem785/ck5msvzn000hl1inv5gchb7rk/tiles/256',
+          },
+        ),
+        MarkerLayerOptions(markers: [
+          Marker(
+            width: 80.0,
+            height: 80.0,
+            point: LatLng(location.latitude, location.longitude),
+            builder: (ctx) => new Container(
+              child: Icon(Icons.location_on, color: Colors.red),
+            ),
+          )
+        ]),
+      ],
+    );
+  }
+}
